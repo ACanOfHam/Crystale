@@ -18,10 +18,6 @@ _global_script_class_icons={
 config/name="RPG"
 run/main_scene="res://Scenes/World.tscn"
 
-[autoload]
-
-DamageVariables="*res://Scripts/Damage_Variables.gd"
-
 [display]
 
 window/size/width=1280
