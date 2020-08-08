@@ -10,7 +10,7 @@ var canDash : bool = true
 #Reference to sword
 export(NodePath) var Sword
 
-var DashMultiplier : int = 1
+var DashMultiplier : int = 100
 
 #State Machine
 var state
@@ -24,7 +24,7 @@ enum {
 }
 
 #Health Variables
-export (int) var max_health = 100
+export (int) var max_health = 1
 onready var health = max_health
 
 func _ready():
@@ -34,7 +34,8 @@ func _ready():
 func _process(delta):
 	
 	
-	
+	if health <= 0:
+		dead_state() 
 	
 	#Animation Management
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down") and CanMove == true:
@@ -101,7 +102,7 @@ func dash_state():
 		Create_Ghost()
 		$DashTimer.start()
 		$TimeTillNextGhost.start()
-		$FinalGhost.start()
+
 
 func dead_state():
 	pass
@@ -127,6 +128,7 @@ func Create_Ghost():
 func _on_TimeTillNextGhost_timeout():
 	Create_Ghost()
 
+func Take_Damage(Damage: int):
+	health -= Damage
+	print(Damage)
 
-func _on_FinalGhost_timeout():
-	Create_Ghost()
