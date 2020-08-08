@@ -1,19 +1,20 @@
 extends KinematicBody2D
 
 #Movement variables
-var MAX_SPEED = 19000
-var ACCELERATION = MAX_SPEED/4
-const FRICTION = 19000
-var velocity = Vector2.ZERO
-var canDash = true
+var MAX_SPEED : int = 19000
+var ACCELERATION : int  = MAX_SPEED/4
+const FRICTION : int = 19000
+var velocity : Vector2 = Vector2.ZERO
+var canDash : bool = true
 
 #Reference to sword
 export(NodePath) var Sword
 
-var DashMultiplier = 1
+var DashMultiplier : int = 1
 
 #State Machine
 var state
+var CanMove : bool = true
 
 enum {
 	MOVE,
@@ -36,9 +37,8 @@ func _process(delta):
 	
 	
 	#Animation Management
-	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down") and CanMove == true:
 		state = MOVE
-		$AnimationPlayer.play("Run")
 	else:
 		state = IDLE
 	
@@ -57,6 +57,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("dash"):
 		state = DASH
 	
+
 	
 #This process is called every physics frame 
 func _physics_process(delta):
@@ -67,8 +68,11 @@ func _physics_process(delta):
 			dash_state()
 		IDLE:
 			idle_state()
+		DEAD:
+			dead_state()
 
 func move_state(delta):
+	$AnimationPlayer.play("Run")
 	
 	#Movement
 	var input_vector = Vector2.ZERO
@@ -98,6 +102,9 @@ func dash_state():
 		$DashTimer.start()
 		$TimeTillNextGhost.start()
 		$FinalGhost.start()
+
+func dead_state():
+	pass
 
 #How long player dashes
 func _on_DashTimer_timeout():
