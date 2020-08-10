@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ArtWork/icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/HitBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HurtBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Stats.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=5]
-[ext_resource path="res://Scenes/HitBox.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/HitBox.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
@@ -16,13 +16,17 @@ extents = Vector2( 32, 32 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 32, 32 )
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 248.516
+
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 2
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
 show_behind_parent = true
@@ -43,8 +47,24 @@ shape = SubResource( 3 )
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 4 )
+Damage = 25
+Speed = 200
+KnockBackMultiplier = 135
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource( 4 )
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.05
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_DetectionArea_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_DetectionArea_area_exited"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 
 [editable path="HitBox"]
 

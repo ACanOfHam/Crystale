@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/HealthBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/Heart.png" type="Texture" id=2]
+
+[node name="GUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" parent="." instance=ExtResource( 1 )]
+margin_left = 49.7262
+margin_top = 3.08667
+margin_right = 49.7262
+margin_bottom = 3.08667
+
+[node name="Sprite" type="Sprite" parent="HealthBar"]
+position = Vector2( -24, 18.521 )
+scale = Vector2( 1.4, 1.4 )
+texture = ExtResource( 2 )

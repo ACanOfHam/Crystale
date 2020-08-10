@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/Health_Under.png" type="Texture" id=1]
+[ext_resource path="res://UI/Health_Over.png" type="Texture" id=2]
+[ext_resource path="res://UI/Health_Progress.png" type="Texture" id=3]
+
+[node name="HealthBar" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = 30.4464
+margin_top = 4.8784
+margin_right = 94.4464
+margin_bottom = 20.8784
+rect_scale = Vector2( 3, 2 )
+texture_under = ExtResource( 1 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+tint_progress = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpdateTween" type="Tween" parent="."]
