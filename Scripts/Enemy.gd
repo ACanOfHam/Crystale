@@ -27,6 +27,8 @@ func _on_HurtBox_area_entered(area):
 	knockback = Vector2.ZERO
 	knockback = -Player.get_position().normalized() * $Stats.KnockBackMultiplier
 	
+	get_parent().get_node("SFX").play("Hurt")
+	
 	$Sprite.hide()
 	$FlashTimer.start()
 	

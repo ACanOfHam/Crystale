@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/HealthBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://UI/Heart.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/SFX.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -35,32 +34,13 @@ wait_time = 1.0
 material = SubResource( 2 )
 frame = 2
 
-[node name="HUD" type="CanvasLayer" parent="Player"]
-
-[node name="GUI" type="Control" parent="Player/HUD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HealthBar" parent="Player/HUD/GUI" instance=ExtResource( 3 )]
-
-[node name="TextureProgress" parent="Player/HUD/GUI/HealthBar" index="0"]
-margin_left = 50.9525
-margin_top = 4.1713
-margin_right = 114.952
-margin_bottom = 20.1713
-
-[node name="Sprite" type="Sprite" parent="Player/HUD/GUI/HealthBar"]
-position = Vector2( 26.2352, 20.2651 )
-scale = Vector2( 1.4, 1.4 )
-texture = ExtResource( 6 )
-
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 280, 0 )
+
+[node name="SFX" parent="." instance=ExtResource( 4 )]
 [connection signal="damaged" from="Player" to="Player" method="_on_Player_damaged"]
+[connection signal="finished" from="SFX/Sword_Slash" to="Player" method="_on_Sword_Slash_finished"]
 
 [editable path="Player"]
 
-[editable path="Player/HUD/GUI/HealthBar"]
+[editable path="SFX"]

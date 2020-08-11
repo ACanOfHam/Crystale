@@ -8,6 +8,8 @@ var velocity : Vector2
 onready var canDash : bool = true
 var input_vector = Vector2.ZERO
 var DashMultiplier : int = 1
+onready var Default_Size = $Sprite.scale
+var stamina = 100
 
 #References
 onready var Sword = $Sword
@@ -23,6 +25,7 @@ enum {
 	IDLE
 }
 
+signal stamina_updated(stamina)
 signal health_updated(health)
 signal killed()
 signal damaged()
@@ -33,7 +36,8 @@ onready var health = max_health setget Set_Health
 
 
 func _ready():
-	 $HUD/GUI/HealthBar/TextureProgress.value = max_health
+	$HUD/GUI/HealthBar/TextureProgress.value = max_health
+	get_parent().get_node("SFX").play("OverWorld_Music")
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
@@ -43,7 +47,6 @@ func _process(delta):
 		state = MOVE
 	else:
 		state = IDLE
-	
 	
 	#Getting Mouse Position and flipping character based on where mouse is
 	var vert = get_global_mouse_position()
@@ -59,6 +62,7 @@ func _process(delta):
 
 #This process is called every physics frame 
 func _physics_process(delta):
+	
 	
 	if Input.is_action_just_pressed("dash"):
 		state = DASH
@@ -95,7 +99,13 @@ func idle_state():
 
 #Function used for dashing
 func dash_state():
-	if canDash == true:
+	if canDash == true and stamina >= 25:
+		$HUD/GUI/Stamina/StaminaCooldowm.start()
+		$HUD/GUI/Stamina.canRegen = false
+		stamina = stamina - 25
+		emit_signal("stamina_updated", stamina)
+		get_parent().get_node("SFX").play("Dash")
+		$AnimationPlayer.play("Stretch")
 		canDash = false
 		DashMultiplier = 4
 		Create_Ghost()
@@ -114,11 +124,12 @@ func Create_Ghost():
 	Ghost.flip_h = $Sprite.flip_h
 	Ghost.texture = $Sprite.texture
 	Ghost.frame = $Sprite.frame
-	Ghost.scale = $Sprite.scale
+	Ghost.scale = Default_Size
 	get_tree().get_root().add_child(Ghost)
 
 func Damage(amount):
 	if $DashTimer.is_stopped():
+		get_parent().get_node("SFX").play("Hurt")
 		print(health)
 		Set_Health(health - amount)
 		emit_signal("damaged")
@@ -154,12 +165,10 @@ func _on_InvisibilityTimer_timeout():
 
 #How long player dashes
 func _on_DashTimer_timeout():
+	$Sprite.scale = Default_Size
 	$DashCoolDown.start()
 	DashMultiplier = 1
 
 func _on_DashCoolDown_timeout():
 	canDash = true
-
-
-
 
