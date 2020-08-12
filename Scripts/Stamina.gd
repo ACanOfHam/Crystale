@@ -15,9 +15,9 @@ func _on_Player_stamina_updated(stamina):
 
 func _on_Stamina_Timer_timeout():
 	if canRegen:
-		self.value = self.value + 2
+		self.value = self.value + 5
 
 
 func _on_StaminaCooldowm_timeout():
 	canRegen = true
-	self.value = self.value + 2
+	self.value = self.value + 5

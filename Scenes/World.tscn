@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/ThaleahFat_TTF.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/SFX.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Shader" id=1]
@@ -23,6 +24,12 @@ shader = SubResource( 1 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 0.0
 
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 1
+font_data = ExtResource( 3 )
+
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
@@ -34,13 +41,54 @@ wait_time = 1.0
 material = SubResource( 2 )
 frame = 2
 
+[node name="TextureProgress" parent="Player/HUD/GUI/HealthBar" index="0"]
+margin_left = 72.9306
+margin_top = 7.68851
+margin_right = 136.931
+margin_bottom = 23.6885
+value = 100.0
+
+[node name="Label" parent="Player/HUD/GUI/HealthBar" index="2"]
+margin_left = 8.1498
+margin_top = -2.7887
+margin_right = 24.1498
+margin_bottom = 12.2113
+rect_scale = Vector2( 3, 3.5 )
+
+[node name="Sprite" parent="Player/HUD/GUI/HealthBar" index="3"]
+visible = false
+
+[node name="Stamina" parent="Player/HUD/GUI" index="1"]
+margin_left = 72.3126
+margin_top = 58.2909
+margin_right = 136.313
+margin_bottom = 74.2909
+rect_scale = Vector2( 3, 2 )
+
+[node name="Sprite2" parent="Player/HUD/GUI/Stamina" index="0"]
+visible = false
+
+[node name="Label" type="Label" parent="Player/HUD/GUI/Stamina" index="3"]
+margin_left = -20.6501
+margin_top = -3.20707
+margin_right = -4.65005
+margin_bottom = 11.7929
+rect_scale = Vector2( 1, 1.5 )
+custom_fonts/font = SubResource( 3 )
+text = "ST"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 280, 0 )
+position = Vector2( 360.347, -6.96815 )
 
 [node name="SFX" parent="." instance=ExtResource( 4 )]
 [connection signal="damaged" from="Player" to="Player" method="_on_Player_damaged"]
 [connection signal="finished" from="SFX/Sword_Slash" to="Player" method="_on_Sword_Slash_finished"]
 
 [editable path="Player"]
+
+[editable path="Player/HUD/GUI/HealthBar"]
 
 [editable path="SFX"]
