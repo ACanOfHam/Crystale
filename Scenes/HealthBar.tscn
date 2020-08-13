@@ -1,11 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/Health_Under.png" type="Texture" id=1]
 [ext_resource path="res://UI/Health_Over.png" type="Texture" id=2]
 [ext_resource path="res://UI/Health_Progress.png" type="Texture" id=3]
 [ext_resource path="res://Fonts/ThaleahFat_TTF.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=9]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
@@ -21,12 +20,25 @@ margin_top = 6.93935
 margin_right = 122.697
 margin_bottom = 22.9393
 rect_scale = Vector2( 3, 2 )
-texture_under = ExtResource( 1 )
+value = 100.0
 texture_over = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
 tint_progress = Color( 1, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
+}
+
+[node name="TextureProgress_Under" type="TextureProgress" parent="."]
+margin_left = 58.697
+margin_top = 6.939
+margin_right = 122.697
+margin_bottom = 22.939
+rect_scale = Vector2( 3, 2 )
+value = 100.0
+texture_progress = ExtResource( 3 )
+tint_progress = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_editor_description_": ""
 }
 
 [node name="UpdateTween" type="Tween" parent="."]
@@ -37,5 +49,8 @@ margin_top = 0.707092
 margin_right = 44.5962
 margin_bottom = 15.7071
 rect_scale = Vector2( 3, 3 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 9 )
 text = "HP"
+__meta__ = {
+"_edit_use_anchors_": false
+}

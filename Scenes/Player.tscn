@@ -1,17 +1,35 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/spritesheet.png" type="Texture" id=2]
 [ext_resource path="res://UI/Health_Under.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Sword.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Health_Over.png" type="Texture" id=5]
-[ext_resource path="res://UI/Heart.png" type="Texture" id=6]
+[ext_resource path="res://Shaders/Player.shader" type="Shader" id=6]
 [ext_resource path="res://UI/Health_Progress.png" type="Texture" id=7]
-[ext_resource path="res://Scenes/HealthBar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Fonts/ThaleahFat_TTF.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Scripts/Stamina.gd" type="Script" id=9]
-[ext_resource path="res://UI/BRG.png" type="Texture" id=10]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 6 )
+shader_param/hit_opacity = 0.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 2.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -38,7 +56,7 @@ tracks/1/keys = {
 "values": [ 0.5 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
@@ -64,8 +82,7 @@ tracks/1/keys = {
 "values": [ 2.0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "Reset"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -80,7 +97,7 @@ tracks/0/keys = {
 "values": [ Vector2( 2.7, 2.6 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=6]
 length = 2.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -107,8 +124,7 @@ tracks/1/keys = {
 "values": [ 4.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Stretch"
+[sub_resource type="Animation" id=7]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -135,22 +151,35 @@ tracks/1/keys = {
 "values": [ 7.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 14.6603, 26.5 )
+
+[sub_resource type="DynamicFont" id=9]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.975, 1 )
 collision_layer = 2
 script = ExtResource( 1 )
 
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+scale = Vector2( 2.65, 2.5 )
+texture = ExtResource( 2 )
+vframes = 2
+hframes = 6
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
-playback_speed = 7.0
-anims/Idle = SubResource( 1 )
-anims/Kill = SubResource( 2 )
-anims/Reset = SubResource( 6 )
-anims/Run = SubResource( 3 )
-anims/Stretch = SubResource( 4 )
+playback_speed = 0.5
+anims/Hit = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Kill = SubResource( 4 )
+anims/Reset = SubResource( 5 )
+anims/Run = SubResource( 6 )
+anims/Stretch = SubResource( 7 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -171,16 +200,9 @@ process_mode = 0
 wait_time = 0.1
 one_shot = true
 
-[node name="Sprite" type="Sprite" parent="."]
-show_behind_parent = true
-scale = Vector2( 2.7, 2.6 )
-texture = ExtResource( 2 )
-vframes = 2
-hframes = 6
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1.9, -5.5 )
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 
 [node name="TimeTillNextGhost" type="Timer" parent="."]
 wait_time = 0.15
@@ -193,7 +215,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 1.75, -5.5 )
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -213,12 +235,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" parent="HUD/GUI" instance=ExtResource( 8 )]
+[node name="HealthBar" type="Control" parent="HUD/GUI"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Sprite" type="Sprite" parent="HUD/GUI/HealthBar"]
-position = Vector2( 32, 24 )
-scale = Vector2( 1.4, 1.4 )
-texture = ExtResource( 6 )
+[node name="TextureProgress" type="TextureProgress" parent="HUD/GUI/HealthBar"]
+margin_left = 58.6967
+margin_top = 6.93935
+margin_right = 122.697
+margin_bottom = 22.9393
+rect_scale = Vector2( 3, 2 )
+value = 100.0
+texture_over = ExtResource( 5 )
+texture_progress = ExtResource( 7 )
+tint_progress = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpdateTween" type="Tween" parent="HUD/GUI/HealthBar"]
+
+[node name="Label" type="Label" parent="HUD/GUI/HealthBar"]
+margin_left = 4.59618
+margin_top = 0.707092
+margin_right = 44.5962
+margin_bottom = 15.7071
+rect_scale = Vector2( 3, 3 )
+custom_fonts/font = SubResource( 9 )
+text = "HP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Stamina" type="TextureProgress" parent="HUD/GUI"]
 self_modulate = Color( 0.882353, 0.882353, 0, 1 )
@@ -236,11 +284,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite2" type="Sprite" parent="HUD/GUI/Stamina"]
-position = Vector2( -16, 7.5 )
-scale = Vector2( 0.429, 0.75 )
-texture = ExtResource( 10 )
-
 [node name="Stamina Timer" type="Timer" parent="HUD/GUI/Stamina"]
 wait_time = 2.0
 autostart = true
@@ -248,11 +291,23 @@ autostart = true
 [node name="StaminaCooldowm" type="Timer" parent="HUD/GUI/Stamina"]
 wait_time = 10.0
 one_shot = true
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2( 1.9, -5.5 )
+shape = SubResource( 8 )
+__meta__ = {
+"_editor_description_": ""
+}
 [connection signal="damaged" from="." to="HUD/GUI/Stamina" method="_on_Player_damaged"]
 [connection signal="stamina_updated" from="." to="HUD/GUI/Stamina" method="_on_Player_stamina_updated"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]
 [connection signal="timeout" from="TimeTillNextGhost" to="." method="_on_TimeTillNextGhost_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="timeout" from="InvisibilityTimer" to="." method="_on_InvisibilityTimer_timeout"]
 [connection signal="timeout" from="HUD/GUI/Stamina/Stamina Timer" to="HUD/GUI/Stamina" method="_on_Stamina_Timer_timeout"]
 [connection signal="timeout" from="HUD/GUI/Stamina/StaminaCooldowm" to="HUD/GUI/Stamina" method="_on_StaminaCooldowm_timeout"]

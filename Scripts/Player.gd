@@ -7,9 +7,10 @@ const FRICTION : int = 19000
 var velocity : Vector2 
 onready var canDash : bool = true
 var input_vector = Vector2.ZERO
-var DashMultiplier : int = 1
+var SpeedMultiplier : int = 1
 onready var Default_Size = $Sprite.scale
 var stamina = 100
+var knockback = Vector2.ZERO
 
 #References
 onready var Sword = $Sword
@@ -62,7 +63,8 @@ func _process(delta):
 
 #This process is called every physics frame 
 func _physics_process(delta):
-	
+	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
+	knockback = move_and_slide(knockback) / 1.05
 	
 	if Input.is_action_just_pressed("dash"):
 		state = DASH
@@ -86,7 +88,7 @@ func move_state(delta):
 		
 	if input_vector != Vector2.ZERO:
 		velocity += input_vector * ACCELERATION * delta 
-		velocity = velocity.clamped(MAX_SPEED * delta) * DashMultiplier
+		velocity = velocity.clamped(MAX_SPEED * delta) * SpeedMultiplier
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta )
 		
@@ -100,14 +102,12 @@ func idle_state():
 #Function used for dashing
 func dash_state():
 	if canDash == true and stamina >= 25:
-		$HUD/GUI/Stamina/StaminaCooldowm.start()
-		$HUD/GUI/Stamina.canRegen = false
 		stamina = stamina - 25
 		emit_signal("stamina_updated", stamina)
 		get_parent().get_node("SFX").play("Dash")
 		$AnimationPlayer.play("Stretch")
 		canDash = false
-		DashMultiplier = 4
+		SpeedMultiplier = 4
 		Create_Ghost()
 		$DashTimer.start()
 		$TimeTillNextGhost.start()
@@ -139,7 +139,7 @@ func Set_Health(Value: int):
 	var prev_health = health
 	health = clamp(Value, 0, max_health)
 	if health != prev_health:
-		$HUD/GUI/HealthBar/UpdateTween.interpolate_property($HUD/GUI/HealthBar/TextureProgress, "value", $HUD/GUI/HealthBar/TextureProgress.value, health, 0.4, Tween.TRANS_SINE, Tween.EASE_OUT)
+		$HUD/GUI/HealthBar/UpdateTween.interpolate_property($HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under, "value", $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under.value, health, 0.4, Tween.TRANS_SINE, Tween.EASE_OUT)
 		$HUD/GUI/HealthBar/TextureProgress.value = health
 		$HUD/GUI/HealthBar/UpdateTween.start()
 		emit_signal("health_updated", health)
@@ -160,6 +160,7 @@ func _on_TimeTillNextGhost_timeout():
 
 
 func _on_InvisibilityTimer_timeout():
+	$HurtBox/CollisionShape2D.set_disabled(false)
 	$Sprite.show()
 
 
@@ -167,8 +168,13 @@ func _on_InvisibilityTimer_timeout():
 func _on_DashTimer_timeout():
 	$Sprite.scale = Default_Size
 	$DashCoolDown.start()
-	DashMultiplier = 1
+	SpeedMultiplier = 1
 
 func _on_DashCoolDown_timeout():
 	canDash = true
 
+
+
+func _on_HurtBox_area_entered(area):
+	knockback = Vector2.ZERO
+	knockback = global_position - area.get_parent().global_position.normalized() * 400

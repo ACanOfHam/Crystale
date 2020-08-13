@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Logo-export.png-db8da8fd35d733569c8dbef20cc9ab68.stex"
+path="res://.import/Tileset.png-26f8a20e40e51d510ee1f1a7aaeea384.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Logo-export.png"
-dest_files=[ "res://.import/Logo-export.png-db8da8fd35d733569c8dbef20cc9ab68.stex" ]
+source_file="res://ArtWork/Tileset.png"
+dest_files=[ "res://.import/Tileset.png-26f8a20e40e51d510ee1f1a7aaeea384.stex" ]
 
 [params]
 

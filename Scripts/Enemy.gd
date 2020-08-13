@@ -4,28 +4,39 @@ var DamageTaken : int
 var TotalDamageTaken : int
 onready var SwordFrame = get_node("/root/World/Player/Sword/Sprite")
 onready var Sword = get_node("/root/World/Player/Sword")
+onready var SwordHitbox = get_node("/root/World/Player/Sword/Hitbox")
 onready var Stats = $Stats
-var Follow : bool
 var Move = Vector2.ZERO
 var knockback = Vector2.ZERO
 onready var Player = get_node("/root/World/Player")
+enum {
+	IDLE,
+	CHASE,
+	WANDER
+}
+var state = IDLE
 
 func _physics_process(delta):
+	
+	match state:
+		IDLE:
+			pass
+		CHASE:
+			Move_State(delta)
+		WANDER:
+			pass
+	
 	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
 	knockback = move_and_slide(knockback)
 	
-	if Follow == true:
-		Move = global_position.direction_to(Player.global_position) * $Stats.Speed
-	else:
-		Move = Vector2.ZERO
-		
-	Move = Move
-	Move = move_and_slide(Move) * $Stats.Speed * delta
+	
+	Move = Vector2.ZERO
+	
+
 
 func _on_HurtBox_area_entered(area):
-	
 	knockback = Vector2.ZERO
-	knockback = -Player.get_position().normalized() * $Stats.KnockBackMultiplier
+	knockback = (global_position - area.get_parent().global_position).normalized() * Stats.KnockBackMultiplier
 	
 	get_parent().get_node("SFX").play("Hurt")
 	
@@ -51,18 +62,33 @@ func _on_HurtBox_area_entered(area):
 	if Stats.Health <= 0:
 		queue_free()
 
+func Move_State(delta):
+
+	if Move.x > 1:
+		get_node("Sprite").set_flip_h(true)
+	else:
+		get_node("Sprite").set_flip_h(false)
+		
+	Move = (Player.global_position - global_position).normalized() * $Stats.Speed
+	Move = move_and_slide(Move) * $Stats.Speed * delta
 
 func _on_HitBox_area_entered(area):
 	Player.Damage($Stats.Damage)
+	state = IDLE
+	$RestTimer.start()
 
 
 func _on_DetectionArea_area_entered(area):
-	Follow = true
+	state = CHASE
 
 
 func _on_DetectionArea_area_exited(area):
-	Follow = false
+	state = IDLE
 
 
 func _on_FlashTimer_timeout():
 	$Sprite.show()
+
+
+func _on_RestTimer_timeout():
+	state = CHASE

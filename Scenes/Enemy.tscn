@@ -21,12 +21,10 @@ radius = 248.516
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 8
-collision_mask = 2
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
 show_behind_parent = true
@@ -49,22 +47,27 @@ shape = SubResource( 3 )
 script = ExtResource( 4 )
 Damage = 25
 Speed = 200
-KnockBackMultiplier = 135
+KnockBackMultiplier = 275.0
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource( 4 )
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.05
+
+[node name="RestTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_DetectionArea_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_DetectionArea_area_exited"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="timeout" from="RestTimer" to="." method="_on_RestTimer_timeout"]
 
 [editable path="HitBox"]
 
