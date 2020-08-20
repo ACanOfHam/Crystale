@@ -1,0 +1,72 @@
+ {
+     "Bronze_Sword":
+    {
+         "texture": "Item/Bronze_Sword.png",   
+         "stack_size": 1,
+         "type": "Damage Item",
+         "damage": 10,
+         "description": "A sword made of bronze and it does low damage"
+    },
+
+    "Iron_Sword":
+    {
+         "texture": "Item/Iron_Sword.png",   
+         "stack_size": 1,
+         "type": "Damage Item",
+         "damage": 20,
+         "description": "A sword made of iron and it does okay damage"
+    },
+    "Gold_Sword":
+    {
+         "texture": "Item/Gold_Sword.png",   
+         "stack_size": 1,
+         "type": "Damage Item",
+         "damage": 30,
+         "description": "A sword made of gold and it does good damage"
+    },
+    "Diamond_Sword":
+    {
+         "texture": "Item/Diamond_Sword.png",   
+         "stack_size": 1,
+         "type": "Damage Item",
+         "damage": 50,
+         "description": "A sword made of diamonds and it does high damage"
+    },
+    "Bow":
+    {
+         "texture": "Item/Bow.png",   
+         "stack_size": 1,
+         "type": "Damage Item",
+         "damage": 15,
+         "description": "Bow that can be used for more ranged fights"
+    },
+    "Piercing_Bow":
+    {
+         "texture": "Item/Piercing_Bow.png",   
+         "stack_size": 1,
+         "type": "Damage Item",
+         "damage": 30,
+         "description": "Piercing bow that can do high damage from high range"
+    },
+    "Healing_Potion":
+    {
+         "texture": "Item/Healing_Potion.png",   
+         "stack_size": 10,
+         "type": "Consumable",
+         "damage": 0,
+         "description": "Potion that heals you duh what else"
+    },
+    "Stamina_Potion":
+    {
+         "texture": "Item/Stamina_Potion.png",   
+         "stack_size": 10,
+         "type": "Consumable",
+         "damage": 0,
+         "description": "Potion that increases stamina duh what else"
+    }
+
+
+
+
+
+ }

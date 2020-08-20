@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-1a42368e74ecdf377d95b561ae809443.stex"
+path="res://.import/Inventory Panel.png-c398c1f9c158e45a84231dde3e62e13b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/icon.png"
-dest_files=[ "res://.import/icon.png-1a42368e74ecdf377d95b561ae809443.stex" ]
+source_file="res://UI/Inventory Panel.png"
+dest_files=[ "res://.import/Inventory Panel.png-c398c1f9c158e45a84231dde3e62e13b.stex" ]
 
 [params]
 

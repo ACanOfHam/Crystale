@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-1a42368e74ecdf377d95b561ae809443.stex"
+path="res://.import/Split panel.png-78693b64e936ba1ecd7d42f600e1f4e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/icon.png"
-dest_files=[ "res://.import/icon.png-1a42368e74ecdf377d95b561ae809443.stex" ]
+source_file="res://UI/Split panel.png"
+dest_files=[ "res://.import/Split panel.png-78693b64e936ba1ecd7d42f600e1f4e5.stex" ]
 
 [params]
 

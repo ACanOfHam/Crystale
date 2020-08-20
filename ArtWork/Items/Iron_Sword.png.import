@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tileset.png-26f8a20e40e51d510ee1f1a7aaeea384.stex"
+path="res://.import/Iron_Sword.png-1c3c808b8bd66d008b360a2249edca70.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Tileset.png"
-dest_files=[ "res://.import/Tileset.png-26f8a20e40e51d510ee1f1a7aaeea384.stex" ]
+source_file="res://ArtWork/Items/Iron_Sword.png"
+dest_files=[ "res://.import/Iron_Sword.png-1c3c808b8bd66d008b360a2249edca70.stex" ]
 
 [params]
 

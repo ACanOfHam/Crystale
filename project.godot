@@ -13,6 +13,13 @@ _global_script_class_icons={
 
 }
 
+[PluginSettings]
+
+gdinv/ItemJsonPaths={
+
+}
+gdinv/LoadOnReady=true
+
 [application]
 
 config/name="RPG"
@@ -21,6 +28,10 @@ boot_splash/image="res://ArtWork/Logo-export.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
+
+[autoload]
+
+JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
 
 [display]
 

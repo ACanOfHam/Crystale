@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://ArtWork/Itemset.png" type="Texture" id=1]
+[ext_resource path="res://ArtWork/Items/Itemset.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Sword.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/HitBox.tscn" type="PackedScene" id=3]
 
@@ -129,7 +129,7 @@ tracks/9/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10.6667, 8 )
+extents = Vector2( 3.75583, 8 )
 
 [node name="Sword" type="Area2D"]
 collision_layer = 0
@@ -142,7 +142,7 @@ rotation = 0.785398
 texture = ExtResource( 1 )
 vframes = 14
 hframes = 16
-frame = 10
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
@@ -154,55 +154,46 @@ collision_mask = 8
 
 [node name="Hitbox2" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 28, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox3" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 36, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox4" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 44, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox5" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 52, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox6" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 60, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox7" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 68, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox8" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 76, 0 )
-scale = Vector2( 0.39, 1 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox9" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 84, 0 )
-scale = Vector2( 0.39, 1 )
+position = Vector2( 84.1768, 7.62939e-06 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="Hitbox10" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 92, 0 )
-scale = Vector2( 0.39, 1 )
+position = Vector2( 92.3536, 0.176773 )
 shape = SubResource( 2 )
 disabled = true
 

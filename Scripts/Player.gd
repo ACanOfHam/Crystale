@@ -10,6 +10,7 @@ var input_vector = Vector2.ZERO
 var SpeedMultiplier : int = 1
 onready var Default_Size = $Sprite.scale
 var stamina = 100
+var canRegen = true
 var knockback = Vector2.ZERO
 
 #References
@@ -26,6 +27,7 @@ enum {
 	IDLE
 }
 
+#Signals
 signal stamina_updated(stamina)
 signal health_updated(health)
 signal killed()
@@ -35,6 +37,8 @@ signal damaged()
 export (int) var max_health = 100
 onready var health = max_health setget Set_Health
 
+#Animation Variables
+var Stretch_Finished = true
 
 func _ready():
 	$HUD/GUI/HealthBar/TextureProgress.value = max_health
@@ -43,7 +47,9 @@ func _ready():
 #This process is called every frame and should not be used for physics
 func _process(delta):
 	
-	#Animation Management
+	$HUD/GUI/Stamina.stamina
+	
+	#State Management
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down"):
 		state = MOVE
 	else:
@@ -78,7 +84,8 @@ func _physics_process(delta):
 			idle_state()
 
 func move_state(delta):
-	$AnimationPlayer.play("Run")
+	if Stretch_Finished == true:
+		$AnimationPlayer.play("Run")
 	
 	#Movement
 	input_vector = Vector2.ZERO
@@ -97,15 +104,17 @@ func move_state(delta):
 
 
 func idle_state():
-	$AnimationPlayer.play("Idle")
+	if Stretch_Finished == true:
+		$AnimationPlayer.play("Idle")
 
 #Function used for dashing
 func dash_state():
 	if canDash == true and stamina >= 25:
 		stamina = stamina - 25
+		Stretch_Finished = false
+		$AnimationPlayer.play("Stretch")
 		emit_signal("stamina_updated", stamina)
 		get_parent().get_node("SFX").play("Dash")
-		$AnimationPlayer.play("Stretch")
 		canDash = false
 		SpeedMultiplier = 4
 		Create_Ghost()
@@ -124,8 +133,9 @@ func Create_Ghost():
 	Ghost.flip_h = $Sprite.flip_h
 	Ghost.texture = $Sprite.texture
 	Ghost.frame = $Sprite.frame
-	Ghost.scale = Default_Size
+	Ghost.scale = $Sprite.scale
 	get_tree().get_root().add_child(Ghost)
+
 
 func Damage(amount):
 	if $DashTimer.is_stopped():
@@ -153,10 +163,8 @@ func _on_Player_damaged():
 	$InvisibilityTimer.start()
 
 
-
 func _on_TimeTillNextGhost_timeout():
 	Create_Ghost()
-
 
 
 func _on_InvisibilityTimer_timeout():
@@ -170,11 +178,25 @@ func _on_DashTimer_timeout():
 	$DashCoolDown.start()
 	SpeedMultiplier = 1
 
+
 func _on_DashCoolDown_timeout():
 	canDash = true
-
 
 
 func _on_HurtBox_area_entered(area):
 	knockback = Vector2.ZERO
 	knockback = global_position - area.get_parent().global_position.normalized() * 400
+
+
+func _on_AnimationPlayer_animation_finished(Stretch):
+	Stretch_Finished = true
+
+
+func _on_StaminaCooldowm_timeout():
+	canRegen = true
+	stamina = stamina + 5
+
+
+func _on_Stamina_Timer_timeout():
+	if canRegen:
+		stamina = stamina + 5

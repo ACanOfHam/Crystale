@@ -47,5 +47,6 @@ text = "STM"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="stamina_updated" from="." to="." method="_on_Stamina_stamina_updated"]
 [connection signal="timeout" from="Stamina Timer" to="." method="_on_Stamina_Timer_timeout"]
 [connection signal="timeout" from="StaminaCooldowm" to="." method="_on_StaminaCooldowm_timeout"]
