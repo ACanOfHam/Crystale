@@ -277,14 +277,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stamina Timer" type="Timer" parent="HUD/GUI/Stamina"]
-wait_time = 2.0
-autostart = true
-
-[node name="StaminaCooldowm" type="Timer" parent="HUD/GUI/Stamina"]
-wait_time = 10.0
-one_shot = true
-
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 0
@@ -302,6 +294,10 @@ __meta__ = {
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]
 [connection signal="timeout" from="TimeTillNextGhost" to="." method="_on_TimeTillNextGhost_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="HUD/GUI/Stamina" method="_on_HurtBox_area_entered"]
+[connection signal="area_entered" from="Sword" to="." method="_on_Sword_area_entered"]
+[connection signal="area_entered" from="Sword" to="HUD/GUI/Stamina" method="_on_Sword_area_entered"]
+[connection signal="area_entered" from="Sword/HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="timeout" from="InvisibilityTimer" to="." method="_on_InvisibilityTimer_timeout"]
-[connection signal="timeout" from="HUD/GUI/Stamina/Stamina Timer" to="HUD/GUI/Stamina" method="_on_Stamina_Timer_timeout"]
-[connection signal="timeout" from="HUD/GUI/Stamina/StaminaCooldowm" to="HUD/GUI/Stamina" method="_on_StaminaCooldowm_timeout"]
+
+[editable path="Sword"]

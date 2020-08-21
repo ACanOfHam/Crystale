@@ -46,9 +46,7 @@ func _ready():
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
-	
-	$HUD/GUI/Stamina.stamina
-	
+
 	#State Management
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down"):
 		state = MOVE
@@ -184,6 +182,9 @@ func _on_DashCoolDown_timeout():
 
 
 func _on_HurtBox_area_entered(area):
+	if stamina < 100:
+		stamina = stamina + 10
+		emit_signal("stamina_updated", stamina)
 	knockback = Vector2.ZERO
 	knockback = global_position - area.get_parent().global_position.normalized() * 400
 
@@ -192,11 +193,7 @@ func _on_AnimationPlayer_animation_finished(Stretch):
 	Stretch_Finished = true
 
 
-func _on_StaminaCooldowm_timeout():
-	canRegen = true
-	stamina = stamina + 5
-
-
-func _on_Stamina_Timer_timeout():
-	if canRegen:
-		stamina = stamina + 5
+func _on_HitBox_area_entered(area):
+	if stamina < 100:
+		stamina = stamina + 10
+		emit_signal("stamina_updated", stamina)

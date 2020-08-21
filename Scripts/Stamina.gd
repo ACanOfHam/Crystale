@@ -1,14 +1,8 @@
 extends TextureProgress
 
 var canRegen = true
-onready var stamina = get_parent().get_parent().get_parent().stamina
+onready var stamina = get_parent().get_parent().get_node("Player")
 
 
-func _process(delta):
-	stamina = get_node("/root/World/Player").stamina
+func _on_Player_stamina_updated(stamina):
 	self.value = stamina
-
-func _on_Player_damaged():
-	canRegen = false
-	$StaminaCooldowm.start()
-
