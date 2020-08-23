@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Long_Range_Bow.png-71690c0144d6742fae6d97a711c01e06.stex"
+path="res://.import/Gold Sword.png-ca4a466f094e5927f4c549f55d1deb2d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Items/Long_Range_Bow.png"
-dest_files=[ "res://.import/Long_Range_Bow.png-71690c0144d6742fae6d97a711c01e06.stex" ]
+source_file="res://ArtWork/Items/Gold Sword.png"
+dest_files=[ "res://.import/Gold Sword.png-ca4a466f094e5927f4c549f55d1deb2d.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

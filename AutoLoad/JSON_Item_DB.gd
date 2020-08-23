@@ -1,30 +1,15 @@
 extends Node
 
-var script_url = "res://ItemDatabase/Item_db.json"
-var WorkPath = "res://Items/"
+var item_data: Dictionary
 
-func LoadData(url):
-	var file = File.new()
-	if url == null: 
-		return null
-	if !file.file_exists(url): 
-		return null
-	file.open(url,File.READ)
-	var data = {}
-	data = parse_json(file.get_as_text())
-	file.close()
-	return data
+func _ready():
+	item_data = LoadData("res://ItemDatabase/Item_db.json")
 
-func GetItemByID(ItermName):
-	var itemData = {}
-	itemData = LoadData(script_url)	
-	if itemData == null:
-		print("Item " + ItermName + " does not exist")
-		return null
+func LoadData(file_path):
+	var json_data
+	var file_data = File.new()
 	
-	itemData[ItermName]["name"] = ItermName
-	return itemData[ItermName]
-
-func SmartTextureLoad(ItmID):
-		ItmID["texture"] = load(WorkPath+ItmID["texture"])
-		return ItmID["texture"]
+	file_data.open(file_path, File.READ)
+	json_data = JSON.parse(file_data.get_as_text())
+	file_data.close()
+	return json_data.result

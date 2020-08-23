@@ -1,72 +1,60 @@
  {
-     "Bronze_Sword":
+    "Bronze Sword":
     {
-         "texture": "Item/Bronze_Sword.png",   
-         "stack_size": 1,
-         "type": "Damage Item",
-         "damage": 10,
-         "description": "A sword made of bronze and it does low damage"
+          "itemCategory": "Sword",
+          "itemAttack": "10",
+          "StackSize": "1",
+          "Description": "A sword made of bronze that does low damage obviously"
     },
 
-    "Iron_Sword":
+    "Iron Sword":
     {
-         "texture": "Item/Iron_Sword.png",   
-         "stack_size": 1,
-         "type": "Damage Item",
-         "damage": 20,
-         "description": "A sword made of iron and it does okay damage"
+          "itemCategory": "Sword",
+          "itemAttack": "20",
+          "StackSize": "1",
+          "Description": "A sword made of iron that does okay damage obviously"
     },
-    "Gold_Sword":
+    "Gold Sword":
     {
-         "texture": "Item/Gold_Sword.png",   
-         "stack_size": 1,
-         "type": "Damage Item",
-         "damage": 30,
-         "description": "A sword made of gold and it does good damage"
+          "itemCategory": "Sword",
+          "itemAttack": "25",
+          "StackSize": "1",
+          "Description": "A sword made of gold that does good damage obviously"
     },
-    "Diamond_Sword":
+    "Diamond Sword":
     {
-         "texture": "Item/Diamond_Sword.png",   
-         "stack_size": 1,
-         "type": "Damage Item",
-         "damage": 50,
-         "description": "A sword made of diamonds and it does high damage"
+         
+          "itemCategory": "Sword",
+          "itemAttack": "35",
+          "StackSize": "1",
+          "Description": "A sword made of gold that does high damage obviously"
     },
     "Bow":
     {
-         "texture": "Item/Bow.png",   
-         "stack_size": 1,
-         "type": "Damage Item",
-         "damage": 15,
-         "description": "Bow that can be used for more ranged fights"
+          "itemCategory": "Bow",
+          "itemAttack": "17.5",
+          "StackSize": "1",
+          "Description": "A basic bow that does okay damage obviously"
     },
-    "Piercing_Bow":
+    "Piercing Bow":
     {
-         "texture": "Item/Piercing_Bow.png",   
-         "stack_size": 1,
-         "type": "Damage Item",
-         "damage": 30,
-         "description": "Piercing bow that can do high damage from high range"
+          "itemCategory": "Bow",
+          "itemAttack": "20",
+          "StackSize": "1",
+          "Description": "A piercing bow that does high damage obviously"
     },
-    "Healing_Potion":
+    "Health Potion":
     {
-         "texture": "Item/Healing_Potion.png",   
-         "stack_size": 10,
-         "type": "Consumable",
-         "damage": 0,
-         "description": "Potion that heals you duh what else"
+          "itemCategory": "Consumable",
+          "AddHealth": "25",
+          "StackSize": "24",
+          "Description": "A potion that heals you obviously"
     },
-    "Stamina_Potion":
+    "Stamina Potion":
     {
-         "texture": "Item/Stamina_Potion.png",   
-         "stack_size": 10,
-         "type": "Consumable",
-         "damage": 0,
-         "description": "Potion that increases stamina duh what else"
+          "itemCategory": "Consumable",
+          "AddEnergy": "100",
+          "StackSize": "24",
+          "Description": "A potion that increases your stamina obviously"
     }
-
-
-
-
-
  }

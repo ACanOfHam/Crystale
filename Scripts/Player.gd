@@ -12,6 +12,11 @@ onready var Default_Size = $Sprite.scale
 var stamina = 100
 var canRegen = true
 var knockback = Vector2.ZERO
+const KNOCKBACK_SPEED := 170
+const KNOCKBACK_FRICTION := 350
+var knockback_direction := Vector2.ZERO
+var knockback_velocity := Vector2.ZERO
+
 
 #References
 onready var Sword = $Sword
@@ -67,8 +72,9 @@ func _process(delta):
 
 #This process is called every physics frame 
 func _physics_process(delta):
-	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
-	knockback = move_and_slide(knockback) / 1.05
+	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
+	knockback_velocity = move_and_slide(knockback_velocity)
+	
 	
 	if Input.is_action_just_pressed("dash"):
 		state = DASH
@@ -183,10 +189,11 @@ func _on_DashCoolDown_timeout():
 
 func _on_HurtBox_area_entered(area):
 	if stamina < 100:
-		stamina = stamina + 10
+		stamina = stamina + 5
 		emit_signal("stamina_updated", stamina)
-	knockback = Vector2.ZERO
-	knockback = global_position - area.get_parent().global_position.normalized() * 400
+	knockback_direction = $HurtBox.global_position - area.global_position
+	knockback_direction = knockback_direction.normalized()
+	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
 
 
 func _on_AnimationPlayer_animation_finished(Stretch):
@@ -195,5 +202,5 @@ func _on_AnimationPlayer_animation_finished(Stretch):
 
 func _on_HitBox_area_entered(area):
 	if stamina < 100:
-		stamina = stamina + 10
+		stamina = stamina + 5
 		emit_signal("stamina_updated", stamina)

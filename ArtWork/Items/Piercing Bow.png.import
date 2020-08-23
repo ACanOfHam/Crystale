@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bronze_Sword.png-ca907e4aa07834efe456111ea9e5aaaa.stex"
+path="res://.import/Piercing Bow.png-7c617d2c4cf59520a2c52e9c69ce0b0c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Items/Bronze_Sword.png"
-dest_files=[ "res://.import/Bronze_Sword.png-ca907e4aa07834efe456111ea9e5aaaa.stex" ]
+source_file="res://ArtWork/Items/Piercing Bow.png"
+dest_files=[ "res://.import/Piercing Bow.png-7c617d2c4cf59520a2c52e9c69ce0b0c.stex" ]
 
 [params]
 

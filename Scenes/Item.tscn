@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Item.gd" type="Script" id=1]
-[ext_resource path="res://ArtWork/Items/Iron_Sword.png" type="Texture" id=2]
+[ext_resource path="res://ArtWork/Items/Health Potion.png" type="Texture" id=2]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=3]
 
 [node name="Item" type="Node2D"]
 z_index = 1
@@ -12,10 +13,22 @@ margin_left = 1.0
 margin_top = 1.0
 margin_right = 33.0
 margin_bottom = 33.0
-rect_min_size = Vector2( 32, 32 )
 rect_scale = Vector2( 0.9, 0.9 )
 mouse_filter = 2
 texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 5.24924
+margin_top = 25.8066
+margin_right = 27.2492
+margin_bottom = 40.8066
+custom_fonts/font = ExtResource( 3 )
+text = "1"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

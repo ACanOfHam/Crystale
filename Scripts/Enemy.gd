@@ -15,6 +15,11 @@ enum {
 	WANDER
 }
 var state = IDLE
+const KNOCKBACK_SPEED := 170
+const KNOCKBACK_FRICTION := 350
+var knockback_direction := Vector2.ZERO
+var knockback_velocity := Vector2.ZERO
+
 
 func _physics_process(delta):
 	
@@ -26,8 +31,8 @@ func _physics_process(delta):
 		WANDER:
 			pass
 	
-	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
-	knockback = move_and_slide(knockback)
+	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
+	knockback_velocity = move_and_slide(knockback_velocity)
 	
 	
 	Move = Vector2.ZERO
@@ -35,8 +40,9 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
-	knockback = Vector2.ZERO
-	knockback = (global_position - area.get_parent().global_position).normalized() * Stats.KnockBackMultiplier
+	knockback_direction = $HurtBox.global_position - area.global_position
+	knockback_direction = knockback_direction.normalized()
+	knockback_velocity = knockback_direction * $Stats.KnockBackMultiplier
 	
 	get_parent().get_node("SFX").play("Hurt")
 	

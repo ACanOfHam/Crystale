@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Healing_Potion.png-a2a9a36a624b29ad4e712f218c128d83.stex"
+path="res://.import/Diamond Sword.png-b8b77005af9297e952d3641533fb8618.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Items/Healing_Potion.png"
-dest_files=[ "res://.import/Healing_Potion.png-a2a9a36a624b29ad4e712f218c128d83.stex" ]
+source_file="res://ArtWork/Items/Diamond Sword.png"
+dest_files=[ "res://.import/Diamond Sword.png-b8b77005af9297e952d3641533fb8618.stex" ]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
