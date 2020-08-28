@@ -4,7 +4,7 @@
           "itemCategory": "Sword",
           "itemAttack": "10",
           "StackSize": "1",
-          "Description": "A sword made of bronze that does low damage obviously"
+          "Description": "A sword made of bronze that does low damage"
     },
 
     "Iron Sword":
@@ -12,14 +12,14 @@
           "itemCategory": "Sword",
           "itemAttack": "20",
           "StackSize": "1",
-          "Description": "A sword made of iron that does okay damage obviously"
+          "Description": "A sword made of iron that does okay damage"
     },
     "Gold Sword":
     {
           "itemCategory": "Sword",
           "itemAttack": "25",
           "StackSize": "1",
-          "Description": "A sword made of gold that does good damage obviously"
+          "Description": "A sword made of gold that does good damage"
     },
     "Diamond Sword":
     {
@@ -27,34 +27,37 @@
           "itemCategory": "Sword",
           "itemAttack": "35",
           "StackSize": "1",
-          "Description": "A sword made of gold that does high damage obviously"
+          "Description": "A sword made of gold that does high damage"
     },
     "Bow":
     {
           "itemCategory": "Bow",
-          "itemAttack": "17.5",
+          "itemAttack": "15",
           "StackSize": "1",
-          "Description": "A basic bow that does okay damage obviously"
+          "Description": "A basic bow that does damage from range"
     },
     "Piercing Bow":
     {
           "itemCategory": "Bow",
           "itemAttack": "20",
           "StackSize": "1",
-          "Description": "A piercing bow that does high damage obviously"
+          "itemAttack": "20",
+          "StackSize": "1",
+          "Description": "A piercing bow that does high damage from range"
     },
     "Health Potion":
     {
           "itemCategory": "Consumable",
           "AddHealth": "25",
-          "StackSize": "24",
+          "StackSize": "32",
           "Description": "A potion that heals you obviously"
     },
-    "Stamina Potion":
+    "Mana Potion":
     {
           "itemCategory": "Consumable",
-          "AddEnergy": "100",
-          "StackSize": "24",
-          "Description": "A potion that increases your stamina obviously"
+          "AddMana": "100",
+          "StackSize": "32",
+          "Description": "A potion that increases your mana obviously"
     }
+    
  }

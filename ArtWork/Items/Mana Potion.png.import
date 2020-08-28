@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Stamina Potion.png-be4d35429ee73dcb6daa16381ee4331a.stex"
+path="res://.import/Mana Potion.png-6f42aa163aeed255dd24eeb480c09bab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Items/Stamina Potion.png"
-dest_files=[ "res://.import/Stamina Potion.png-be4d35429ee73dcb6daa16381ee4331a.stex" ]
+source_file="res://ArtWork/Items/Mana Potion.png"
+dest_files=[ "res://.import/Mana Potion.png-6f42aa163aeed255dd24eeb480c09bab.stex" ]
 
 [params]
 

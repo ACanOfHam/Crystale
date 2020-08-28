@@ -21,12 +21,10 @@ radius = 248.516
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 8
-collision_mask = 3
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-disabled = true
 one_way_collision_margin = 128.0
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -40,6 +38,7 @@ script = ExtResource( 6 )
 shape = SubResource( 2 )
 
 [node name="HurtBox" parent="." instance=ExtResource( 3 )]
+collision_mask = 1
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource( 3 )
@@ -48,9 +47,9 @@ shape = SubResource( 3 )
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 4 )
-Damage = 25
-Speed = 200
-KnockBackMultiplier = 275.0
+damage = 25
+speed = 200
+knockBackMultiplier = 130.0
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0

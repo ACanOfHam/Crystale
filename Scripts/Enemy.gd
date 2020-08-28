@@ -6,6 +6,12 @@ onready var SwordFrame = get_node("/root/World/Player/Sword/Sprite")
 onready var Sword = get_node("/root/World/Player/Sword")
 onready var SwordHitbox = get_node("/root/World/Player/Sword/Hitbox")
 onready var Stats = $Stats
+onready var EnemySprite = $Sprite
+onready var EnemyHurtBox = $HurtBox
+onready var FlashTimer = $FlashTimer
+onready var RestTimer = $RestTimer
+onready var WanderController = $WanderController
+onready var Acceleration = Stats.speed/4
 var Move = Vector2.ZERO
 var knockback = Vector2.ZERO
 onready var Player = get_node("/root/World/Player")
@@ -33,21 +39,18 @@ func _physics_process(delta):
 	
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 	knockback_velocity = move_and_slide(knockback_velocity)
-	
-	
-	Move = Vector2.ZERO
-	
+
 
 
 func _on_HurtBox_area_entered(area):
-	knockback_direction = $HurtBox.global_position - area.global_position
+	knockback_direction = EnemyHurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	knockback_velocity = knockback_direction * $Stats.KnockBackMultiplier
+	knockback_velocity = knockback_direction * Stats.KnockBackMultiplier
 	
 	get_parent().get_node("SFX").play("Hurt")
 	
-	$Sprite.hide()
-	$FlashTimer.start()
+	EnemySprite.hide()
+	FlashTimer.start()
 	
 	match SwordFrame.frame:
 		8:
@@ -62,26 +65,26 @@ func _on_HurtBox_area_entered(area):
 			DamageTaken = 60 * RandomNumberGenerator.new().randf_range(1, 1.25)
 	
 	
-	Stats.Health -= DamageTaken
-	print(Stats.Health)
+	Stats.health -= DamageTaken
+	print(Stats.health)
 	
-	if Stats.Health <= 0:
+	if Stats.health <= 0:
 		queue_free()
 
 func Move_State(delta):
 
 	if Move.x > 1:
-		get_node("Sprite").set_flip_h(true)
+		EnemySprite.set_flip_h(true)
 	else:
-		get_node("Sprite").set_flip_h(false)
+		EnemySprite.set_flip_h(false)
 		
-	Move = (Player.global_position - global_position).normalized() * $Stats.Speed
-	Move = move_and_slide(Move) * $Stats.Speed * delta
+	Move = (Player.global_position - global_position).normalized() * Stats.speed
+	Move = move_and_slide(Move) * Stats.speed * delta
 
 func _on_HitBox_area_entered(area):
-	Player.Damage($Stats.Damage)
+	Player.damage(Stats.damage)
 	state = IDLE
-	$RestTimer.start()
+	RestTimer.start()
 
 
 func _on_DetectionArea_area_entered(area):
@@ -93,7 +96,7 @@ func _on_DetectionArea_area_exited(area):
 
 
 func _on_FlashTimer_timeout():
-	$Sprite.show()
+	EnemySprite.show()
 
 
 func _on_RestTimer_timeout():

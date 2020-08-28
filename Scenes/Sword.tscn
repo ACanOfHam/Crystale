@@ -143,6 +143,7 @@ texture = ExtResource( 1 )
 vframes = 14
 hframes = 16
 frame = 8
+region_filter_clip = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
@@ -196,5 +197,11 @@ disabled = true
 position = Vector2( 92.3536, 0.176773 )
 shape = SubResource( 2 )
 disabled = true
+
+[node name="SoundTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_SoundTimer_timeout"]
 
 [editable path="HitBox"]

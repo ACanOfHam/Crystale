@@ -9,18 +9,18 @@
 [node name="SFX" type="Node2D"]
 script = ExtResource( 4 )
 
-[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
-volume_db = -10.69
-
-[node name="Sword_Slash" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 1 )
-volume_db = -23.112
-
-[node name="Dash" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 2 )
-volume_db = -10.69
-
 [node name="OverWorld_Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -25.0
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.69
+
+[node name="Dash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -10.69
+
+[node name="Sword_Slash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -20.0

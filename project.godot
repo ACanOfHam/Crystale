@@ -37,9 +37,8 @@ JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
 
 window/size/width=1280
 window/size/height=720
+window/dpi/allow_hidpi=true
 window/vsync/use_vsync=false
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 
 [input]
 
@@ -100,8 +99,9 @@ Run={
 
 2d_physics/layer_1="World"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="PlayerHurtbox"
-2d_physics/layer_4="EnemyHurtbox"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="PlayerHurtbox"
+2d_physics/layer_5="EnemyHurtbox"
 
 [physics]
 

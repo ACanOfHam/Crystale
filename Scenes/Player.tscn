@@ -151,6 +151,7 @@ extents = Vector2( 14.6603, 26.5 )
 [sub_resource type="DynamicFont" id=8]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 1
 font_data = ExtResource( 8 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -262,11 +263,11 @@ __meta__ = {
 }
 
 [node name="Stamina" type="TextureProgress" parent="HUD/GUI"]
-self_modulate = Color( 0.882353, 0.882353, 0, 1 )
+self_modulate = Color( 0.313726, 0.443137, 1, 1 )
 margin_left = 72.0
 margin_top = 64.0
 margin_right = 136.0
-margin_bottom = 104.0
+margin_bottom = 80.0
 rect_scale = Vector2( 2.5, 1.5 )
 value = 100.0
 texture_under = ExtResource( 3 )
