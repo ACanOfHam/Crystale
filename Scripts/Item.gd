@@ -31,3 +31,15 @@ func add_item_quantity(amount_to_add):
 func decrease_item_quantity(amount_to_remove):
 	item_quantity -= amount_to_remove
 	$Label.text = String(item_quantity)
+
+func set_item(nm, qt):
+	item_name = nm
+	item_quantity = qt
+	$TextureRect.texture = load("res://ArtWork/Items/" + item_name + ".png")
+
+	var stack_size = int(JsonItemDb.item_data[item_name]["StackSize"])
+	if stack_size == 1:
+		$Label.visible = false
+	else:
+		$Label.visible = true
+		$Label.text = String(item_quantity)

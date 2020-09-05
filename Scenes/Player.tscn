@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/PlayerSprites/spritesheet.png" type="Texture" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://UI/Health_Progress.png" type="Texture" id=7]
 [ext_resource path="res://Fonts/ThaleahFat_TTF.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Scripts/Stamina.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/PickupZone.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hit"
@@ -155,6 +158,10 @@ outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_char = 1
 font_data = ExtResource( 8 )
 
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 26.5357
+height = 23.8368
+
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.975, 1 )
 collision_layer = 2
@@ -238,6 +245,7 @@ __meta__ = {
 }
 
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 11 )
 
 [node name="GUI" type="Control" parent="HUD"]
 anchor_right = 1.0
@@ -311,6 +319,18 @@ margin_bottom = 10.1149
 rect_scale = Vector2( 1, 1.85 )
 custom_fonts/font = ExtResource( 6 )
 text = "MP"
+
+[node name="Inventory" parent="HUD" instance=ExtResource( 10 )]
+visible = false
+
+[node name="PickupZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
+position = Vector2( 2.42018, -5.19131 )
+shape = SubResource( 9 )
 [connection signal="stamina_updated" from="." to="HUD/GUI/Stamina" method="_on_Player_stamina_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
@@ -320,5 +340,7 @@ text = "MP"
 [connection signal="area_entered" from="Sword" to="." method="_on_Sword_area_entered"]
 [connection signal="area_entered" from="Sword/HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="timeout" from="InvisibilityTimer" to="." method="_on_InvisibilityTimer_timeout"]
+[connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]
+[connection signal="body_exited" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_exited"]
 
 [editable path="Sword"]
