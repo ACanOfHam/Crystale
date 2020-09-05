@@ -56,7 +56,7 @@ var Stretch_Finished = true
 
 
 func _ready():
-	HealthBar.value = max_health
+	HealthBarUnder.value = max_health
 	get_parent().get_node("SFX").play("OverWorld_Music")
 
 
@@ -125,6 +125,7 @@ func idle_state():
 func dash_state():
 	if canDash == true and stamina >= 25:
 		stamina = stamina - 25
+		self.set_collision_mask_bit(2, false)
 		Stretch_Finished = false
 		Animationplayer.play("Stretch")
 		emit_signal("stamina_updated", stamina)
@@ -162,7 +163,7 @@ func Set_Health(Value: int):
 	var prev_health = health
 	health = clamp(Value, 0, max_health)
 	if health != prev_health:
-		HealthBarTween.interpolate_property(
+		get_node("HUD/GUI/HealthBar/UpdateTween").interpolate_property(
 			HealthBarUnder,
 			"value",
 			HealthBarUnder.value,
@@ -198,6 +199,8 @@ func _on_DashTimer_timeout():
 	PlayerSprite.scale = Default_Size
 	DashCoolDown.start()
 	SpeedMultiplier = 1
+	self.set_collision_mask_bit(2, true)
+
 
 
 func _on_DashCoolDown_timeout():
@@ -217,7 +220,7 @@ func _on_AnimationPlayer_animation_finished(Stretch):
 	Stretch_Finished = true
 
 
-func _on_HitBox_area_entered(area):
+func _on_HitBox_area_entered(_area):
 	if stamina < 100:
 		stamina = stamina + 5
 		emit_signal("stamina_updated", stamina)

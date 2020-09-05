@@ -11,7 +11,7 @@
 extents = Vector2( 32, 32 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 31.7304, 32.1494 )
+extents = Vector2( 35.3489, 34.9381 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 32, 32 )
@@ -20,7 +20,7 @@ extents = Vector2( 32, 32 )
 radius = 248.516
 
 [node name="Enemy" type="KinematicBody2D"]
-collision_layer = 8
+collision_layer = 4
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -49,7 +49,7 @@ shape = SubResource( 3 )
 script = ExtResource( 4 )
 damage = 25
 speed = 200
-knockBackMultiplier = 130.0
+knockBackMultiplier = 260.0
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -64,12 +64,16 @@ wait_time = 0.05
 [node name="RestTimer" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.25
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_DetectionArea_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_DetectionArea_area_exited"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="RestTimer" to="." method="_on_RestTimer_timeout"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvinsibilityTimer_timeout"]
 
 [editable path="HitBox"]
 

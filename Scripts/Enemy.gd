@@ -3,14 +3,11 @@ extends KinematicBody2D
 var DamageTaken : int
 var TotalDamageTaken : int
 onready var SwordFrame = get_node("/root/World/Player/Sword/Sprite")
-onready var Sword = get_node("/root/World/Player/Sword")
-onready var SwordHitbox = get_node("/root/World/Player/Sword/Hitbox")
 onready var Stats = $Stats
 onready var EnemySprite = $Sprite
 onready var EnemyHurtBox = $HurtBox
 onready var FlashTimer = $FlashTimer
 onready var RestTimer = $RestTimer
-onready var WanderController = $WanderController
 onready var Acceleration = Stats.speed/4
 var Move = Vector2.ZERO
 var knockback = Vector2.ZERO
@@ -25,7 +22,6 @@ const KNOCKBACK_SPEED := 170
 const KNOCKBACK_FRICTION := 350
 var knockback_direction := Vector2.ZERO
 var knockback_velocity := Vector2.ZERO
-
 
 func _physics_process(delta):
 	
@@ -45,7 +41,7 @@ func _physics_process(delta):
 func _on_HurtBox_area_entered(area):
 	knockback_direction = EnemyHurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	knockback_velocity = knockback_direction * Stats.KnockBackMultiplier
+	knockback_velocity = knockback_direction * Stats.knockBackMultiplier
 	
 	get_parent().get_node("SFX").play("Hurt")
 	
@@ -54,15 +50,15 @@ func _on_HurtBox_area_entered(area):
 	
 	match SwordFrame.frame:
 		8:
-			DamageTaken = 10 * RandomNumberGenerator.new().randf_range(1, 1.25)
+			DamageTaken = 10 * RandomNumberGenerator.new().randf_range(1, 1.2)
 		9:
-			DamageTaken = 20 * RandomNumberGenerator.new().randf_range(1, 1.25)
+			DamageTaken = 20 * RandomNumberGenerator.new().randf_range(1, 1.2)
 		10:
-			DamageTaken = 30 * RandomNumberGenerator.new().randf_range(1, 1.25)
+			DamageTaken = 30 * RandomNumberGenerator.new().randf_range(1, 1.2)
 		11:
-			DamageTaken = 40 * RandomNumberGenerator.new().randf_range(1, 1.25)
+			DamageTaken = 40 * RandomNumberGenerator.new().randf_range(1, 1.2)
 		13:
-			DamageTaken = 60 * RandomNumberGenerator.new().randf_range(1, 1.25)
+			DamageTaken = 60 * RandomNumberGenerator.new().randf_range(1, 1.2)
 	
 	
 	Stats.health -= DamageTaken
@@ -101,3 +97,7 @@ func _on_FlashTimer_timeout():
 
 func _on_RestTimer_timeout():
 	state = CHASE
+
+
+func _on_InvinsibilityTimer_timeout():
+	pass # Replace with function body.

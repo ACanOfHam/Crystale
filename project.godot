@@ -13,13 +13,6 @@ _global_script_class_icons={
 
 }
 
-[PluginSettings]
-
-gdinv/ItemJsonPaths={
-
-}
-gdinv/LoadOnReady=true
-
 [application]
 
 config/name="RPG"
@@ -33,12 +26,18 @@ boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 
 JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=false
+
 [display]
 
 window/size/width=1280
 window/size/height=720
 window/dpi/allow_hidpi=true
 window/vsync/use_vsync=false
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [input]
 
@@ -94,6 +93,15 @@ Run={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
  ]
 }
+Inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [layer_names]
 
@@ -105,16 +113,18 @@ Run={
 
 [physics]
 
-2d/thread_model=2
+2d/physics_engine="GodotPhysics"
 
 [rendering]
 
-quality/intended_usage/framebuffer_allocation=0
-quality/intended_usage/framebuffer_allocation.mobile=0
+quality/2d/use_nvidia_rect_flicker_workaround=true
+quality/intended_usage/framebuffer_allocation=1
+quality/intended_usage/framebuffer_allocation.mobile=1
 quality/2d/use_pixel_snap=true
-threads/thread_model=2
-quality/filters/anisotropic_filter_level=1
 quality/subsurface_scattering/quality=2
-quality/voxel_cone_tracing/high_quality=true
-quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
+
+[world]
+
+2d/cell_size=32

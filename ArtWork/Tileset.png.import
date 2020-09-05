@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/STM.png-d3ec987a2da0178074eff07a965f3de6.stex"
+path="res://.import/Tileset.png-26f8a20e40e51d510ee1f1a7aaeea384.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/STM.png"
-dest_files=[ "res://.import/STM.png-d3ec987a2da0178074eff07a965f3de6.stex" ]
+source_file="res://ArtWork/Tileset.png"
+dest_files=[ "res://.import/Tileset.png-26f8a20e40e51d510ee1f1a7aaeea384.stex" ]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
