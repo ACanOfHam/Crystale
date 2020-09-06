@@ -2,7 +2,7 @@ extends Area2D
 
 onready var animationPlayer = $AnimationPlayer
 onready var AttackTimer = $SoundTimer
-var canPlaySFX = true
+var canPlaySFX = false
 onready var Player = get_node("/root/World/Player")
 
 func _process(delta):

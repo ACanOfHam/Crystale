@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-const ACCELERATION = 460
-const MAX_SPEED = 400
+const ACCELERATION = 3000
+const MAX_SPEED = 500
 var velocity = Vector2.ZERO
 var item_name
 onready var Player = get_node("/root/World/Player")
@@ -15,7 +15,8 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 		
 		var distance = global_position.distance_to(Player.global_position)
-		if distance < 4:
+		if distance < 20:
+			get_parent().get_node("SFX").play("Pickup")
 			queue_free()
 			PlayerInventory.add_item(item_name, 1)
 		velocity = move_and_slide(velocity)
