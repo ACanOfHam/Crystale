@@ -6,30 +6,31 @@ var ACCELERATION: int = MAX_SPEED / 4
 const FRICTION: int = 19000
 var velocity: Vector2
 onready var canDash: bool = true
-var input_vector = Vector2.ZERO
+var input_vector: Vector2 = Vector2.ZERO
 var SpeedMultiplier: int = 1
 onready var Default_Size = $Sprite.scale
-var stamina = 100
-var canRegen = true
-var knockback = Vector2.ZERO
-const KNOCKBACK_SPEED := 170
-const KNOCKBACK_FRICTION := 350
-var knockback_direction := Vector2.ZERO
-var knockback_velocity := Vector2.ZERO
+var stamina: int = 100
+var canRegen: bool = true
+var knockback: Vector2 = Vector2.ZERO
+const KNOCKBACK_SPEED: int = 170
+const KNOCKBACK_FRICTION: int = 350
+var knockback_direction: Vector2 = Vector2.ZERO
+var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
-onready var Sword = $Sword
-onready var PlayerSprite = $Sprite
-onready var DashTimer = $DashTimer
-onready var HealthBar = $HUD/GUI/HealthBar/TextureProgress
-onready var HealthBarUnder = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
-onready var HealthBarTween = $HUD/GUI/HealthBar/UpdateTween
-onready var HurtBox = $HurtBox
-onready var HurtBoxCollisionShape = $HurtBox/CollisionShape2D
-onready var Animationplayer = $AnimationPlayer
-onready var TimeTillNextGhost = $TimeTillNextGhost
-onready var InvisibilityTimer = $InvisibilityTimer
-onready var DashCoolDown = $DashCoolDown
+onready var Sword: Area2D = $Sword
+onready var PlayerSprite: Sprite = $Sprite
+onready var DashTimer: Timer = $DashTimer
+onready var HealthBar: TextureProgress = $HUD/GUI/HealthBar/TextureProgress
+onready var HealthBarUnder: TextureProgress = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
+onready var HealthBarTween: Tween = $HUD/GUI/HealthBar/UpdateTween
+onready var HurtBox: Area2D = $HurtBox
+onready var HurtBoxCollisionShape: CollisionShape2D = $HurtBox/CollisionShape2D
+onready var Animationplayer: AnimationPlayer = $AnimationPlayer
+onready var TimeTillNextGhost: Timer = $TimeTillNextGhost
+onready var InvisibilityTimer: Timer = $InvisibilityTimer
+onready var DashCoolDown: Timer = $DashCoolDown
+onready var Shadow: Sprite = $Shadow
 
 #State Machine
 var state
@@ -49,7 +50,7 @@ signal damaged
 
 #Health Variables
 export (int) var max_health = 100
-onready var health = max_health setget Set_Health
+onready var health: int = max_health setget Set_Health
 
 #Animation Variables
 var Stretch_Finished = true
@@ -73,9 +74,11 @@ func _process(delta):
 	var gpos = self.get_global_position()
 	if gpos.x < vert.x:
 		PlayerSprite.set_flip_h(false)
+		Shadow.position.x = 1.156
 		vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
 	else:
 		PlayerSprite.set_flip_h(true)
+		Shadow.position.x = -1.345
 
 
 #This process is called every physics frame 
@@ -135,6 +138,7 @@ func dash_state():
 		Create_Ghost()
 		DashTimer.start()
 		TimeTillNextGhost.start()
+		stamina = stamina - 25
 
 
 func dead_state():

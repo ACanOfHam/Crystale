@@ -1,7 +1,7 @@
 extends Node2D
 
-var item_name
-var item_quantity
+var item_name: String
+var item_quantity: int
 
 
 func _ready():

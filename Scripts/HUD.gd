@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var isInInventory
+var isInventory : bool
 
 func _ready():
 	get_parent().get_node("Sword").canPlaySFX = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/PlayerSprites/spritesheet.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/HUD.gd" type="Script" id=11]
 [ext_resource path="res://Scripts/PickupZone.gd" type="Script" id=12]
+[ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hit"
@@ -169,6 +170,7 @@ collision_mask = 5
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.192089, -0.936443 )
 scale = Vector2( 1.35, 1.35 )
 texture = ExtResource( 2 )
 vframes = 2
@@ -331,6 +333,13 @@ script = ExtResource( 12 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
 position = Vector2( 2.42018, -5.19131 )
 shape = SubResource( 9 )
+
+[node name="Shadow" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.490196 )
+show_behind_parent = true
+position = Vector2( 1.53673, 19.478 )
+scale = Vector2( 1.15607, 0.590307 )
+texture = ExtResource( 13 )
 [connection signal="stamina_updated" from="." to="HUD/GUI/Stamina" method="_on_Player_stamina_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]

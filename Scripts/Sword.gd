@@ -1,9 +1,9 @@
 extends Area2D
 
-onready var animationPlayer = $AnimationPlayer
-onready var AttackTimer = $SoundTimer
-var canPlaySFX = false
-onready var Player = get_node("/root/World/Player")
+onready var animationPlayer:AnimationPlayer = $AnimationPlayer
+onready var AttackTimer: Timer = $SoundTimer
+var canPlaySFX: bool = false
+onready var Player: KinematicBody2D = get_node("/root/World/Player")
 
 func _process(delta):
 	look_at(get_global_mouse_position())

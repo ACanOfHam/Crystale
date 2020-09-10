@@ -6,7 +6,7 @@ signal damaged()
 
 #Health Variables
 export (int) var max_health = 100
-onready var health = max_health setget Set_Health
+onready var health: int = max_health setget Set_Health
 
 
 

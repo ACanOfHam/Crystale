@@ -29,7 +29,7 @@ PlayerInventory="*res://Scripts/PlayerInventory.gd"
 
 [debug]
 
-settings/fps/force_fps=60
+settings/stdout/print_fps=true
 gdscript/warnings/unused_variable=false
 
 [display]
@@ -118,10 +118,6 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_4="PlayerHurtbox"
 2d_physics/layer_5="EnemyHurtbox"
 2d_physics/layer_6="Items"
-
-[physics]
-
-2d/physics_engine="GodotPhysics"
 
 [rendering]
 

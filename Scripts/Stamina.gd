@@ -1,6 +1,6 @@
 extends TextureProgress
 
-var canRegen = true
+var canRegen: bool = true
 
 func _ready():
 	self.value = get_parent().get_parent().get_parent().stamina

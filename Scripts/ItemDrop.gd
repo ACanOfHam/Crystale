@@ -1,20 +1,19 @@
 extends KinematicBody2D
 
-const ACCELERATION = 3000
-const MAX_SPEED = 500
-var velocity = Vector2.ZERO
-var item_name
-onready var Player = get_node("/root/World/Player")
+const ACCELERATION: int = 3000
+const MAX_SPEED: int = 500
+var velocity: Vector2 = Vector2.ZERO
+var item_name: String
 
 var player = null
 var being_picked_up = false
 
 func _physics_process(delta):
 	if being_picked_up == true:
-		var direction = global_position.direction_to(Player.global_position)
+		var direction = global_position.direction_to(player.global_position)
 		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 		
-		var distance = global_position.distance_to(Player.global_position)
+		var distance = global_position.distance_to(player.global_position)
 		if distance < 20:
 			get_parent().get_node("SFX").play("Pickup")
 			queue_free()

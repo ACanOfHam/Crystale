@@ -1,27 +1,27 @@
 extends KinematicBody2D
 
-var DamageTaken : int
-var TotalDamageTaken : int
-onready var SwordFrame = get_node("/root/World/Player/Sword/Sprite")
-onready var Stats = $Stats
-onready var EnemySprite = $Sprite
-onready var EnemyHurtBox = $HurtBox
-onready var FlashTimer = $FlashTimer
-onready var RestTimer = $RestTimer
-onready var Acceleration = Stats.speed/4
-var Move = Vector2.ZERO
-var knockback = Vector2.ZERO
-onready var Player = get_node("/root/World/Player")
+var DamageTaken: int
+var TotalDamageTaken: int
+onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
+onready var Stats: Node = $Stats
+onready var EnemySprite: Sprite = $Sprite
+onready var EnemyHurtBox: Area2D = $HurtBox
+onready var FlashTimer: Timer = $FlashTimer
+onready var RestTimer: Timer = $RestTimer
+onready var Acceleration: int = Stats.speed/4
+var Move: Vector2 = Vector2.ZERO
+var knockback: Vector2 = Vector2.ZERO
+onready var Player: KinematicBody2D = get_node("/root/World/Player")
 enum {
 	IDLE,
 	CHASE,
 	WANDER
 }
 var state = IDLE
-const KNOCKBACK_SPEED := 170
-const KNOCKBACK_FRICTION := 350
-var knockback_direction := Vector2.ZERO
-var knockback_velocity := Vector2.ZERO
+const KNOCKBACK_SPEED: int = 170
+const KNOCKBACK_FRICTION: int = 350
+var knockback_direction: Vector2 = Vector2.ZERO
+var knockback_velocity: Vector2 = Vector2.ZERO
 
 func _physics_process(delta):
 	

@@ -1,9 +1,8 @@
 extends Node
 
-const NUM_INVENTORY_SLOTS = 15
+const NUM_INVENTORY_SLOTS: int = 15
 
-var inventory = {
-	0: ["Iron Sword", 1],  #--> slot_index: [item_name, item_quantity]
+var inventory: Dictionary = {
 }
 
 

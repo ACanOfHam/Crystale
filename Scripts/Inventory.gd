@@ -1,7 +1,7 @@
 extends Node2D
 
-const SlotClass = preload("res://Scripts/Slot.gd")
-onready var inventory_slots = $TextureRect/GridContainer
+const SlotClass: Script = preload("res://Scripts/Slot.gd")
+onready var inventory_slots: GridContainer = $TextureRect/GridContainer
 var holding_item = null
 
 func _ready():
