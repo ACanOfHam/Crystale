@@ -18,6 +18,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
+onready var Sounds = get_parent().get_node("Sounds")
 onready var Sword: Area2D = $Sword
 onready var PlayerSprite: Sprite = $Sprite
 onready var DashTimer: Timer = $DashTimer
@@ -57,7 +58,7 @@ var Stretch_Finished = true
 
 
 func _ready():
-	get_parent().get_node("SFX").play("OverWorld_Music")
+	Sounds.playmusic("OverWorld_Music")
 
 
 #This process is called every frame and should not be used for physics
@@ -131,7 +132,7 @@ func dash_state():
 		Stretch_Finished = false
 		Animationplayer.play("Stretch")
 		emit_signal("mana_updated", mana)
-		get_parent().get_node("SFX").play("Dash")
+		Sounds.playsfx("Dash")
 		canDash = false
 		SpeedMultiplier = 4
 		Create_Ghost()
@@ -156,7 +157,7 @@ func Create_Ghost():
 
 func damage(amount):
 	if DashTimer.is_stopped():
-		get_parent().get_node("SFX").play("Hurt")
+		Sounds.playsfx("Hurt")
 		print(health)
 		Set_Health(health - amount)
 		emit_signal("damaged")

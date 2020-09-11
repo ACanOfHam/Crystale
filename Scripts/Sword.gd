@@ -4,6 +4,7 @@ onready var animationPlayer:AnimationPlayer = $AnimationPlayer
 onready var AttackTimer: Timer = $SoundTimer
 var canPlaySFX: bool = false
 onready var Player: KinematicBody2D = get_node("/root/World/Player")
+onready var Sounds = get_parent().get_parent().get_node("Sounds")
 
 func _ready():
 	canPlaySFX = true
@@ -16,7 +17,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("Attack") and canPlaySFX == true:
 		AttackTimer.start()
 		$AnimationPlayer.play("Attack")
-		get_parent().get_parent().get_node("SFX").play("Sword_Slash")
+		Sounds.get_node("SFX").Play("Sword_Slash")
 		canPlaySFX = false
 
 

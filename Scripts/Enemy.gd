@@ -10,6 +10,7 @@ onready var EnemySprite: Sprite = $Sprite
 onready var EnemyHurtBox: Area2D = $HurtBox
 onready var FlashTimer: Timer = $FlashTimer
 onready var RestTimer: Timer = $RestTimer
+onready var Sounds: Node = get_parent().get_node("Sounds")
 onready var Acceleration: int = Stats.speed/4
 var Move: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
@@ -47,7 +48,7 @@ func _on_HurtBox_area_entered(area):
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * Stats.knockBackMultiplier
 	var floaty_text = floaty_text_scene.instance()
-	get_parent().get_node("SFX").play("Hurt")
+	Sounds.playsfx("Hurt")
 	
 	EnemySprite.hide()
 	FlashTimer.start()
