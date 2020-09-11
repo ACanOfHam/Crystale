@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/FloatingText.gd" type="Script" id=2]
+
+[node name="FloatingText" type="Position2D"]
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 17.0
+margin_bottom = 15.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/font = ExtResource( 1 )
+text = "69"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/PlayerSprites/spritesheet.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scripts/HUD.gd" type="Script" id=11]
 [ext_resource path="res://Scripts/PickupZone.gd" type="Script" id=12]
 [ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/HealthBar.gd" type="Script" id=14]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hit"
@@ -151,15 +152,18 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 14.6603, 26.5 )
+extents = Vector2( 16.1717, 26.885 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 19.1396, 27.6959 )
+
+[sub_resource type="DynamicFont" id=9]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_char = 1
 font_data = ExtResource( 8 )
 
-[sub_resource type="CapsuleShape2D" id=9]
+[sub_resource type="CapsuleShape2D" id=10]
 radius = 26.5357
 height = 23.8368
 
@@ -168,6 +172,9 @@ scale = Vector2( 0.975, 1 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.192089, -0.936443 )
@@ -210,7 +217,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.9, -5.5 )
+position = Vector2( 2.80077, -6.5199 )
 shape = SubResource( 7 )
 
 [node name="TimeTillNextGhost" type="Timer" parent="."]
@@ -218,35 +225,42 @@ wait_time = 0.15
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 position = Vector2( 1.8, 0 )
-collision_layer = 4
+collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2( 1.75, -5.5 )
-shape = SubResource( 7 )
+position = Vector2( 1.58847, -6.60243 )
+shape = SubResource( 8 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="Sword" parent="." instance=ExtResource( 4 )]
+collision_mask = 16
+
+[node name="HitBox" parent="Sword" index="2"]
+collision_mask = 16
 
 [node name="InvisibilityTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 position = Vector2( 1.9, -5.5 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="HUD" type="CanvasLayer" parent="."]
+pause_mode = 2
 script = ExtResource( 11 )
 
 [node name="GUI" type="Control" parent="HUD"]
@@ -261,7 +275,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureProgress" type="TextureProgress" parent="HUD/GUI/HealthBar"]
+[node name="HealthBar" type="TextureProgress" parent="HUD/GUI/HealthBar"]
 margin_left = 72.9306
 margin_top = 7.68851
 margin_right = 136.931
@@ -271,11 +285,12 @@ value = 100.0
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 7 )
 tint_progress = Color( 1, 0, 0, 1 )
+script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureProgress_Under" type="TextureProgress" parent="HUD/GUI/HealthBar/TextureProgress"]
+[node name="HealthBarUnder" type="TextureProgress" parent="HUD/GUI/HealthBar/HealthBar"]
 modulate = Color( 1, 0.372549, 0.227451, 1 )
 show_behind_parent = true
 margin_right = 64.0
@@ -291,13 +306,13 @@ margin_top = -3.0
 margin_right = 25.0
 margin_bottom = 12.0
 rect_scale = Vector2( 3, 3.5 )
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "HP"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stamina" type="TextureProgress" parent="HUD/GUI"]
+[node name="Mana" type="TextureProgress" parent="HUD/GUI"]
 self_modulate = Color( 0, 0.345098, 1, 1 )
 margin_left = 72.3126
 margin_top = 58.2909
@@ -313,7 +328,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="HUD/GUI/Stamina"]
+[node name="Label" type="Label" parent="HUD/GUI/Mana"]
 margin_left = -20.6734
 margin_top = -4.88515
 margin_right = -3.67344
@@ -326,21 +341,23 @@ text = "MP"
 visible = false
 
 [node name="PickupZone" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 script = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
 position = Vector2( 2.42018, -5.19131 )
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="Shadow" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.490196 )
 show_behind_parent = true
-position = Vector2( 1.53673, 19.478 )
+position = Vector2( 1.40852, 19.603 )
 scale = Vector2( 1.15607, 0.590307 )
 texture = ExtResource( 13 )
-[connection signal="stamina_updated" from="." to="HUD/GUI/Stamina" method="_on_Player_stamina_updated"]
+[connection signal="health_updated" from="." to="HUD/GUI/HealthBar/HealthBar" method="_on_Player_health_updated"]
+[connection signal="mana_updated" from="." to="HUD/GUI/Mana" method="_on_Player_mana_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]

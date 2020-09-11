@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var old_shape = null
+var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
 var DamageTaken: int
 var TotalDamageTaken: int
 onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
@@ -39,14 +41,18 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
+	disable(EnemyHurtBox)
+	$InvincibilityTimer.start()
 	knockback_direction = EnemyHurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * Stats.knockBackMultiplier
-	
+	var floaty_text = floaty_text_scene.instance()
 	get_parent().get_node("SFX").play("Hurt")
 	
 	EnemySprite.hide()
 	FlashTimer.start()
+	floaty_text.position = Vector2(0,0)
+	floaty_text.velocity = Vector2(rand_range(-50, 50), -100)
 	
 	match SwordFrame.frame:
 		8:
@@ -60,9 +66,9 @@ func _on_HurtBox_area_entered(area):
 		13:
 			DamageTaken = 60 * RandomNumberGenerator.new().randf_range(1, 1.2)
 	
-	
 	Stats.health -= DamageTaken
-	print(Stats.health)
+	floaty_text.text = DamageTaken
+	add_child(floaty_text)
 	
 	if Stats.health <= 0:
 		queue_free()
@@ -100,4 +106,10 @@ func _on_RestTimer_timeout():
 
 
 func _on_InvinsibilityTimer_timeout():
-	pass # Replace with function body.
+	enable(EnemyHurtBox)
+
+func disable(area):
+	area.set_collision_layer_bit(4, false)
+
+func enable(area):
+	area.set_collision_layer_bit(4, true)

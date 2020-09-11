@@ -9,7 +9,7 @@ onready var canDash: bool = true
 var input_vector: Vector2 = Vector2.ZERO
 var SpeedMultiplier: int = 1
 onready var Default_Size = $Sprite.scale
-var stamina: int = 100
+var mana: int = 100
 var canRegen: bool = true
 var knockback: Vector2 = Vector2.ZERO
 const KNOCKBACK_SPEED: int = 170
@@ -43,7 +43,7 @@ IDLE
 }
 
 #Signals
-signal stamina_updated(stamina)
+signal mana_updated(mana)
 signal health_updated(health)
 signal killed
 signal damaged
@@ -57,7 +57,6 @@ var Stretch_Finished = true
 
 
 func _ready():
-	HealthBarUnder.value = max_health
 	get_parent().get_node("SFX").play("OverWorld_Music")
 
 
@@ -126,23 +125,23 @@ func idle_state():
 
 #Function used for dashing
 func dash_state():
-	if canDash == true and stamina >= 25:
-		stamina = stamina - 25
+	if canDash == true and mana >= 25:
+		mana = mana - 25
 		self.set_collision_mask_bit(2, false)
 		Stretch_Finished = false
 		Animationplayer.play("Stretch")
-		emit_signal("stamina_updated", stamina)
+		emit_signal("mana_updated", mana)
 		get_parent().get_node("SFX").play("Dash")
 		canDash = false
 		SpeedMultiplier = 4
 		Create_Ghost()
 		DashTimer.start()
 		TimeTillNextGhost.start()
-		stamina = stamina - 25
 
 
 func dead_state():
-	print("Haha your dead what a noob unless your hamza ofc")
+#	get_tree().paused = true
+	pass
 
 
 func Create_Ghost():
@@ -164,24 +163,11 @@ func damage(amount):
 
 
 func Set_Health(Value: int):
-	var prev_health = health
 	health = clamp(Value, 0, max_health)
-	if health != prev_health:
-		get_node("HUD/GUI/HealthBar/UpdateTween").interpolate_property(
-			HealthBarUnder,
-			"value",
-			HealthBarUnder.value,
-			health,
-			0.4,
-			Tween.TRANS_SINE,
-			Tween.EASE_OUT
-		)
-		HealthBar.value = health
-		HealthBarTween.start()
-		emit_signal("health_updated", health)
-		if health == 0:
-			dead_state()
-			emit_signal("killed")
+	emit_signal("health_updated", health)
+	if health == 0:
+		dead_state()
+		emit_signal("killed")
 
 
 func _on_Player_damaged():
@@ -212,9 +198,9 @@ func _on_DashCoolDown_timeout():
 
 
 func _on_HurtBox_area_entered(area):
-	if stamina < 100:
-		stamina = stamina + 5
-		emit_signal("stamina_updated", stamina)
+	if mana < 100:
+		mana = mana + 5
+		emit_signal("mana_updated", mana)
 	knockback_direction = HurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
@@ -225,9 +211,9 @@ func _on_AnimationPlayer_animation_finished(Stretch):
 
 
 func _on_HitBox_area_entered(_area):
-	if stamina < 100:
-		stamina = stamina + 5
-		emit_signal("stamina_updated", stamina)
+	if mana < 100:
+		mana = mana + 5
+		emit_signal("mana_updated", mana)
 
 func _input(event):
 	if event.is_action_pressed("pickup"):

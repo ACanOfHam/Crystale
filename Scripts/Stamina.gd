@@ -1,9 +1,19 @@
 extends TextureProgress
 
 var canRegen: bool = true
+onready var UpdateTween: Tween = $UpdateTween
 
 func _ready():
-	self.value = get_parent().get_parent().get_parent().stamina
+	self.value = get_parent().get_parent().get_parent().mana
 
-func _on_Player_stamina_updated(stamina):
-	self.value = stamina
+func _on_Player_mana_updated(mana):
+	UpdateTween.interpolate_property(
+		self,
+		"value",
+		self.value,
+		mana,
+		0.4,
+		Tween.TRANS_SINE,
+		Tween.EASE_OUT
+		)
+	UpdateTween.start()

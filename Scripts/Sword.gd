@@ -5,6 +5,9 @@ onready var AttackTimer: Timer = $SoundTimer
 var canPlaySFX: bool = false
 onready var Player: KinematicBody2D = get_node("/root/World/Player")
 
+func _ready():
+	canPlaySFX = true
+
 func _process(delta):
 	look_at(get_global_mouse_position())
 	

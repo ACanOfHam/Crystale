@@ -3,8 +3,11 @@ extends Node
 const NUM_INVENTORY_SLOTS: int = 15
 
 var inventory: Dictionary = {
+	
 }
 
+func _ready():
+	add_item('Iron Sword', 1)
 
 func add_item(item_name, item_quantity):
 	for item in inventory:
