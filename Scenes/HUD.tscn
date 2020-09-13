@@ -4,7 +4,8 @@
 [ext_resource path="res://UI/Health_Progress.png" type="Texture" id=2]
 [ext_resource path="res://UI/Health_Over.png" type="Texture" id=3]
 [ext_resource path="res://UI/Health_Under.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/Stamina.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Mana.gd" type="Script" id=5]
+
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1

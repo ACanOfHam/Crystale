@@ -152,10 +152,10 @@ points = PoolVector2Array( 8.84001, 11.8614, 29.306, 11.8614, 29.306, 37.4439, 8
 2/shapes = [  ]
 2/z_index = 0
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
+[sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 20.0309, 31.9314, 11.9177, 31.9855, 11.9718, 28.037, 20.0949, 27.9089 )
 
-[sub_resource type="TileSet" id=14]
+[sub_resource type="TileSet" id=12]
 0/name = "Above Ground.png 0"
 0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
@@ -166,14 +166,14 @@ points = PoolVector2Array( 20.0309, 31.9314, 11.9177, 31.9855, 11.9718, 28.037, 
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 13 )
+0/shape = SubResource( 11 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 13 ),
+"shape": SubResource( 11 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
@@ -202,7 +202,7 @@ position = Vector2( -89.4977, 281.495 )
 [node name="Trees" type="TileMap" parent="."]
 scale = Vector2( 4, 4 )
 z_index = 1
-tile_set = SubResource( 14 )
+tile_set = SubResource( 12 )
 cell_size = Vector2( 32, 32 )
 cell_quadrant_size = 32
 cell_y_sort = true

@@ -19,19 +19,32 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
 onready var Sounds = get_owner().get_node("Sounds")
-onready var Sword: Area2D = $Sword
-onready var PlayerSprite: Sprite = $Sprite
-onready var DashTimer: Timer = $DashTimer
-onready var HealthBar: TextureProgress = $HUD/GUI/HealthBar/TextureProgress
-onready var HealthBarUnder: TextureProgress = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
-onready var HealthBarTween: Tween = $HUD/GUI/HealthBar/UpdateTween
-onready var HurtBox: Area2D = $HurtBox
-onready var HurtBoxCollisionShape: CollisionShape2D = $HurtBox/CollisionShape2D
-onready var Animationplayer: AnimationPlayer = $AnimationPlayer
-onready var TimeTillNextGhost: Timer = $TimeTillNextGhost
-onready var InvisibilityTimer: Timer = $InvisibilityTimer
-onready var DashCoolDown: Timer = $DashCoolDown
-onready var Shadow: Sprite = $Shadow
+#onready var Sword: Area2D = $Sword
+export (NodePath) onready var Sword
+#onready var PlayerSprite: Sprite = $Sprite
+export (NodePath) onready var PlayerSprite
+#onready var DashTimer: Timer = $DashTimer
+export (NodePath) onready var DashTimer
+#onready var HealthBar: TextureProgress = $HUD/GUI/HealthBar/TextureProgress
+export (NodePath) onready var HealthBar
+#onready var HealthBarUnder: TextureProgress = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
+export (NodePath) onready var HealthBarUnder
+#onready var HealthBarTween: Tween = $HUD/GUI/HealthBar/UpdateTween
+export (NodePath) var HealthBarTween
+#onready var HurtBox: Area2D = $HurtBox
+export (NodePath) var HurtBox
+#onready var Animationplayer: AnimationPlayer = $AnimationPlayer
+export (NodePath) var Animationplayer 
+#onready var TimeTillNextGhost: Timer = $TimeTillNextGhost
+export (NodePath) var TimeTillNextGhost
+#onready var InvisibilityTimer: Timer = $InvisibilityTimer
+export (NodePath) var InvisibilityTimer
+#onready var DashCoolDown: Timer = $DashCoolDown
+export (NodePath) var DashCoolDown
+#onready var Shadow: Sprite = $Shadow
+export (NodePath) var Shadow
+#onready var HurtBoxCollisionShape = $HurtBox/CollisionShape2D
+export (NodePath) var HurtBoxCollisionShape
 
 #State Machine
 var state
@@ -58,6 +71,7 @@ var Stretch_Finished = true
 
 
 func _ready():
+	Get_References()
 	Sounds.playmusic("OverWorld_Music")
 
 
@@ -68,7 +82,7 @@ func _process(delta):
 		state = MOVE
 	else:
 		state = IDLE
-
+	
 	#Getting Mouse Position and flipping character based on where mouse is
 	var vert = get_global_mouse_position()
 	var gpos = self.get_global_position()
@@ -222,3 +236,19 @@ func _input(event):
 			var pickup_item = $PickupZone.items_in_range.values()[0]
 			pickup_item.pick_up_item(self)
 			$PickupZone.items_in_range.erase(pickup_item)
+
+
+func Get_References():
+	PlayerSprite = get_node(PlayerSprite)
+	Sword = get_node(Sword)
+	DashTimer = get_node(DashTimer)
+	HealthBar = get_node(HealthBar)
+	HealthBarUnder = get_node(HealthBarUnder)
+	HealthBarTween = get_node(HealthBarTween)
+	HurtBox = get_node(HurtBox)
+	Animationplayer = get_node(Animationplayer)
+	TimeTillNextGhost = get_node(TimeTillNextGhost)
+	InvisibilityTimer = get_node(InvisibilityTimer)
+	DashCoolDown = get_node(DashCoolDown)
+	Shadow = get_node(Shadow)
+	HurtBoxCollisionShape = get_node(HurtBoxCollisionShape)

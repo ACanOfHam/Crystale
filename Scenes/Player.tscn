@@ -8,7 +8,7 @@
 [ext_resource path="res://Font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://UI/Health_Progress.png" type="Texture" id=7]
 [ext_resource path="res://Fonts/ThaleahFat_TTF.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://Scripts/Stamina.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/Mana.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/HUD.gd" type="Script" id=11]
 [ext_resource path="res://Scripts/PickupZone.gd" type="Script" id=12]
@@ -175,6 +175,19 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
+Sword = NodePath("Sword")
+PlayerSprite = NodePath("Sprite")
+DashTimer = NodePath("DashTimer")
+HealthBar = NodePath("HUD/GUI/HealthBar/HealthBar")
+HealthBarUnder = NodePath("HUD/GUI/HealthBar/HealthBar/HealthBarUnder")
+HealthBarTween = NodePath("HUD/GUI/HealthBar/UpdateTween")
+HurtBox = NodePath("HurtBox")
+Animationplayer = NodePath("AnimationPlayer")
+TimeTillNextGhost = NodePath("TimeTillNextGhost")
+InvisibilityTimer = NodePath("InvisibilityTimer")
+DashCoolDown = NodePath("DashCoolDown")
+Shadow = NodePath("Shadow")
+HurtBoxCollisionShape = NodePath("HurtBox/CollisionShape2D")
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.192089, -0.936443 )
@@ -238,9 +251,10 @@ __meta__ = {
 }
 
 [node name="Sword" parent="." instance=ExtResource( 4 )]
+collision_layer = 0
 
 [node name="HitBox" parent="Sword" index="2"]
-collision_mask = 16
+collision_layer = 0
 
 [node name="InvisibilityTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -275,6 +289,7 @@ __meta__ = {
 }
 
 [node name="HealthBar" type="TextureProgress" parent="HUD/GUI/HealthBar"]
+self_modulate = Color( 1, 0.0980392, 0.0980392, 1 )
 margin_left = 72.9306
 margin_top = 7.68851
 margin_right = 136.931
@@ -283,19 +298,21 @@ rect_scale = Vector2( 3, 2 )
 value = 100.0
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 7 )
-tint_progress = Color( 1, 0, 0, 1 )
 script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HealthBarUnder" type="TextureProgress" parent="HUD/GUI/HealthBar/HealthBar"]
-modulate = Color( 1, 0.372549, 0.227451, 1 )
+modulate = Color( 1, 0.407843, 0.25098, 1 )
 show_behind_parent = true
 margin_right = 64.0
 margin_bottom = 16.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="UpdateTween" type="Tween" parent="HUD/GUI/HealthBar"]
 
