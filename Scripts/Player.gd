@@ -18,7 +18,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
-onready var Sounds = get_parent().get_node("Sounds")
+onready var Sounds = get_owner().get_node("Sounds")
 onready var Sword: Area2D = $Sword
 onready var PlayerSprite: Sprite = $Sprite
 onready var DashTimer: Timer = $DashTimer

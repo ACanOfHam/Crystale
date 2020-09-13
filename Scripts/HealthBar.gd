@@ -1,14 +1,13 @@
 extends TextureProgress
 
-onready var Target = get_node("/root/World/Player")
+onready var Target = get_owner().get_node("Player")
 onready var HealthBarUnder = $HealthBarUnder
 onready var HealthBarTween = get_parent().get_node("UpdateTween")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.value = 100
-	HealthBarUnder.value = self.value
-
+	HealthBarUnder.value = 100
 
 func _on_Player_health_updated(health):
 	HealthBarTween.interpolate_property(

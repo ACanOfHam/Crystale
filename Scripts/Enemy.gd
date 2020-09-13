@@ -4,17 +4,19 @@ var old_shape = null
 var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
 var DamageTaken: int
 var TotalDamageTaken: int
-onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
+#onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
+onready var InvincibilityTimer = $InvincibilityTimer
+onready var SwordFrame: Sprite = get_owner().get_node("Player/Sword/Sprite")
 onready var Stats: Node = $Stats
 onready var EnemySprite: Sprite = $Sprite
 onready var EnemyHurtBox: Area2D = $HurtBox
 onready var FlashTimer: Timer = $FlashTimer
 onready var RestTimer: Timer = $RestTimer
-onready var Sounds: Node = get_parent().get_node("Sounds")
+onready var Sounds: Node = get_owner().get_node("Sounds")
 onready var Acceleration: int = Stats.speed/4
 var Move: Vector2 = Vector2.ZERO
 var knockback: Vector2 = Vector2.ZERO
-onready var Player: KinematicBody2D = get_node("/root/World/Player")
+onready var Player: KinematicBody2D = get_owner().get_node("Player")
 enum {
 	IDLE,
 	CHASE,
@@ -43,13 +45,13 @@ func _physics_process(delta):
 
 func _on_HurtBox_area_entered(area):
 	disable(EnemyHurtBox)
-	$InvincibilityTimer.start()
+	InvincibilityTimer.start()
 	knockback_direction = EnemyHurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * Stats.knockBackMultiplier
 	var floaty_text = floaty_text_scene.instance()
+	floaty_text.text = null
 	Sounds.playsfx("Hurt")
-	
 	EnemySprite.hide()
 	FlashTimer.start()
 	floaty_text.position = Vector2(0,0)
@@ -57,15 +59,15 @@ func _on_HurtBox_area_entered(area):
 	
 	match SwordFrame.frame:
 		8:
-			DamageTaken = 10 * RandomNumberGenerator.new().randf_range(1, 1.2)
+			DamageTaken = 10 
 		9:
-			DamageTaken = 20 * RandomNumberGenerator.new().randf_range(1, 1.2)
+			DamageTaken = 20
 		10:
-			DamageTaken = 30 * RandomNumberGenerator.new().randf_range(1, 1.2)
+			DamageTaken = 30
 		11:
-			DamageTaken = 40 * RandomNumberGenerator.new().randf_range(1, 1.2)
+			DamageTaken = 40
 		13:
-			DamageTaken = 60 * RandomNumberGenerator.new().randf_range(1, 1.2)
+			DamageTaken = 60
 	
 	Stats.health -= DamageTaken
 	floaty_text.text = DamageTaken

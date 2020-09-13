@@ -4,7 +4,7 @@ var canRegen: bool = true
 onready var UpdateTween: Tween = $UpdateTween
 
 func _ready():
-	self.value = get_parent().get_parent().get_parent().mana
+	self.value = get_owner().get_owner().get_node("Player").mana
 
 func _on_Player_mana_updated(mana):
 	UpdateTween.interpolate_property(

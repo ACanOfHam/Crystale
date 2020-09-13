@@ -3,7 +3,7 @@ extends Area2D
 onready var animationPlayer:AnimationPlayer = $AnimationPlayer
 onready var AttackTimer: Timer = $SoundTimer
 var canPlaySFX: bool = false
-onready var Player: KinematicBody2D = get_node("/root/World/Player")
+onready var Player: KinematicBody2D = get_owner().get_node("Player")
 onready var Sounds = get_parent().get_parent().get_node("Sounds")
 
 func _ready():
