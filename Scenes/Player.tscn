@@ -238,8 +238,6 @@ __meta__ = {
 }
 
 [node name="Sword" parent="." instance=ExtResource( 4 )]
-collision_layer = 16
-collision_mask = 32
 
 [node name="HitBox" parent="Sword" index="2"]
 collision_mask = 16
@@ -337,6 +335,8 @@ margin_bottom = 10.1149
 rect_scale = Vector2( 1, 1.85 )
 custom_fonts/font = ExtResource( 6 )
 text = "MP"
+
+[node name="UpdateTween" type="Tween" parent="HUD/GUI/Mana"]
 
 [node name="Inventory" parent="HUD" instance=ExtResource( 10 )]
 visible = false

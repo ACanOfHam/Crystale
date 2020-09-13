@@ -2,8 +2,6 @@ extends Panel
 
 var dragPoint
 
-func _ready():
-	pass
 
 func _on_SplitBar_gui_input(event):
 	if event is InputEventMouseButton:

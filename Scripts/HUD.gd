@@ -2,8 +2,6 @@ extends CanvasLayer
 
 var isInventory : bool
 
-func _ready():
-	get_parent().get_node("Sword").canPlaySFX = true
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
