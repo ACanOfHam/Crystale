@@ -101,10 +101,12 @@ func _on_HitBox_area_entered(area):
 
 func _on_DetectionArea_area_entered(area):
 	state = CHASE
+	$Alert.visible = true
 
 
 func _on_DetectionArea_area_exited(area):
 	state = IDLE
+	$AnimationPlayer.play("AlertDisappear")
 
 
 func _on_FlashTimer_timeout():
