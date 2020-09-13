@@ -67,7 +67,7 @@ wait_time = 0.35
 one_shot = true
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
-wait_time = 0.175
+wait_time = 0.35
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_DetectionArea_area_entered"]

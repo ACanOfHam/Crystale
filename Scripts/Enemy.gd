@@ -15,8 +15,10 @@ onready var RestTimer: Timer = $RestTimer
 onready var Sounds: Node = get_owner().get_node("Sounds")
 onready var Acceleration: int = Stats.speed/4
 var Move: Vector2 = Vector2.ZERO
+var rng =  RandomNumberGenerator.new()
 var knockback: Vector2 = Vector2.ZERO
 onready var Player: KinematicBody2D = get_owner().get_node("Player")
+var DamageMultiplier
 enum {
 	IDLE,
 	CHASE,
@@ -44,6 +46,8 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
+	rng.randomize()
+	DamageMultiplier = rng.randf_range(1,1.5)
 	disable(EnemyHurtBox)
 	InvincibilityTimer.start()
 	knockback_direction = EnemyHurtBox.global_position - area.global_position
@@ -59,15 +63,18 @@ func _on_HurtBox_area_entered(area):
 	
 	match SwordFrame.frame:
 		8:
-			DamageTaken = 10 
+			DamageTaken = 10 * DamageMultiplier
 		9:
-			DamageTaken = 20
+			DamageTaken = 20 * DamageMultiplier
 		10:
-			DamageTaken = 30
+			DamageTaken = 30 * DamageMultiplier
 		11:
-			DamageTaken = 40
+			DamageTaken = 40 * DamageMultiplier
 		13:
-			DamageTaken = 60
+			DamageTaken = 60 * DamageMultiplier
+	
+	if DamageMultiplier >= 1.4:
+		floaty_text.modulate = Color("FFD700") 
 	
 	Stats.health -= DamageTaken
 	floaty_text.text = DamageTaken
@@ -112,7 +119,7 @@ func _on_InvinsibilityTimer_timeout():
 	enable(EnemyHurtBox)
 
 func disable(area):
-	area.set_collision_layer_bit(4, false)
+	area.set_collision_layer_bit(5, false)
 
 func enable(area):
-	area.set_collision_layer_bit(4, true)
+	area.set_collision_layer_bit(5, true)
