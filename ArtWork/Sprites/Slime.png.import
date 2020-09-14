@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Player_Flash_White.png-53d16ab5a37f4243730e692244f525b8.stex"
+path="res://.import/Slime.png-dddbb347a308be54724dd6ff43801a24.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/PlayerSprites/Player_Flash_White.png"
-dest_files=[ "res://.import/Player_Flash_White.png-53d16ab5a37f4243730e692244f525b8.stex" ]
+source_file="res://ArtWork/Sprites/Slime.png"
+dest_files=[ "res://.import/Slime.png-dddbb347a308be54724dd6ff43801a24.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -4,12 +4,12 @@ onready var animationPlayer:AnimationPlayer = $AnimationPlayer
 onready var AttackTimer: Timer = $SoundTimer
 var canPlaySFX: bool = false
 onready var Player: KinematicBody2D = get_owner().get_node("Player")
-onready var Sounds = get_parent().get_parent().get_node("Sounds")
+onready var Sounds = get_owner().get_owner().get_node("Sounds")
 
 func _ready():
 	canPlaySFX = true
 
-func _process(delta):
+func _process(_delta):
 	look_at(get_global_mouse_position())
 	
 	
@@ -17,7 +17,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("Attack") and canPlaySFX == true:
 		AttackTimer.start()
 		$AnimationPlayer.play("Attack")
-		Sounds.get_node("SFX").Play("Sword_Slash")
+		Sounds.playsfx("Sword_Slash")
 		canPlaySFX = false
 
 

@@ -12,7 +12,7 @@ onready var Default_Size = $Sprite.scale
 var mana: int = 100
 var canRegen: bool = true
 var knockback: Vector2 = Vector2.ZERO
-const KNOCKBACK_SPEED: int = 170
+const KNOCKBACK_SPEED: int = 295
 const KNOCKBACK_FRICTION: int = 350
 var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
@@ -141,7 +141,7 @@ func idle_state():
 #Function used for dashing
 func dash_state():
 	if canDash == true and mana >= 25:
-		mana = mana - 25
+		mana = mana - 15
 		self.set_collision_mask_bit(2, false)
 		Stretch_Finished = false
 		Animationplayer.play("Stretch")
@@ -186,7 +186,8 @@ func Set_Health(Value: int):
 
 
 func _on_Player_damaged():
-	PlayerSprite.visible = not PlayerSprite.visible
+#	PlayerSprite.visible = not PlayerSprite.visible
+	PlayerSprite.get_material().set_shader_param("whitening", 1)
 	InvisibilityTimer.start()
 
 
@@ -196,7 +197,8 @@ func _on_TimeTillNextGhost_timeout():
 
 func _on_InvisibilityTimer_timeout():
 	HurtBoxCollisionShape.set_disabled(false)
-	PlayerSprite.show()
+#	PlayerSprite.show()
+	PlayerSprite.get_material().set_shader_param("whitening", 0)
 
 
 #How long player dashes

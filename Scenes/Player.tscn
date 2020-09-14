@@ -1,7 +1,7 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://ArtWork/PlayerSprites/spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://ArtWork/Sprites/PlayerSpritesheet.png" type="Texture" id=2]
 [ext_resource path="res://UI/Health_Under.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Sword.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Health_Over.png" type="Texture" id=5]
@@ -15,22 +15,62 @@
 [ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=13]
 [ext_resource path="res://Scripts/HealthBar.gd" type="Script" id=14]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Hit"
+[sub_resource type="Shader" id=1]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform float whitening;
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    COLOR = vec4(mix(texture_color.rgb, vec3(1,1,1), whitening), texture_color.a);
+}"
+custom_defines = ""
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/whitening = 0.0
+
+[sub_resource type="Animation" id=3]
+length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/hit_opacity")
+tracks/0/path = NodePath(".:material:shader_param/whitening")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
+"update": 1,
 "values": [ 1.0, 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../AnimationPlayer:playback_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 length = 2.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -57,7 +97,7 @@ tracks/1/keys = {
 "values": [ 1.38 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
@@ -83,7 +123,7 @@ tracks/1/keys = {
 "values": [ 2.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -98,7 +138,7 @@ tracks/0/keys = {
 "values": [ Vector2( 2.7, 2.6 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 length = 2.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -125,7 +165,7 @@ tracks/1/keys = {
 "values": [ 4.0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
@@ -151,19 +191,19 @@ tracks/1/keys = {
 "values": [ 7.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 16.1717, 26.885 )
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 19.1396, 27.6959 )
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 19.1396, 30.0123 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=11]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_char = 1
 font_data = ExtResource( 8 )
 
-[sub_resource type="CapsuleShape2D" id=10]
+[sub_resource type="CapsuleShape2D" id=12]
 radius = 26.5357
 height = 23.8368
 
@@ -190,6 +230,7 @@ Shadow = NodePath("Shadow")
 HurtBoxCollisionShape = NodePath("HurtBox/CollisionShape2D")
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
 position = Vector2( 0.192089, -0.936443 )
 scale = Vector2( 1.35, 1.35 )
 texture = ExtResource( 2 )
@@ -198,13 +239,12 @@ hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
-playback_speed = 0.5
-anims/Hit = SubResource( 1 )
-anims/Idle = SubResource( 2 )
-anims/Kill = SubResource( 3 )
-anims/Reset = SubResource( 4 )
-anims/Run = SubResource( 5 )
-anims/Stretch = SubResource( 6 )
+anims/Hit = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+anims/Kill = SubResource( 5 )
+anims/Reset = SubResource( 6 )
+anims/Run = SubResource( 7 )
+anims/Stretch = SubResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -231,21 +271,20 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 2.80077, -6.5199 )
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 
 [node name="TimeTillNextGhost" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 position = Vector2( 1.8, 0 )
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 1.58847, -6.60243 )
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -257,7 +296,7 @@ collision_layer = 0
 collision_layer = 0
 
 [node name="InvisibilityTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.035
 one_shot = true
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -267,7 +306,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 position = Vector2( 1.9, -5.5 )
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -322,7 +361,7 @@ margin_top = -3.0
 margin_right = 25.0
 margin_bottom = 12.0
 rect_scale = Vector2( 3, 3.5 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
 text = "HP"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -366,7 +405,7 @@ script = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
 position = Vector2( 2.42018, -5.19131 )
-shape = SubResource( 10 )
+shape = SubResource( 12 )
 
 [node name="Shadow" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.490196 )
@@ -374,6 +413,7 @@ show_behind_parent = true
 position = Vector2( 1.40852, 19.603 )
 scale = Vector2( 1.15607, 0.590307 )
 texture = ExtResource( 13 )
+[connection signal="damaged" from="." to="." method="_on_Player_damaged"]
 [connection signal="health_updated" from="." to="HUD/GUI/HealthBar/HealthBar" method="_on_Player_health_updated"]
 [connection signal="mana_updated" from="." to="HUD/GUI/Mana" method="_on_Player_mana_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

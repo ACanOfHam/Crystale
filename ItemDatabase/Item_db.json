@@ -1,63 +1,66 @@
- {
-    "Bronze Sword":
-    {
-          "itemCategory": "Sword",
-          "itemAttack": "10",
-          "StackSize": "1",
-          "Description": "A sword made of bronze that does low damage"
-    },
-
-    "Iron Sword":
-    {
-          "itemCategory": "Sword",
-          "itemAttack": "20",
-          "StackSize": "1",
-          "Description": "A sword made of iron that does okay damage"
-    },
-    "Gold Sword":
-    {
-          "itemCategory": "Sword",
-          "itemAttack": "25",
-          "StackSize": "1",
-          "Description": "A sword made of gold that does good damage"
-    },
-    "Diamond Sword":
-    {
-         
-          "itemCategory": "Sword",
-          "itemAttack": "35",
-          "StackSize": "1",
-          "Description": "A sword made of gold that does high damage"
-    },
-    "Bow":
-    {
-          "itemCategory": "Bow",
-          "itemAttack": "15",
-          "StackSize": "1",
-          "Description": "A basic bow that does damage from range"
-    },
-    "Piercing Bow":
-    {
-          "itemCategory": "Bow",
-          "itemAttack": "20",
-          "StackSize": "1",
-          "itemAttack": "20",
-          "StackSize": "1",
-          "Description": "A piercing bow that does high damage from range"
-    },
-    "Health Potion":
-    {
-          "itemCategory": "Consumable",
-          "AddHealth": "25",
-          "StackSize": "32",
-          "Description": "A potion that heals you obviously"
-    },
-    "Mana Potion":
-    {
-          "itemCategory": "Consumable",
-          "AddMana": "100",
-          "StackSize": "32",
-          "Description": "A potion that increases your mana obviously"
-    }
-    
- }
+{
+  "Bronze Sword": {
+    "itemCategory": "Sword",
+    "itemAttack": 15,
+    "AddHealth": 0,
+    "AddMana": 0,
+    "StackSize": 1,
+    "Description": "A sword made of bronze that does low damage"
+  },
+  "Iron Sword": {
+    "itemCategory": "Sword",
+    "itemAttack": 25,
+    "AddHealth": 0,
+    "AddMana": 0,
+    "StackSize": 1,
+    "Description": "A sword made of iron that does okay damage"
+  },
+  "Gold Sword": {
+    "itemCategory": "Sword",
+    "itemAttack": 35,
+    "AddHealth": 0,
+    "AddMana": 0,
+    "StackSize": 1,
+    "Description": "A sword made of gold that does good damage"
+  },
+  "Diamond Sword": {
+    "itemCategory": "Sword",
+    "itemAttack": 45,
+    "AddHealth": 0,
+    "AddMana": 0,
+    "StackSize": 1,
+    "Description": "A sword made of gold that does high damage"
+  },
+  "Bow": {
+    "itemCategory": "Bow",
+    "itemAttack": 20,
+    "AddHealth": 0,
+    "AddMana": 0,
+    "StackSize": 1,
+    "Description": "A basic bow that does damage from range"
+  },
+  "Piercing Bow": {
+    "itemCategory": "Bow",
+    "itemAttack": 30,
+    "AddHealth": 0,
+    "AddMana": 0,
+    "StackSize": 1,
+    "Description": "A piercing bow that does high damage from range"
+  },
+  "Health Potion": {
+    "itemCategory": "Consumable",
+    "itemAttack": 0,
+    "AddHealth": 25,
+    "AddMana": 0,
+    "StackSize": 24,
+    "Description": "A potion that heals you obviously"
+  },
+  "Mana Potion": {
+    "itemCategory": "Consumable",
+    "itemAttack": 0,
+    "AddHealth": 0,
+    "AddMana": 50,
+    "StackSize": 24,
+    "Description": "A potion that increases your mana obviously"
+  }
+}

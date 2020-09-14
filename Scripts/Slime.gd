@@ -65,15 +65,15 @@ func _on_HurtBox_area_entered(area):
 	
 	match SwordFrame.frame:
 		8:
-			DamageTaken = 10 * DamageMultiplier
+			DamageTaken = 15 * DamageMultiplier
 		9:
-			DamageTaken = 20 * DamageMultiplier
+			DamageTaken = 25 * DamageMultiplier
 		10:
-			DamageTaken = 30 * DamageMultiplier
+			DamageTaken = 35 * DamageMultiplier
 		11:
-			DamageTaken = 40 * DamageMultiplier
+			DamageTaken = 45 * DamageMultiplier
 		13:
-			DamageTaken = 60 * DamageMultiplier
+			DamageTaken = 65 * DamageMultiplier
 	
 	if DamageMultiplier >= 1.4:
 		floaty_text.modulate = Color("FFD700") 
@@ -87,21 +87,32 @@ func _on_HurtBox_area_entered(area):
 
 func Move_State(delta):
 	Animationplayer.play("Move")
-	if Move.x > 1:
-		EnemySprite.set_flip_h(false)
-	else:
-		EnemySprite.set_flip_h(true)
-		
+#	if Move.x > 1:
+#		EnemySprite.set_flip_h(false)
+#	else:
+#		EnemySprite.set_flip_h(true)
+
 	Move = (Player.global_position - global_position).normalized() * Stats.speed
+	if EnemySprite.frame >= 9:
+		if Move.x > 1:
+			EnemySprite.set_flip_h(false)
+		else:
+			EnemySprite.set_flip_h(true)
+		Move = Vector2(0,0)
+	else:
+		if Move.x > 1:
+			EnemySprite.set_flip_h(false)
+		else:
+			EnemySprite.set_flip_h(true)
 	Move = move_and_slide(Move) * Stats.speed * delta
 
 
 func Idle_State():
 	EnemySprite.frame = 0
+
+
 func _on_HitBox_area_entered(area):
 	Player.damage(Stats.damage)
-	state = IDLE
-	RestTimer.start()
 
 
 func _on_DetectionArea_area_entered(area):
@@ -116,10 +127,6 @@ func _on_DetectionArea_area_exited(area):
 func _on_FlashTimer_timeout():
 	EnemySprite.show()
 	EnemySprite.get_material().set_shader_param("whitening", 0)
-
-
-func _on_RestTimer_timeout():
-	state = CHASE
 
 
 func _on_InvinsibilityTimer_timeout():
