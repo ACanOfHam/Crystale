@@ -6,7 +6,7 @@ var DamageTaken: int
 var TotalDamageTaken: int
 #onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
 onready var InvincibilityTimer = $InvincibilityTimer
-onready var SwordFrame: Sprite = get_owner().get_node("Player/Sword/Sprite")
+onready var SwordFrame: Sprite = get_owner().get_node("Sort/Player/Sword/Sprite")
 onready var Stats: Node = $Stats
 onready var EnemySprite: Sprite = $Sprite
 onready var EnemyHurtBox: Area2D = $HurtBox
@@ -18,7 +18,7 @@ onready var Animationplayer = $AnimationPlayer
 var Move: Vector2 = Vector2.ZERO
 var rng =  RandomNumberGenerator.new()
 var knockback: Vector2 = Vector2.ZERO
-onready var Player: KinematicBody2D = get_owner().get_node("Player")
+onready var Player: KinematicBody2D = get_owner().get_node("Sort/Player")
 var DamageMultiplier
 enum {
 	IDLE,

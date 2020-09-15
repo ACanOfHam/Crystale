@@ -40,7 +40,7 @@ func set_item(nm, qt):
 
 	var stack_size = int(JsonItemDb.item_data[item_name]["StackSize"])
 	if stack_size == 1:
-		label.visible = false
+		label.hide()
 	else:
-		label.visible = true
+		label.show()
 		label.text = String(item_quantity)

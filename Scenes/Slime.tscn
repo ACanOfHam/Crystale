@@ -74,18 +74,24 @@ scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( -0.44545, 6.23629 )
+position = Vector2( -0.148483, -21.9755 )
 
 [node name="Sprite" parent="." index="1"]
 material = SubResource( 2 )
-position = Vector2( 0, -30 )
+position = Vector2( 0.296967, -58.2118 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 14
 
+[node name="HitBox" parent="." index="2"]
+visible = false
+
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2( 0, 5.79084 )
 shape = SubResource( 3 )
+
+[node name="HurtBox" parent="." index="3"]
+visible = false
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2( -0.296967, 5.93932 )
@@ -96,9 +102,13 @@ anims/Idle = SubResource( 4 )
 anims/Move = SubResource( 5 )
 
 [node name="Stats" parent="." index="5"]
+maxHealth = 75
 damage = 5
 speed = 210
 knockBackMultiplier = 250.0
+
+[node name="DetectionArea" parent="." index="6"]
+visible = false
 
 [node name="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource( 6 )

@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 #Movement variable
-var MAX_SPEED: int = 19000
+var MAX_SPEED: int = 90000
 var ACCELERATION: int = MAX_SPEED / 4
-const FRICTION: int = 19000
+const FRICTION: int = 90000
 var velocity: Vector2
 onready var canDash: bool = true
 var input_vector: Vector2 = Vector2.ZERO
@@ -88,11 +88,13 @@ func _process(delta):
 	var gpos = self.get_global_position()
 	if gpos.x < vert.x:
 		PlayerSprite.set_flip_h(false)
-		Shadow.position.x = 1.156
+		Shadow.position.x = -1.118
+		$CollisionShape2D.position.x = -1.118
 		vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
 	else:
 		PlayerSprite.set_flip_h(true)
-		Shadow.position.x = -1.345
+		Shadow.position.x = -3.5
+		$CollisionShape2D.position.x = -3.5
 
 
 #This process is called every physics frame 
@@ -129,8 +131,8 @@ func move_state(delta):
 		velocity = velocity.clamped(MAX_SPEED * delta) * SpeedMultiplier
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
-
 	move_and_slide(velocity)
+	velocity = Vector2.ZERO
 
 
 func idle_state():
