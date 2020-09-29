@@ -11,12 +11,10 @@ func _input(event):
 			Paused.visible = true
 			get_tree().paused = true
 			TextureRect.visible = true
-			AnimationPlayer.play("FadeIn")
-			get_owner().get_node("Player/HUD/GUI").visible = false
 			i = 1
+			AnimationPlayer.play("FadeIn")
 		elif i == 1:
 			Paused.visible = false
 			get_tree().paused = false
 			i = 0
 			AnimationPlayer.play("FadeOut")
-			get_owner().get_node("Player/HUD/GUI").visible = true

@@ -102,7 +102,7 @@ anims/Idle = SubResource( 4 )
 anims/Move = SubResource( 5 )
 
 [node name="Stats" parent="." index="5"]
-maxHealth = 75
+maxHealth = 200
 damage = 5
 speed = 210
 knockBackMultiplier = 250.0
@@ -112,6 +112,9 @@ visible = false
 
 [node name="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource( 6 )
+
+[node name="Alert" parent="." index="10"]
+position = Vector2( 0, -64.1262 )
 
 [editable path="HitBox"]
 

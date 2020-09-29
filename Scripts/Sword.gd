@@ -3,8 +3,9 @@ extends Area2D
 onready var animationPlayer:AnimationPlayer = $AnimationPlayer
 onready var AttackTimer: Timer = $SoundTimer
 var canPlaySFX: bool = false
+var Sounds
 onready var Player: KinematicBody2D = get_owner().get_node("Player")
-onready var Sounds = get_owner().get_owner().get_node("Sounds")
+#onready var Sounds = get_parent().get_owner().get_node("Sounds")
 
 func _ready():
 	canPlaySFX = true
@@ -15,9 +16,11 @@ func _process(_delta):
 	
 	
 	if Input.is_action_just_pressed("Attack") and canPlaySFX == true:
+		Sounds = get_parent().get_owner().get_node("Sounds")
 		AttackTimer.start()
 		$AnimationPlayer.play("Attack")
-		Sounds.playsfx("Sword_Slash")
+		if Sounds != null:
+			Sounds.playsfx("Sword_Slash")
 		canPlaySFX = false
 
 

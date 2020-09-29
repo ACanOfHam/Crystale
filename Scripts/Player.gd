@@ -18,7 +18,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
-onready var Sounds = get_owner().get_node("Sounds")
+var Sounds
 #onready var Sword: Area2D = $Sword
 export (NodePath) onready var Sword
 #onready var PlayerSprite: Sprite = $Sprite
@@ -45,6 +45,7 @@ export (NodePath) var DashCoolDown
 export (NodePath) var Shadow
 #onready var HurtBoxCollisionShape = $HurtBox/CollisionShape2D
 export (NodePath) var HurtBoxCollisionShape
+export (NodePath) var Collisionshape
 
 #State Machine
 var state
@@ -68,11 +69,12 @@ onready var health: int = max_health setget Set_Health
 
 #Animation Variables
 var Stretch_Finished = true
+var currentAnimation
+var newAnimation
 
 
 func _ready():
 	Get_References()
-	Sounds.playmusic("OverWorld_Music")
 
 
 #This process is called every frame and should not be used for physics
@@ -89,12 +91,12 @@ func _process(delta):
 	if gpos.x < vert.x:
 		PlayerSprite.set_flip_h(false)
 		Shadow.position.x = -1.118
-		$CollisionShape2D.position.x = -1.118
+		Collisionshape.position.x = -1.118
 		vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
 	else:
 		PlayerSprite.set_flip_h(true)
 		Shadow.position.x = -3.5
-		$CollisionShape2D.position.x = -3.5
+		Collisionshape.position.x = -3.5
 
 
 #This process is called every physics frame 
@@ -117,8 +119,7 @@ func _physics_process(delta):
 
 
 func move_state(delta):
-	if Stretch_Finished == true:
-		Animationplayer.play("Run")
+	PlayAnimation("Run")
 
 	#Movement
 	input_vector = Vector2.ZERO
@@ -136,18 +137,16 @@ func move_state(delta):
 
 
 func idle_state():
-	if Stretch_Finished == true:
-		Animationplayer.play("Idle")
+	PlayAnimation("Idle")
 
 
 #Function used for dashing
 func dash_state():
 	if canDash == true and mana >= 25:
-		mana = mana - 15
+		mana = mana - 20
 		self.set_collision_mask_bit(2, false)
-		Stretch_Finished = false
-		Animationplayer.play("Stretch")
 		emit_signal("mana_updated", mana)
+		Sounds = get_owner().get_node("Sounds")
 		Sounds.playsfx("Dash")
 		canDash = false
 		SpeedMultiplier = 4
@@ -173,6 +172,7 @@ func Create_Ghost():
 
 func damage(amount):
 	if DashTimer.is_stopped():
+		Sounds = get_owner().get_node("Sounds")
 		Sounds.playsfx("Hurt")
 		print(health)
 		Set_Health(health - amount)
@@ -225,8 +225,6 @@ func _on_HurtBox_area_entered(area):
 	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
 
 
-func _on_AnimationPlayer_animation_finished(Stretch):
-	Stretch_Finished = true
 
 
 func _on_HitBox_area_entered(_area):
@@ -241,6 +239,14 @@ func _input(event):
 			pickup_item.pick_up_item(self)
 			$PickupZone.items_in_range.erase(pickup_item)
 
+func PlayAnimation(animationWantedToPlay):
+	newAnimation = animationWantedToPlay
+
+	if (currentAnimation == newAnimation): return
+	
+	Animationplayer.play(newAnimation)
+	
+	currentAnimation = newAnimation
 
 func Get_References():
 	PlayerSprite = get_node(PlayerSprite)
@@ -256,3 +262,4 @@ func Get_References():
 	DashCoolDown = get_node(DashCoolDown)
 	Shadow = get_node(Shadow)
 	HurtBoxCollisionShape = get_node(HurtBoxCollisionShape)
+	Collisionshape = get_node(Collisionshape)

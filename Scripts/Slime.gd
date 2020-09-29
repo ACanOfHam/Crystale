@@ -99,11 +99,13 @@ func Move_State(delta):
 		else:
 			EnemySprite.set_flip_h(true)
 		Move = Vector2(0,0)
+		Stats.knockBackMultiplier = 15
 	else:
 		if Move.x > 1:
 			EnemySprite.set_flip_h(false)
 		else:
 			EnemySprite.set_flip_h(true)
+		Stats.knockBackMultiplier = 300
 	Move = move_and_slide(Move) * Stats.speed * delta
 
 
@@ -111,15 +113,15 @@ func Idle_State():
 	EnemySprite.frame = 0
 
 
-func _on_HitBox_area_entered(area):
+func _on_HitBox_area_entered(_area):
 	Player.damage(Stats.damage)
 
 
-func _on_DetectionArea_area_entered(area):
+func _on_DetectionArea_area_entered(_area):
 	state = CHASE
 	$Alert.visible = true
 
-func _on_DetectionArea_area_exited(area):
+func _on_DetectionArea_area_exited(_area):
 	state = IDLE
 	$AnimationPlayer.play("AlertDisappear")
 

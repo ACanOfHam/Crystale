@@ -1,6 +1,5 @@
 extends TextureProgress
 
-onready var Target = get_owner().get_node("Player")
 onready var HealthBarUnder = $HealthBarUnder
 onready var HealthBarTween = get_parent().get_node("UpdateTween")
 

@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ArtWork/Menu-Background.jpg" type="Texture" id=2]
+[ext_resource path="res://Scripts/Menu.gd" type="Script" id=3]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -118.354
+margin_top = -42.0627
+margin_right = -58.3542
+margin_bottom = -22.0627
+rect_scale = Vector2( 4, 4 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Button"]
+margin_left = 11.0
+margin_top = 3.0
+margin_right = 46.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 1 )
+text = "PLAY"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -4,6 +4,9 @@ extends Node
 var SFX
 var Music 
 
+func _ready():
+	playmusic("OverWorld_Music")
+
 func _enter_tree():
 	Music = $Music
 	SFX = $SFX

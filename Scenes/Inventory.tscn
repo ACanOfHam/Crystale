@@ -11,7 +11,7 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="Inventory" type="Node2D"]
-z_index = -1
+z_index = -5
 script = ExtResource( 5 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -60,7 +60,6 @@ __meta__ = {
 }
 
 [node name="Slot1" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
@@ -68,7 +67,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot2" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
@@ -77,7 +75,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot3" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 72.0
 margin_right = 104.0
 margin_bottom = 32.0
@@ -86,7 +83,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot4" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 108.0
 margin_right = 140.0
 margin_bottom = 32.0
@@ -95,7 +91,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot5" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 144.0
 margin_right = 176.0
 margin_bottom = 32.0
@@ -104,7 +99,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot6" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_top = 36.0
 margin_right = 32.0
 margin_bottom = 68.0
@@ -113,7 +107,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot7" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 36.0
 margin_top = 36.0
 margin_right = 68.0
@@ -123,7 +116,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot8" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 72.0
 margin_top = 36.0
 margin_right = 104.0
@@ -133,7 +125,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot9" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 108.0
 margin_top = 36.0
 margin_right = 140.0
@@ -143,7 +134,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot10" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 144.0
 margin_top = 36.0
 margin_right = 176.0
@@ -153,7 +143,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot11" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_top = 72.0
 margin_right = 32.0
 margin_bottom = 104.0
@@ -162,7 +151,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot12" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 36.0
 margin_top = 72.0
 margin_right = 68.0
@@ -172,7 +160,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot13" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 72.0
 margin_top = 72.0
 margin_right = 104.0
@@ -182,7 +169,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot14" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 108.0
 margin_top = 72.0
 margin_right = 140.0
@@ -192,7 +178,6 @@ custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Slot15" type="Panel" parent="TextureRect/GridContainer"]
-show_behind_parent = true
 margin_left = 144.0
 margin_top = 72.0
 margin_right = 176.0
