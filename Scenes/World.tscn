@@ -233,6 +233,20 @@ scale = Vector2( 100, 100 )
 
 [node name="Player" parent="Sort" instance=ExtResource( 1 )]
 position = Vector2( -79, 41 )
+sword = NodePath("Sword")
+player_sprite = NodePath("Sprite")
+dash_timer = NodePath("DashTimer")
+health_bar = NodePath("HUD/GUI/HealthBar/HealthBar")
+health_bar_under = NodePath("HUD/GUI/HealthBar/HealthBar/HealthBarUnder")
+health_bar_tween = NodePath("HUD/GUI/HealthBar/UpdateTween")
+hurtbox = NodePath("HurtBox")
+animationplayer = NodePath("AnimationPlayer")
+time_till_next_ghost = NodePath("TimeTillNextGhost")
+invisibility_timer = NodePath("InvisibilityTimer")
+dash_cool_down = NodePath("DashCoolDown")
+shadow = NodePath("Shadow")
+hurtbox_collision_shape = NodePath("HurtBox/CollisionShape2D")
+collision_shape = NodePath("CollisionShape2D")
 
 [node name="Slime" parent="Sort" instance=ExtResource( 8 )]
 position = Vector2( -81.8949, 311.201 )
@@ -244,3 +258,5 @@ position = Vector2( -275.459, 5.53973 )
 position = Vector2( -328, -72 )
 
 [editable path="Sort/Player"]
+
+[editable path="Sort/Player/Sword"]

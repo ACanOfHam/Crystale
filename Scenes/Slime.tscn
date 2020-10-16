@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ArtWork/Sprites/Slime.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Slime.gd" type="Script" id=3]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="CircleShape2D" id=1]
+radius = 27.9071
+
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 
 uniform float whitening;
@@ -15,15 +18,15 @@ void fragment() {
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 2 )
 shader_param/whitening = null
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 37.0063, 28.5332 )
+[sub_resource type="CircleShape2D" id=4]
+radius = 28.6647
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -38,7 +41,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 5.5
 loop = true
 tracks/0/type = "value"
@@ -66,7 +69,7 @@ tracks/1/keys = {
 "values": [ 4.5 ]
 }
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=7]
 radius = 250.0
 
 [node name="Slime" instance=ExtResource( 2 )]
@@ -74,21 +77,19 @@ scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( -0.148483, -21.9755 )
+position = Vector2( 0.557816, -21.9755 )
+shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-material = SubResource( 2 )
+material = SubResource( 3 )
 position = Vector2( 0.296967, -58.2118 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 14
 
-[node name="HitBox" parent="." index="2"]
-visible = false
-
 [node name="CollisionShape2D" parent="HitBox" index="0"]
-position = Vector2( 0, 5.79084 )
-shape = SubResource( 3 )
+position = Vector2( 1.76577, 11.4413 )
+shape = SubResource( 4 )
 
 [node name="HurtBox" parent="." index="3"]
 visible = false
@@ -98,8 +99,8 @@ position = Vector2( -0.296967, 5.93932 )
 
 [node name="AnimationPlayer" parent="." index="4"]
 playback_speed = 4.5
-anims/Idle = SubResource( 4 )
-anims/Move = SubResource( 5 )
+anims/Idle = SubResource( 5 )
+anims/Move = SubResource( 6 )
 
 [node name="Stats" parent="." index="5"]
 maxHealth = 200
@@ -111,7 +112,7 @@ knockBackMultiplier = 250.0
 visible = false
 
 [node name="CollisionShape2D" parent="DetectionArea" index="0"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Alert" parent="." index="10"]
 position = Vector2( 0, -64.1262 )

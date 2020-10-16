@@ -202,20 +202,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
-Sword = NodePath("Sword")
-PlayerSprite = NodePath("Sprite")
-DashTimer = NodePath("DashTimer")
-HealthBar = NodePath("HUD/GUI/HealthBar/HealthBar")
-HealthBarUnder = NodePath("HUD/GUI/HealthBar/HealthBar/HealthBarUnder")
-HealthBarTween = NodePath("HUD/GUI/HealthBar/UpdateTween")
-HurtBox = NodePath("HurtBox")
-Animationplayer = NodePath("AnimationPlayer")
-TimeTillNextGhost = NodePath("TimeTillNextGhost")
-InvisibilityTimer = NodePath("InvisibilityTimer")
-DashCoolDown = NodePath("DashCoolDown")
-Shadow = NodePath("Shadow")
-HurtBoxCollisionShape = NodePath("HurtBox/CollisionShape2D")
-Collisionshape = NodePath("CollisionShape2D")
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 15 )

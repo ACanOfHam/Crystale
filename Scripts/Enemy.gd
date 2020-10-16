@@ -1,25 +1,27 @@
 extends KinematicBody2D
 
+
 var old_shape = null
 var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
-var DamageTaken: int
-var TotalDamageTaken: int
+var damage_taken: int
+var total_damage_taken: int
 #onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
-onready var InvincibilityTimer = $InvincibilityTimer
-onready var SwordFrame: Sprite = get_owner().get_node("Player/Sword/Sprite")
-onready var Stats: Node = $Stats
-onready var EnemySprite: Sprite = $Sprite
-onready var EnemyHurtBox: Area2D = $HurtBox
-onready var FlashTimer: Timer = $FlashTimer
-onready var RestTimer: Timer = $RestTimer
-onready var Sounds: Node = get_owner().get_node("Sounds")
-onready var Acceleration: int = Stats.speed/4
-onready var Animationplayer = $AnimationPlayer
-var Move: Vector2 = Vector2.ZERO
+onready var alert = $Alert
+onready var invincibility_timer = $InvincibilityTimer
+onready var sword_frame: Sprite = get_parent().get_node("Player").get_node("Sword/Sprite")
+onready var stats: Node = $Stats
+onready var enemy_sprite: Sprite = $Sprite
+onready var enemy_hurtBox: Area2D = $HurtBox
+onready var flash_timer: Timer = $FlashTimer
+onready var rest_timer: Timer = $RestTimer
+onready var sounds: Node = get_owner().get_node("Sounds")
+onready var acceleration: int = stats.speed/4
+onready var animationplayer = $AnimationPlayer
+var move: Vector2 = Vector2.ZERO
 var rng =  RandomNumberGenerator.new()
 var knockback: Vector2 = Vector2.ZERO
-onready var Player: KinematicBody2D = get_owner().get_node("Player")
-var DamageMultiplier
+onready var player: KinematicBody2D = get_parent().get_node("Player")
+var damage_multiplier
 enum {
 	IDLE,
 	CHASE,
@@ -35,11 +37,9 @@ func _physics_process(delta):
 	
 	match state:
 		IDLE:
-			Idle_State()
+			idle_state()
 		CHASE:
-			Move_State(delta)
-		WANDER:
-			pass
+			move_state(delta)
 	
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 	knockback_velocity = move_and_slide(knockback_velocity)
@@ -48,74 +48,72 @@ func _physics_process(delta):
 
 func _on_HurtBox_area_entered(area):
 	rng.randomize()
-	DamageMultiplier = rng.randf_range(1,1.5)
-	disable(EnemyHurtBox)
-	InvincibilityTimer.start()
-	knockback_direction = EnemyHurtBox.global_position - area.global_position
+	damage_multiplier = rng.randf_range(1,1.5)
+	disable(enemy_hurtBox)
+	invincibility_timer.start()
+	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	knockback_velocity = knockback_direction * Stats.knockBackMultiplier
+	knockback_velocity = knockback_direction * stats.knockBackMultiplier
 	var floaty_text = floaty_text_scene.instance()
 	floaty_text.text = null
-	Sounds.playsfx("Hurt")
+	sounds.playsfx("Hurt")
 #	EnemySprite.hide()
-	EnemySprite.get_material().set_shader_param("whitening", 1)
-	FlashTimer.start()
+	enemy_sprite.get_material().set_shader_param("whitening", 1)
+	flash_timer.start()
 	floaty_text.position = Vector2(0,0)
 	floaty_text.velocity = Vector2(rand_range(-50, 50), -100)
 	
-	match SwordFrame.frame:
+	match sword_frame.frame:
 		8:
-			DamageTaken = 10 * DamageMultiplier
+			damage_taken = 10 * damage_multiplier
 		9:
-			DamageTaken = 20 * DamageMultiplier
+			damage_taken = 20 * damage_multiplier
 		10:
-			DamageTaken = 30 * DamageMultiplier
+			damage_taken = 30 * damage_multiplier
 		11:
-			DamageTaken = 40 * DamageMultiplier
+			damage_taken = 40 * damage_multiplier
 		13:
-			DamageTaken = 60 * DamageMultiplier
+			damage_taken = 60 * damage_multiplier
 	
-	if DamageMultiplier >= 1.4:
+	if damage_multiplier >= 1.4:
 		floaty_text.modulate = Color("FFD700") 
 	
-	Stats.health -= DamageTaken
-	floaty_text.text = DamageTaken
+	stats.health -= damage_taken
+	floaty_text.text = damage_taken
 	add_child(floaty_text)
 	
-	if Stats.health <= 0:
+	if stats.health <= 0:
+		player.add_mana(40)
 		queue_free()
 
-func Move_State(delta):
-	Animationplayer.play("Move")
-	if Move.x > 1:
-		EnemySprite.set_flip_h(false)
-	else:
-		EnemySprite.set_flip_h(true)
-		
-	Move = (Player.global_position - global_position).normalized() * Stats.speed
-	Move = move_and_slide(Move) * Stats.speed * delta
+func move_state(delta):
+	animationplayer.play("Move")
+	move = (player.global_position - global_position).normalized() * stats.speed
+	move = move_and_slide(move) * stats.speed * delta
 
 
-func Idle_State():
-	EnemySprite.frame = 0
+func idle_state():
+	enemy_sprite.frame = 0
+
+
 func _on_HitBox_area_entered(area):
-	Player.damage(Stats.damage)
+	player.damage(stats.damage)
 	state = IDLE
-	RestTimer.start()
+	rest_timer.start()
 
 
 func _on_DetectionArea_area_entered(area):
 	state = CHASE
-	$Alert.visible = true
+	alert.visible = true
 
 func _on_DetectionArea_area_exited(area):
 	state = IDLE
-	$AnimationPlayer.play("AlertDisappear")
+	animationplayer.play("AlertDisappear")
 
 
 func _on_FlashTimer_timeout():
-	EnemySprite.show()
-	EnemySprite.get_material().set_shader_param("whitening", 0)
+	enemy_sprite.show()
+	enemy_sprite.get_material().set_shader_param("whitening", 0)
 
 
 func _on_RestTimer_timeout():
@@ -123,7 +121,7 @@ func _on_RestTimer_timeout():
 
 
 func _on_InvinsibilityTimer_timeout():
-	enable(EnemyHurtBox)
+	enable(enemy_hurtBox)
 
 func disable(area):
 	area.set_collision_layer_bit(5, false)

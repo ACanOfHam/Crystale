@@ -5,12 +5,12 @@ var MAX_SPEED: int = 90000
 var ACCELERATION: int = MAX_SPEED / 4
 const FRICTION: int = 90000
 var velocity: Vector2
-onready var canDash: bool = true
+onready var can_dash: bool = true
 var input_vector: Vector2 = Vector2.ZERO
 var SpeedMultiplier: int = 1
 onready var Default_Size = $Sprite.scale
-var mana: int = 100
-var canRegen: bool = true
+onready var mana: int = 100 
+var can_regen: bool = true
 var knockback: Vector2 = Vector2.ZERO
 const KNOCKBACK_SPEED: int = 295
 const KNOCKBACK_FRICTION: int = 350
@@ -18,38 +18,38 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
-var Sounds
+var sounds
 #onready var Sword: Area2D = $Sword
-export (NodePath) onready var Sword
+export (NodePath) onready var sword
 #onready var PlayerSprite: Sprite = $Sprite
-export (NodePath) onready var PlayerSprite
+export (NodePath) onready var player_sprite
 #onready var DashTimer: Timer = $DashTimer
-export (NodePath) onready var DashTimer
+export (NodePath) onready var dash_timer
 #onready var HealthBar: TextureProgress = $HUD/GUI/HealthBar/TextureProgress
-export (NodePath) onready var HealthBar
+export (NodePath) onready var health_bar
 #onready var HealthBarUnder: TextureProgress = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
-export (NodePath) onready var HealthBarUnder
+export (NodePath) onready var health_bar_under
 #onready var HealthBarTween: Tween = $HUD/GUI/HealthBar/UpdateTween
-export (NodePath) var HealthBarTween
+export (NodePath) onready var health_bar_tween
 #onready var HurtBox: Area2D = $HurtBox
-export (NodePath) var HurtBox
-#onready var Animationplayer: AnimationPlayer = $AnimationPlayer
-export (NodePath) var Animationplayer 
+export (NodePath) onready var hurtbox
+#onready var Animationplayer: AnimationPlayer = animation_player
+export (NodePath) onready var animationplayer
 #onready var TimeTillNextGhost: Timer = $TimeTillNextGhost
-export (NodePath) var TimeTillNextGhost
+export (NodePath) onready var time_till_next_ghost
 #onready var InvisibilityTimer: Timer = $InvisibilityTimer
-export (NodePath) var InvisibilityTimer
+export (NodePath) onready var invisibility_timer
 #onready var DashCoolDown: Timer = $DashCoolDown
-export (NodePath) var DashCoolDown
+export (NodePath) onready var dash_cool_down
 #onready var Shadow: Sprite = $Shadow
-export (NodePath) var Shadow
+export (NodePath) onready var shadow
 #onready var HurtBoxCollisionShape = $HurtBox/CollisionShape2D
-export (NodePath) var HurtBoxCollisionShape
-export (NodePath) var Collisionshape
+export (NodePath) onready var hurtbox_collision_shape
+export (NodePath) onready var collision_shape
 
 #State Machine
 var state
-var CanMove: bool = true
+var can_move: bool = true
 enum { 
 MOVE, 
 DASH, 
@@ -65,17 +65,15 @@ signal damaged
 
 #Health Variables
 export (int) var max_health = 100
-onready var health: int = max_health setget Set_Health
+onready var health: int = max_health setget set_health
 
 #Animation Variables
-var Stretch_Finished = true
-var currentAnimation
-var newAnimation
-
+var stretch_finished = true
+var current_animation
+var new_animation
 
 func _ready():
 	Get_References()
-
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
@@ -85,18 +83,23 @@ func _process(delta):
 	else:
 		state = IDLE
 	
+	#Toggle Console
+	if Input.is_action_just_pressed("toggle_console"):
+		get_owner().add_child(load("res://Scenes/Console.tscn").instance())
+		get_tree().paused = true
+	
 	#Getting Mouse Position and flipping character based on where mouse is
 	var vert = get_global_mouse_position()
 	var gpos = self.get_global_position()
 	if gpos.x < vert.x:
-		PlayerSprite.set_flip_h(false)
-		Shadow.position.x = -1.118
-		Collisionshape.position.x = -1.118
+		player_sprite.set_flip_h(false)
+		shadow.position.x = -1.118
+		collision_shape.position.x = -1.118
 		vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
 	else:
-		PlayerSprite.set_flip_h(true)
-		Shadow.position.x = -3.5
-		Collisionshape.position.x = -3.5
+		player_sprite.set_flip_h(true)
+		shadow.position.x = -3.5
+		collision_shape.position.x = -3.5
 
 
 #This process is called every physics frame 
@@ -119,7 +122,7 @@ func _physics_process(delta):
 
 
 func move_state(delta):
-	PlayAnimation("Run")
+	play_animation("Run")
 
 	#Movement
 	input_vector = Vector2.ZERO
@@ -128,6 +131,8 @@ func move_state(delta):
 	input_vector = input_vector.normalized()
 
 	if input_vector != Vector2.ZERO:
+		if SpeedMultiplier < 1:
+			SpeedMultiplier = 1
 		velocity += input_vector * ACCELERATION * delta
 		velocity = velocity.clamped(MAX_SPEED * delta) * SpeedMultiplier
 	else:
@@ -137,22 +142,21 @@ func move_state(delta):
 
 
 func idle_state():
-	PlayAnimation("Idle")
+	play_animation("Idle")
 
 
 #Function used for dashing
 func dash_state():
-	if canDash == true and mana >= 25:
-		mana = mana - 20
-		self.set_collision_mask_bit(2, false)
-		emit_signal("mana_updated", mana)
-		Sounds = get_owner().get_node("Sounds")
-		Sounds.playsfx("Dash")
-		canDash = false
-		SpeedMultiplier = 4
-		Create_Ghost()
-		DashTimer.start()
-		TimeTillNextGhost.start()
+	if can_dash == true:
+		if remove_mana(20) == true:
+			self.set_collision_mask_bit(2, false)
+			sounds = get_owner().get_node("Sounds")
+			sounds.playsfx("Dash")
+			can_dash = false
+			SpeedMultiplier = SpeedMultiplier * 4
+			create_ghost()
+			dash_timer.start()
+			time_till_next_ghost.start()
 
 
 func dead_state():
@@ -160,67 +164,78 @@ func dead_state():
 	pass
 
 
-func Create_Ghost():
-	var Ghost = preload("res://Scenes/GhostTrail.tscn").instance()
-	Ghost.global_position = PlayerSprite.global_position
-	Ghost.flip_h = PlayerSprite.flip_h
-	Ghost.texture = PlayerSprite.texture
-	Ghost.frame = PlayerSprite.frame
-	Ghost.scale = PlayerSprite.scale
-	get_tree().get_root().add_child(Ghost)
+func create_ghost():
+	var ghost = preload("res://Scenes/GhostTrail.tscn").instance()
+	ghost.global_position = player_sprite.global_position
+	ghost.flip_h = player_sprite.flip_h
+	ghost.texture = player_sprite.texture
+	ghost.frame = player_sprite.frame
+	ghost.scale = player_sprite.scale
+	get_tree().get_root().add_child(ghost)
 
 
 func damage(amount):
-	if DashTimer.is_stopped():
-		Sounds = get_owner().get_node("Sounds")
-		Sounds.playsfx("Hurt")
+	if dash_timer.is_stopped():
+		sounds = get_owner().get_node("Sounds")
+		sounds.playsfx("Hurt")
 		print(health)
-		Set_Health(health - amount)
+		set_health(health - amount)
 		emit_signal("damaged")
 
 
-func Set_Health(Value: int):
+func set_health(Value: int):
 	health = clamp(Value, 0, max_health)
 	emit_signal("health_updated", health)
 	if health == 0:
 		dead_state()
 		emit_signal("killed")
 
+func add_mana(value: int):
+	mana += value
+	emit_signal("mana_updated", mana)
+	if mana > 100:
+		mana = 100
+
+func remove_mana(value: int):
+	if value > mana:
+		return false 
+	else:
+		mana -= value
+		emit_signal("mana_updated", mana)
+		return true
 
 func _on_Player_damaged():
 #	PlayerSprite.visible = not PlayerSprite.visible
-	PlayerSprite.get_material().set_shader_param("whitening", 1)
-	InvisibilityTimer.start()
+	player_sprite.get_material().set_shader_param("whitening", 1)
+	invisibility_timer.start()
 
 
 func _on_TimeTillNextGhost_timeout():
-	Create_Ghost()
+	create_ghost()
 
 
 func _on_InvisibilityTimer_timeout():
-	HurtBoxCollisionShape.set_disabled(false)
-#	PlayerSprite.show()
-	PlayerSprite.get_material().set_shader_param("whitening", 0)
+	hurtbox_collision_shape.set_disabled(false)
+	#	PlayerSprite.show()
+	player_sprite.get_material().set_shader_param("whitening", 0)
 
 
 #How long player dashes
 func _on_DashTimer_timeout():
-	PlayerSprite.scale = Default_Size
-	DashCoolDown.start()
-	SpeedMultiplier = 1
+	player_sprite.scale = Default_Size
+	dash_cool_down.start()
+	SpeedMultiplier = SpeedMultiplier / 4
 	self.set_collision_mask_bit(2, true)
 
 
 
 func _on_DashCoolDown_timeout():
-	canDash = true
+	can_dash = true
 
 
 func _on_HurtBox_area_entered(area):
-	if mana < 100:
-		mana = mana + 5
-		emit_signal("mana_updated", mana)
-	knockback_direction = HurtBox.global_position - area.global_position
+	add_mana(5)
+	knockback_direction = hurtbox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
 
@@ -239,27 +254,28 @@ func _input(event):
 			pickup_item.pick_up_item(self)
 			$PickupZone.items_in_range.erase(pickup_item)
 
-func PlayAnimation(animationWantedToPlay):
-	newAnimation = animationWantedToPlay
+func play_animation(animation_wanted_to_play):
+	new_animation = animation_wanted_to_play
 
-	if (currentAnimation == newAnimation): return
+	if (current_animation == new_animation): return
 	
-	Animationplayer.play(newAnimation)
+	animationplayer.play(new_animation)
 	
-	currentAnimation = newAnimation
+	current_animation = new_animation
+
 
 func Get_References():
-	PlayerSprite = get_node(PlayerSprite)
-	Sword = get_node(Sword)
-	DashTimer = get_node(DashTimer)
-	HealthBar = get_node(HealthBar)
-	HealthBarUnder = get_node(HealthBarUnder)
-	HealthBarTween = get_node(HealthBarTween)
-	HurtBox = get_node(HurtBox)
-	Animationplayer = get_node(Animationplayer)
-	TimeTillNextGhost = get_node(TimeTillNextGhost)
-	InvisibilityTimer = get_node(InvisibilityTimer)
-	DashCoolDown = get_node(DashCoolDown)
-	Shadow = get_node(Shadow)
-	HurtBoxCollisionShape = get_node(HurtBoxCollisionShape)
-	Collisionshape = get_node(Collisionshape)
+	player_sprite = get_node(player_sprite)
+	sword = get_node(sword)
+	dash_timer = get_node(dash_timer)
+	health_bar = get_node(health_bar)
+	health_bar_under = get_node(health_bar_under)
+	health_bar_tween = get_node(health_bar_tween)
+	hurtbox = get_node(hurtbox)
+	animationplayer = get_node(animationplayer)
+	time_till_next_ghost = get_node(time_till_next_ghost)
+	invisibility_timer = get_node(invisibility_timer)
+	dash_cool_down = get_node(dash_cool_down)
+	shadow = get_node(shadow)
+	hurtbox_collision_shape = get_node(hurtbox_collision_shape)
+	collision_shape = get_node(collision_shape)

@@ -3,7 +3,7 @@ extends CanvasLayer
 var isInventory : bool
 
 
-func _input(event):
+func _unhandled_input(event):
 	if event.is_action_pressed("Inventory"):
 		$Inventory.initialize_inventory()
 		$Inventory.visible = !$Inventory.visible

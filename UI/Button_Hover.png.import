@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Trader-joe.png-4d00f6128fbb2eb84d8b0896b44ffc6a.stex"
+path="res://.import/Button_Hover.png-7c637c1fb3c5c8017ccf007d429bd1f6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Sprites/Trader-joe.png"
-dest_files=[ "res://.import/Trader-joe.png-4d00f6128fbb2eb84d8b0896b44ffc6a.stex" ]
+source_file="res://UI/Button_Hover.png"
+dest_files=[ "res://.import/Button_Hover.png-7c637c1fb3c5c8017ccf007d429bd1f6.stex" ]
 
 [params]
 

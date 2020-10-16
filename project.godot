@@ -16,18 +16,18 @@ _global_script_class_icons={
 [application]
 
 config/name="RPG"
-run/main_scene="res://Scenes/World.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
 config/use_custom_user_dir=true
 boot_splash/image="res://ArtWork/Logo-export.png"
-boot_splash/fullsize=false
 boot_splash/use_filter=false
-boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
+boot_splash/bg_color=Color( 0.8, 0.886275, 0.882353, 1 )
 
 [autoload]
 
 JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
 PlayerInventory="*res://Scripts/PlayerInventory.gd"
 PauseMenu="*res://Scenes/PauseMenu.tscn"
+SceneChanger="*res://Scenes/SceneChanger.tscn"
 
 [display]
 
@@ -36,7 +36,6 @@ window/size/height=720
 window/dpi/allow_hidpi=true
 window/vsync/use_vsync=false
 window/stretch/mode="2d"
-window/stretch/aspect="expand"
 
 [editor_plugins]
 
@@ -106,6 +105,11 @@ pickup={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
+toggle_console={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [input_devices]
 
@@ -122,12 +126,17 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_7="EnemyHitbox"
 2d_physics/layer_8="Items"
 
+[memory]
+
+limits/message_queue/max_size_kb=2048
+
 [rendering]
 
 quality/2d/use_nvidia_rect_flicker_workaround=true
 quality/intended_usage/framebuffer_allocation=1
 quality/intended_usage/framebuffer_allocation.mobile=1
 quality/2d/use_pixel_snap=true
+threads/thread_model=2
 quality/subsurface_scattering/quality=2
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
