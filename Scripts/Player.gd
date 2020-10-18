@@ -56,6 +56,7 @@ DASH,
 DEAD, 
 IDLE 
 }
+var has_died: bool = false
 
 #Signals
 signal mana_updated(mana)
@@ -77,29 +78,31 @@ func _ready():
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
-	#State Management
-	if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
-		state = MOVE
-	else:
-		state = IDLE
-	
-	#Toggle Console
-	if Input.is_action_just_pressed("toggle_console"):
-		get_owner().add_child(load("res://Scenes/Console.tscn").instance())
-		get_tree().paused = true
+		#State Management
+	if has_died == false:
+		if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
+			state = MOVE
+		else:
+			state = IDLE
+		
+		#Toggle Console
+		if Input.is_action_just_pressed("toggle_console"):
+			get_owner().add_child(load("res://Scenes/Console.tscn").instance())
+			get_tree().paused = true
 	
 	#Getting Mouse Position and flipping character based on where mouse is
-	var vert = get_global_mouse_position()
-	var gpos = self.get_global_position()
-	if gpos.x < vert.x:
-		player_sprite.set_flip_h(false)
-		shadow.position.x = -1.118
-		collision_shape.position.x = -1.118
-		vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
-	else:
-		player_sprite.set_flip_h(true)
-		shadow.position.x = -3.5
-		collision_shape.position.x = -3.5
+	if has_died == false:
+		var vert = get_global_mouse_position()
+		var gpos = self.get_global_position()
+		if gpos.x < vert.x:
+			player_sprite.set_flip_h(false)
+			shadow.position.x = -1.118
+			collision_shape.position.x = -1.118
+			vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
+		else:
+			player_sprite.set_flip_h(true)
+			shadow.position.x = -3.5
+			collision_shape.position.x = -3.5
 
 
 #This process is called every physics frame 
@@ -131,7 +134,7 @@ func move_state(delta):
 	input_vector = input_vector.normalized()
 
 	if input_vector != Vector2.ZERO:
-		if SpeedMultiplier < 1:
+		if SpeedMultiplier < 1 and SpeedMultiplier != 0:
 			SpeedMultiplier = 1
 		velocity += input_vector * ACCELERATION * delta
 		velocity = velocity.clamped(MAX_SPEED * delta) * SpeedMultiplier
@@ -160,8 +163,15 @@ func dash_state():
 
 
 func dead_state():
-#	get_tree().paused = true
-	pass
+	has_died = true
+	SceneChanger.change_scene("DeadScreen")
+	if sword != null:
+		sword.queue_free()
+	if player_sprite != null:
+		player_sprite.queue_free()
+	if shadow != null:
+		shadow.queue_free()
+
 
 
 func create_ghost():
@@ -206,8 +216,9 @@ func remove_mana(value: int):
 
 func _on_Player_damaged():
 #	PlayerSprite.visible = not PlayerSprite.visible
-	player_sprite.get_material().set_shader_param("whitening", 1)
-	invisibility_timer.start()
+	if has_died == false:
+		player_sprite.get_material().set_shader_param("whitening", 1)
+		invisibility_timer.start()
 
 
 func _on_TimeTillNextGhost_timeout():
@@ -215,9 +226,10 @@ func _on_TimeTillNextGhost_timeout():
 
 
 func _on_InvisibilityTimer_timeout():
-	hurtbox_collision_shape.set_disabled(false)
-	#	PlayerSprite.show()
-	player_sprite.get_material().set_shader_param("whitening", 0)
+	if has_died == false:
+		hurtbox_collision_shape.set_disabled(false)
+		#	PlayerSprite.show()
+		player_sprite.get_material().set_shader_param("whitening", 0)
 
 
 #How long player dashes

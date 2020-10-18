@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/Button_Pressed.png" type="Texture" id=1]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://UI/Button_Normal.png" type="Texture" id=3]
+[ext_resource path="res://UI/Button_Hover.png" type="Texture" id=4]
+
+[node name="Button" type="TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = 265.0
+margin_right = -48.0
+margin_bottom = 280.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+texture_hover = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonLabel" type="Label" parent="."]
+margin_left = 9.0
+margin_top = 1.0
+margin_right = 38.0
+margin_bottom = 16.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 2 )
+text = "QUIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
