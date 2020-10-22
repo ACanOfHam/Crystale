@@ -7,8 +7,8 @@ const FRICTION: int = 90000
 var velocity: Vector2
 onready var can_dash: bool = true
 var input_vector: Vector2 = Vector2.ZERO
-var SpeedMultiplier: int = 1
-onready var Default_Size = $Sprite.scale
+var speed_multiplier: int = 1
+onready var default_size = $Sprite.scale
 onready var mana: int = 100 
 var can_regen: bool = true
 var knockback: Vector2 = Vector2.ZERO
@@ -134,10 +134,10 @@ func move_state(delta):
 	input_vector = input_vector.normalized()
 
 	if input_vector != Vector2.ZERO:
-		if SpeedMultiplier < 1 and SpeedMultiplier != 0:
-			SpeedMultiplier = 1
+		if speed_multiplier < 1 and speed_multiplier != 0:
+			speed_multiplier = 1
 		velocity += input_vector * ACCELERATION * delta
-		velocity = velocity.clamped(MAX_SPEED * delta) * SpeedMultiplier
+		velocity = velocity.clamped(MAX_SPEED * delta) * speed_multiplier
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	move_and_slide(velocity)
@@ -156,7 +156,7 @@ func dash_state():
 			sounds = get_owner().get_node("Sounds")
 			sounds.playsfx("Dash")
 			can_dash = false
-			SpeedMultiplier = SpeedMultiplier * 4
+			speed_multiplier = speed_multiplier * 4
 			create_ghost()
 			dash_timer.start()
 			time_till_next_ghost.start()
@@ -234,11 +234,10 @@ func _on_InvisibilityTimer_timeout():
 
 #How long player dashes
 func _on_DashTimer_timeout():
-	player_sprite.scale = Default_Size
+	player_sprite.scale = default_size
 	dash_cool_down.start()
-	SpeedMultiplier = SpeedMultiplier / 4
+	speed_multiplier = speed_multiplier / 4
 	self.set_collision_mask_bit(2, true)
-
 
 
 func _on_DashCoolDown_timeout():
@@ -251,13 +250,6 @@ func _on_HurtBox_area_entered(area):
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
 
-
-
-
-func _on_HitBox_area_entered(_area):
-	if mana < 100:
-		mana = mana + 5
-		emit_signal("mana_updated", mana)
 
 func _input(event):
 	if event.is_action_pressed("pickup"):

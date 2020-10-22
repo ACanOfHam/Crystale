@@ -7,6 +7,8 @@ onready var AnimationPlayer = $AnimationPlayer
 onready var quit_label = $Quit/QuitLabel
 onready var quit_button = $Quit
 
+#TODO: THIS IS SUCH A SHITTY WAY TO DO THIS FIX THIS NIGGA 
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		if i == 0:

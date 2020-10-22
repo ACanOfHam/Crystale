@@ -16,7 +16,6 @@ void fragment() {
     vec4 texture_color = texture(TEXTURE, UV);
     COLOR = vec4(mix(texture_color.rgb, vec3(1,1,1), whitening), texture_color.a);
 }"
-custom_defines = ""
 
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
@@ -103,10 +102,10 @@ anims/Idle = SubResource( 5 )
 anims/Move = SubResource( 6 )
 
 [node name="Stats" parent="." index="5"]
-maxHealth = 200
+max_health = 125
 damage = 5
 speed = 210
-knockBackMultiplier = 250.0
+knockback_multiplier = 320.0
 
 [node name="DetectionArea" parent="." index="6"]
 visible = false

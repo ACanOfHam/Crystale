@@ -1,13 +1,13 @@
 extends TextureProgress
 
-var canRegen: bool = true
-onready var UpdateTween: Tween = $UpdateTween
+var can_regen: bool = true
+onready var update_tween: Tween = $UpdateTween
 
 func _ready():
 	self.value = 100
 
 func _on_Player_mana_updated(mana):
-	UpdateTween.interpolate_property(
+	update_tween.interpolate_property(
 		self,
 		"value",
 		self.value,
@@ -16,4 +16,4 @@ func _on_Player_mana_updated(mana):
 		Tween.TRANS_SINE,
 		Tween.EASE_OUT
 		)
-	UpdateTween.start()
+	update_tween.start()

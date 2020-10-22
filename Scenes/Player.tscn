@@ -401,8 +401,6 @@ texture = ExtResource( 13 )
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]
 [connection signal="timeout" from="TimeTillNextGhost" to="." method="_on_TimeTillNextGhost_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
-[connection signal="area_entered" from="Sword" to="." method="_on_Sword_area_entered"]
-[connection signal="area_entered" from="Sword/HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="timeout" from="InvisibilityTimer" to="." method="_on_InvisibilityTimer_timeout"]
 [connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]
 [connection signal="body_exited" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_exited"]
