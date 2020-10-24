@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/5_Ean Grimm - The Ork and the Wolf.wav-fcf0ced9950e8eaba36d929855d79495.sample"
+
+[deps]
+
+source_file="res://Music/5_Ean Grimm - The Ork and the Wolf.wav"
+dest_files=[ "res://.import/5_Ean Grimm - The Ork and the Wolf.wav-fcf0ced9950e8eaba36d929855d79495.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

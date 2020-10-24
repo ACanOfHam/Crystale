@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/12_Ean Grimm - Wolf Fang Legends.wav-d2ca39c436bd68ab12960d0b5ef92d43.sample"
+
+[deps]
+
+source_file="res://Music/12_Ean Grimm - Wolf Fang Legends.wav"
+dest_files=[ "res://.import/12_Ean Grimm - Wolf Fang Legends.wav-d2ca39c436bd68ab12960d0b5ef92d43.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/4_Ean Grimm - Sir Fireheart.wav-d0a0770266719c0b4304e1cf82b40308.sample"
+
+[deps]
+
+source_file="res://Music/4_Ean Grimm - Sir Fireheart.wav"
+dest_files=[ "res://.import/4_Ean Grimm - Sir Fireheart.wav-d0a0770266719c0b4304e1cf82b40308.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

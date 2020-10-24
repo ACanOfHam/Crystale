@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/11_Ean Grimm - Queen of the Celts.wav-1296f641f816a3e47cef11f7767ce266.sample"
+
+[deps]
+
+source_file="res://Music/11_Ean Grimm - Queen of the Celts.wav"
+dest_files=[ "res://.import/11_Ean Grimm - Queen of the Celts.wav-1296f641f816a3e47cef11f7767ce266.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

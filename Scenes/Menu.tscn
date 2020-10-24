@@ -8,7 +8,6 @@
 [ext_resource path="res://Font.tres" type="DynamicFont" id=6]
 
 [node name="Menu" type="CanvasLayer"]
-layer = 3
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -22,10 +21,9 @@ __meta__ = {
 }
 
 [node name="TextureRect2" type="TextureRect" parent="."]
-margin_left = -0.21814
-margin_top = 572.028
-margin_right = 1279.78
-margin_bottom = 1292.03
+margin_top = 572.0
+margin_right = 1280.0
+margin_bottom = 1292.0
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

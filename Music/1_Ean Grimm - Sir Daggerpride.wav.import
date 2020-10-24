@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/1_Ean Grimm - Sir Daggerpride.wav-31f675e833966303ab622cfc33174a57.sample"
+
+[deps]
+
+source_file="res://Music/1_Ean Grimm - Sir Daggerpride.wav"
+dest_files=[ "res://.import/1_Ean Grimm - Sir Daggerpride.wav-31f675e833966303ab622cfc33174a57.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

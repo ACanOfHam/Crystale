@@ -240,7 +240,6 @@ func _on_DashTimer_timeout():
 	self.set_collision_mask_bit(2, true)
 
 
-
 func _on_DashCoolDown_timeout():
 	can_dash = true
 
@@ -251,13 +250,6 @@ func _on_HurtBox_area_entered(area):
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
 
-
-
-
-func _on_HitBox_area_entered(_area):
-	if mana < 100:
-		mana = mana + 5
-		emit_signal("mana_updated", mana)
 
 func _input(event):
 	if event.is_action_pressed("pickup"):
