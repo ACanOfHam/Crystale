@@ -53,7 +53,7 @@ func _on_HurtBox_area_entered(area):
 	invincibility_timer.start()
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	knockback_velocity = knockback_direction * stats.knockBackMultiplier
+	knockback_velocity = knockback_direction * stats.knockback_multiplier
 	var floaty_text = floaty_text_scene.instance()
 	floaty_text.text = null
 	sounds.playsfx("Hurt")

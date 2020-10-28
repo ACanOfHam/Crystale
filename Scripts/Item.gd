@@ -3,7 +3,7 @@ extends Node2D
 var item_name: String
 var item_quantity: int
 onready var label: Label = $Label
-onready var textureRect: TextureRect = $TextureRect
+onready var texture_rect: TextureRect = $TextureRect
 
 func _ready():
 	var rand_val = randi() % 3
@@ -14,7 +14,7 @@ func _ready():
 	else:
 		item_name = "Health Potion"
 
-	textureRect.texture = load("res://ArtWork/Items/" + item_name + ".png")
+	texture_rect.texture = load("res://ArtWork/Items/" + item_name + ".png")
 	var stack_size = int(JsonItemDb.item_data[item_name]["StackSize"])
 	item_quantity = randi() % stack_size + 1
 
@@ -36,7 +36,7 @@ func decrease_item_quantity(amount_to_remove):
 func set_item(nm, qt):
 	item_name = nm
 	item_quantity = qt
-	textureRect.texture = load("res://ArtWork/Items/" + item_name + ".png")
+	texture_rect.texture = load("res://ArtWork/Items/" + item_name + ".png")
 
 	var stack_size = int(JsonItemDb.item_data[item_name]["StackSize"])
 	if stack_size == 1:
