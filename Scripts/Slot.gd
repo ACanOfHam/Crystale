@@ -3,6 +3,7 @@ extends Panel
 
 var ItemClass = preload("res://Scenes/Item.tscn")
 var item = null
+var slot_index
 
 func _ready():
 	pass

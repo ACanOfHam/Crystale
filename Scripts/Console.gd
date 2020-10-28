@@ -42,7 +42,7 @@ func process_command(text):
 	output_text(str('Command "', command_word, '" does not exist.'))
 
 
-func check_type(string: str, type):
+func check_type(string , type):
 	if type == command_handler.ARG_INT:
 		return string.is_valid_integer()
 	if type == command_handler.ARG_FLOAT:
