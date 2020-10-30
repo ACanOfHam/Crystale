@@ -14,7 +14,6 @@ onready var enemy_sprite: Sprite = $Sprite
 onready var enemy_hurtBox: Area2D = $HurtBox
 onready var flash_timer: Timer = $FlashTimer
 onready var rest_timer: Timer = $RestTimer
-onready var sounds: Node = get_owner().get_node("Sounds")
 onready var acceleration: int = stats.speed/4
 onready var animationplayer = $AnimationPlayer
 var move: Vector2 = Vector2.ZERO
@@ -56,7 +55,7 @@ func _on_HurtBox_area_entered(area):
 	knockback_velocity = knockback_direction * stats.knockback_multiplier
 	var floaty_text = floaty_text_scene.instance()
 	floaty_text.text = null
-	sounds.playsfx("Hurt")
+	Sounds.playsfx("Hurt")
 #	EnemySprite.hide()
 	enemy_sprite.get_material().set_shader_param("whitening", 1)
 	flash_timer.start()

@@ -1,20 +1,26 @@
 extends Node
 
 
-var SFX
-var Music 
-
-func _ready():
-	playmusic("OverWorld_Music")
+var sfx: Node2D
+var music: Node2D
 
 func _enter_tree():
-	Music = $Music
-	SFX = $SFX
+	music = $Music
+	sfx = $SFX
 
-func playsfx(sfx = null):
-	if sfx:
-		SFX.Play(sfx)
 
-func playmusic(music = null):
+func playsfx(sfx_name = null):
+	if sfx_name:
+		sfx.Play(sfx_name)
+
+func playmusic(music_name = null):
 	if music:
-		Music.Play(music)
+		music.Play(music_name)
+
+func change_sfx_volume(value: int):
+	for audio_stream_player in sfx.get_children():
+		audio_stream_player.volume_db = value
+
+func change_music_volume(value: int):
+	for audio_stream_player in music.get_children():
+		audio_stream_player.volume_db = value

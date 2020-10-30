@@ -8,23 +8,26 @@
 [ext_resource path="res://Font.tres" type="DynamicFont" id=6]
 
 [node name="Menu" type="CanvasLayer"]
+layer = 3
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -0.940491
-margin_top = -130.0
-margin_right = 1279.06
-margin_bottom = 590.0
+margin_left = 0.646911
+margin_top = -215.72
+margin_right = 1280.65
+margin_bottom = 504.28
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect2" type="TextureRect" parent="."]
-margin_top = 572.0
-margin_right = 1280.0
-margin_bottom = 1292.0
+margin_left = -212.0
+margin_top = 504.0
+margin_right = 1437.0
+margin_bottom = 1224.0
 texture = ExtResource( 2 )
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -35,9 +38,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -80.0
-margin_top = 72.0
+margin_top = -30.0
 margin_right = -48.0
-margin_bottom = 87.0
+margin_bottom = -15.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
@@ -54,6 +57,37 @@ margin_bottom = 15.75
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 6 )
 text = "PLAY"
+
+[node name="Volume" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = 110.0
+margin_right = -48.0
+margin_bottom = 125.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeLabel" type="Label" parent="Volume"]
+margin_left = 2.8681
+margin_top = 0.75
+margin_right = 55.8681
+margin_bottom = 15.75
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 6 )
+text = "VOLUME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Quit" type="TextureButton" parent="."]
 anchor_left = 0.5
@@ -86,6 +120,9 @@ __meta__ = {
 [connection signal="button_down" from="Play" to="." method="_on_Play_button_down"]
 [connection signal="button_up" from="Play" to="." method="_on_Play_button_up"]
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="button_down" from="Volume" to="." method="_on_Volume_button_down"]
+[connection signal="button_up" from="Volume" to="." method="_on_Volume_button_up"]
+[connection signal="pressed" from="Volume" to="." method="_on_Volume_pressed"]
 [connection signal="button_down" from="Quit" to="." method="_on_Quit_button_down"]
 [connection signal="button_up" from="Quit" to="." method="_on_Quit_button_up"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

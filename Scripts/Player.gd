@@ -18,7 +18,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
-var sounds
+
 #onready var Sword: Area2D = $Sword
 export (NodePath) onready var sword
 #onready var PlayerSprite: Sprite = $Sprite
@@ -153,8 +153,7 @@ func dash_state():
 	if can_dash == true:
 		if remove_mana(20) == true:
 			self.set_collision_mask_bit(2, false)
-			sounds = get_owner().get_node("Sounds")
-			sounds.playsfx("Dash")
+			Sounds.playsfx("Dash")
 			can_dash = false
 			speed_multiplier = speed_multiplier * 4
 			create_ghost()
@@ -186,8 +185,7 @@ func create_ghost():
 
 func damage(amount):
 	if dash_timer.is_stopped():
-		sounds = get_owner().get_node("Sounds")
-		sounds.playsfx("Hurt")
+		Sounds.playsfx("Hurt")
 		print(health)
 		set_health(health - amount)
 		emit_signal("damaged")

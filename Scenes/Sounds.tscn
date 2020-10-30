@@ -4,7 +4,7 @@
 [ext_resource path="res://SoundEffects/Dash_Sound.ogg" type="AudioStream" id=2]
 [ext_resource path="res://SoundEffects/Hurt.wav" type="AudioStream" id=3]
 [ext_resource path="res://SoundEffects/Sword_Slash.wav" type="AudioStream" id=4]
-[ext_resource path="res://Music/Music_Overworld.wav" type="AudioStream" id=5]
+[ext_resource path="res://Music/3_Ean Grimm - Sir Honourspell.wav" type="AudioStream" id=5]
 [ext_resource path="res://SoundEffects/Pickup.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scripts/SFX.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/Music.gd" type="Script" id=8]
@@ -36,4 +36,4 @@ script = ExtResource( 8 )
 
 [node name="OverWorld_Music" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 5 )
-volume_db = -25.0
+volume_db = -14.0

@@ -28,6 +28,7 @@ JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
 PlayerInventory="*res://Scripts/PlayerInventory.gd"
 PauseMenu="*res://Scenes/PauseMenu.tscn"
 SceneChanger="*res://Scenes/SceneChanger.tscn"
+Sounds="*res://Scenes/Sounds.tscn"
 
 [display]
 
