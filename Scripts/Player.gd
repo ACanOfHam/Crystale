@@ -186,7 +186,6 @@ func create_ghost():
 func damage(amount):
 	if dash_timer.is_stopped():
 		Sounds.playsfx("Hurt")
-		print(health)
 		set_health(health - amount)
 		emit_signal("damaged")
 

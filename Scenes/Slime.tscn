@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ArtWork/Sprites/Slime.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=2]
@@ -24,6 +24,9 @@ shader_param/whitening = null
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 28.6647
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 36.7923
 
 [sub_resource type="Animation" id=5]
 length = 0.4
@@ -90,11 +93,9 @@ hframes = 14
 position = Vector2( 1.76577, 11.4413 )
 shape = SubResource( 4 )
 
-[node name="HurtBox" parent="." index="3"]
-visible = false
-
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2( -0.296967, 5.93932 )
+position = Vector2( 0.881551, 10.6534 )
+shape = SubResource( 8 )
 
 [node name="AnimationPlayer" parent="." index="4"]
 playback_speed = 4.5

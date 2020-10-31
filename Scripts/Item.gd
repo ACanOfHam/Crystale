@@ -43,4 +43,4 @@ func set_item(nm, qt):
 		label.hide()
 	else:
 		label.show()
-		label.text = String(item_quantity)
+		label.text = str(item_quantity)

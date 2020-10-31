@@ -4,7 +4,6 @@ const ACCELERATION: int = 3000
 const MAX_SPEED: int = 500
 var velocity: Vector2 = Vector2.ZERO
 var item_name: String
-onready var Sounds = get_owner().get_node("Sounds")
 
 var player = null
 var being_picked_up = false

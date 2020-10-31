@@ -23,3 +23,10 @@ func _process(_delta):
 
 func _on_AnimationPlayer_animation_finished(Attack):
 	canPlaySFX = true
+
+
+func _on_HitBox_area_entered(area):
+	if area.has_method("damage"):
+		area.damage(25)
+	else:
+		print(str(area.get_name() + " does not have damage function"))

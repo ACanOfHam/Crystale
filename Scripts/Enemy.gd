@@ -1,14 +1,13 @@
 extends KinematicBody2D
+class_name Enemy
 
+signal finished_damage_logic
 
 var old_shape = null
 var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
-var damage_taken: int
-var total_damage_taken: int
 #onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
 onready var alert = $Alert
 onready var invincibility_timer = $InvincibilityTimer
-onready var sword_frame: Sprite = get_parent().get_node("Player").get_node("Sword/Sprite")
 onready var stats: Node = $Stats
 onready var enemy_sprite: Sprite = $Sprite
 onready var enemy_hurtBox: Area2D = $HurtBox
@@ -46,49 +45,53 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
-	rng.randomize()
-	damage_multiplier = rng.randf_range(1,1.5)
-	disable(enemy_hurtBox)
-	invincibility_timer.start()
+	yield(self, "finished_damage_logic")
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * stats.knockback_multiplier
-	var floaty_text = floaty_text_scene.instance()
-	floaty_text.text = null
-	Sounds.playsfx("Hurt")
-#	EnemySprite.hide()
-	enemy_sprite.get_material().set_shader_param("whitening", 1)
-	flash_timer.start()
-	floaty_text.position = Vector2(0,0)
-	floaty_text.velocity = Vector2(rand_range(-50, 50), -100)
-	
-	match sword_frame.frame:
-		8:
-			damage_taken = 10 * damage_multiplier
-		9:
-			damage_taken = 20 * damage_multiplier
-		10:
-			damage_taken = 30 * damage_multiplier
-		11:
-			damage_taken = 40 * damage_multiplier
-		13:
-			damage_taken = 60 * damage_multiplier
-	
-	if damage_multiplier >= 1.4:
-		floaty_text.modulate = Color("FFD700") 
-	
-	stats.health -= damage_taken
-	floaty_text.text = damage_taken
-	add_child(floaty_text)
-	
-	if stats.health <= 0:
-		player.add_mana(40)
-		queue_free()
+
+
 
 func move_state(delta):
 	animationplayer.play("Move")
 	move = (player.global_position - global_position).normalized() * stats.speed
 	move = move_and_slide(move) * stats.speed * delta
+
+
+func damage(value: int):
+	rng.randomize()
+	damage_multiplier = rng.randf_range(1,1.5)
+	
+	value = value * damage_multiplier
+	
+	disable(enemy_hurtBox)
+	
+	invincibility_timer.start()
+	
+	var floaty_text = floaty_text_scene.instance()
+	floaty_text.text = null
+	
+	Sounds.playsfx("Hurt")
+
+#	EnemySprite.hide()
+	enemy_sprite.get_material().set_shader_param("whitening", 1)
+
+	flash_timer.start()
+	floaty_text.position = Vector2(0,0)
+	floaty_text.velocity = Vector2(rand_range(-50, 50), -100)
+	
+	if damage_multiplier >= 1.4:
+		floaty_text.modulate = Color("FFD700") 
+	
+	stats.health -= value
+	floaty_text.text = str(value)
+	add_child(floaty_text)
+	
+	if stats.health <= 0:
+		player.add_mana(40)
+		queue_free()
+	
+	emit_signal("finished_damage_logic")
 
 
 func idle_state():
