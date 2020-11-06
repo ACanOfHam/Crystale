@@ -9,7 +9,7 @@ onready var can_dash: bool = true
 var input_vector: Vector2 = Vector2.ZERO
 var speed_multiplier: int = 1
 onready var default_size = $Sprite.scale
-onready var mana: int = 100 
+onready var mana: int = 100
 var can_regen: bool = true
 var knockback: Vector2 = Vector2.ZERO
 const KNOCKBACK_SPEED: int = 295
@@ -18,43 +18,43 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
-
-#onready var Sword: Area2D = $Sword
-export (NodePath) onready var sword
-#onready var PlayerSprite: Sprite = $Sprite
-export (NodePath) onready var player_sprite
-#onready var DashTimer: Timer = $DashTimer
-export (NodePath) onready var dash_timer
-#onready var HealthBar: TextureProgress = $HUD/GUI/HealthBar/TextureProgress
-export (NodePath) onready var health_bar
-#onready var HealthBarUnder: TextureProgress = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
-export (NodePath) onready var health_bar_under
-#onready var HealthBarTween: Tween = $HUD/GUI/HealthBar/UpdateTween
-export (NodePath) onready var health_bar_tween
-#onready var HurtBox: Area2D = $HurtBox
-export (NodePath) onready var hurtbox
-#onready var Animationplayer: AnimationPlayer = animation_player
-export (NodePath) onready var animationplayer
+onready var dash_cool_down = $DashCoolDown
+onready var invisibility_timer = $InvisibilityTimer
+onready var time_till_next_ghost = $TimeTillNextGhost
+onready var sword: Area2D = $Sword
+#export (NodePath) onready var sword
+onready var player_sprite: Sprite = $Sprite
+#export (NodePath) onready var player_sprite
+onready var dash_timer: Timer = $DashTimer
+#export (NodePath) onready var dash_timer
+onready var health_bar: TextureProgress = $HUD/GUI/HealthBar/TextureProgress
+#export (NodePath) onready var health_bar
+onready var health_bar_under: TextureProgress = $HUD/GUI/HealthBar/TextureProgress/TextureProgress_Under
+#export (NodePath) onready var health_bar_under
+onready var health_bar_tween: Tween = $HUD/GUI/HealthBar/UpdateTween
+#export (NodePath) onready var health_bar_tween
+onready var hurtbox: Area2D = $HurtBox
+#export (NodePath) onready var hurtbox
+onready var animationplayer: AnimationPlayer = $AnimationPlayer
+#export (NodePath) onready var animationplayer
 #onready var TimeTillNextGhost: Timer = $TimeTillNextGhost
-export (NodePath) onready var time_till_next_ghost
-#onready var InvisibilityTimer: Timer = $InvisibilityTimer
-export (NodePath) onready var invisibility_timer
-#onready var DashCoolDown: Timer = $DashCoolDown
-export (NodePath) onready var dash_cool_down
-#onready var Shadow: Sprite = $Shadow
-export (NodePath) onready var shadow
-#onready var HurtBoxCollisionShape = $HurtBox/CollisionShape2D
-export (NodePath) onready var hurtbox_collision_shape
-export (NodePath) onready var collision_shape
+#export (NodePath) onready var time_till_next_ghost
+#export (NodePath) onready var invisibility_timer
+onready var dash_cool_Down: Timer = $DashCoolDown
+#export (NodePath) onready var dash_cool_down
+onready var shadow: Sprite = $Shadow
+#export (NodePath) onready var shadow
+onready var hurtbox_collision_shape = $HurtBox/CollisionShape2D
+onready var collision_shape = $CollisionShape2D
 
 #State Machine
 var state
 var can_move: bool = true
-enum { 
-MOVE, 
-DASH, 
-DEAD, 
-IDLE 
+enum {
+MOVE,
+DASH,
+DEAD,
+IDLE
 }
 var has_died: bool = false
 
@@ -74,7 +74,8 @@ var current_animation
 var new_animation
 
 func _ready():
-	Get_References()
+#	Get_References()
+	yield(find_node_by_name(get_tree().get_root(), "OverWorld"), "finished_loading")
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
@@ -84,12 +85,12 @@ func _process(delta):
 			state = MOVE
 		else:
 			state = IDLE
-		
+
 		#Toggle Console
 		if Input.is_action_just_pressed("toggle_console"):
 			get_owner().add_child(load("res://Scenes/Console.tscn").instance())
 			get_tree().paused = true
-	
+
 	#Getting Mouse Position and flipping character based on where mouse is
 	if has_died == false:
 		var vert = get_global_mouse_position()
@@ -105,7 +106,7 @@ func _process(delta):
 			collision_shape.position.x = -3.5
 
 
-#This process is called every physics frame 
+#This process is called every physics frame
 func _physics_process(delta):
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 	knockback_velocity = move_and_slide(knockback_velocity)
@@ -205,7 +206,7 @@ func add_mana(value: int):
 
 func remove_mana(value: int):
 	if value > mana:
-		return false 
+		return false
 	else:
 		mana -= value
 		emit_signal("mana_updated", mana)
@@ -259,24 +260,52 @@ func play_animation(animation_wanted_to_play):
 	new_animation = animation_wanted_to_play
 
 	if (current_animation == new_animation): return
-	
+
 	animationplayer.play(new_animation)
-	
+
 	current_animation = new_animation
 
 
-func Get_References():
-	player_sprite = get_node(player_sprite)
-	sword = get_node(sword)
-	dash_timer = get_node(dash_timer)
-	health_bar = get_node(health_bar)
-	health_bar_under = get_node(health_bar_under)
-	health_bar_tween = get_node(health_bar_tween)
-	hurtbox = get_node(hurtbox)
-	animationplayer = get_node(animationplayer)
-	time_till_next_ghost = get_node(time_till_next_ghost)
-	invisibility_timer = get_node(invisibility_timer)
-	dash_cool_down = get_node(dash_cool_down)
-	shadow = get_node(shadow)
-	hurtbox_collision_shape = get_node(hurtbox_collision_shape)
-	collision_shape = get_node(collision_shape)
+#func Get_References():
+#	player_sprite = get_node(player_sprite)
+#	sword = get_node(sword)
+#	dash_timer = get_node(dash_timer)
+#	health_bar = get_node(health_bar)
+#	health_bar_under = get_node(health_bar_under)
+#	health_bar_tween = get_node(health_bar_tween)
+#	hurtbox = get_node(hurtbox)
+#	animationplayer = get_node(animationplayer)
+#	time_till_next_ghost = get_node(time_till_next_ghost)
+#	invisibility_timer = get_node(invisibility_timer)
+#	dash_cool_down = get_node(dash_cool_down)
+#	shadow = get_node(shadow)
+#	hurtbox_collision_shape = get_node(hurtbox_collision_shape)
+#	collision_shape = get_node(collision_shape)
+
+func save():
+	var save_dict = {
+	"filename" : get_filename(),
+	"parent" : get_parent().get_path(),
+	"pos_x" : position.x, # Vector2 is not supported by JSON
+	"pos_y" : position.y,
+	"current_health" : health,
+	"max_health" : max_health,
+#	"level" : level,
+#	"is_alive" : is_alive,
+	}
+
+	return save_dict
+
+func find_node_by_name(root, name):
+
+	if(root.get_name() == name): return root
+
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+
+		var found = find_node_by_name(child, name)
+
+		if(found): return found
+
+	return null

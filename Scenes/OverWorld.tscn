@@ -230,22 +230,10 @@ scale = Vector2( 100, 100 )
 
 [node name="Sort" type="YSort" parent="."]
 
-[node name="Player" parent="Sort" instance=ExtResource( 2 )]
+[node name="Player" parent="Sort" groups=[
+"Persist",
+] instance=ExtResource( 2 )]
 position = Vector2( -79, 41 )
-sword = NodePath("../../../OverWorld/Sort/Player/Sword")
-player_sprite = NodePath("../../../OverWorld/Sort/Player/Sprite")
-dash_timer = NodePath("../../../OverWorld/Sort/Player/DashTimer")
-health_bar = NodePath("../../../OverWorld/Sort/Player/HUD/GUI/HealthBar/HealthBar")
-health_bar_under = NodePath("../../../OverWorld/Sort/Player/HUD/GUI/HealthBar/HealthBar/HealthBarUnder")
-health_bar_tween = NodePath("../../../OverWorld/Sort/Player/HUD/GUI/HealthBar/UpdateTween")
-hurtbox = NodePath("../../../OverWorld/Sort/Player/HurtBox")
-animationplayer = NodePath("../../../OverWorld/Sort/Player/AnimationPlayer")
-time_till_next_ghost = NodePath("../../../OverWorld/Sort/Player/TimeTillNextGhost")
-invisibility_timer = NodePath("../../../OverWorld/Sort/Player/InvisibilityTimer")
-dash_cool_down = NodePath("../../../OverWorld/Sort/Player/DashCoolDown")
-shadow = NodePath("../../../OverWorld/Sort/Player/Shadow")
-hurtbox_collision_shape = NodePath("../../../OverWorld/Sort/Player/HurtBox/CollisionShape2D")
-collision_shape = NodePath("../../../OverWorld/Sort/Player/CollisionShape2D")
 
 [node name="Slime" parent="Sort" instance=ExtResource( 3 )]
 position = Vector2( -81.8949, 311.201 )

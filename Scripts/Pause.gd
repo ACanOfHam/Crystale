@@ -34,4 +34,19 @@ func _on_Quit_button_up():
 
 
 func _on_Quit_pressed():
+	find_node_by_name(get_tree().get_root(), "OverWorld").save_game()
 	get_tree().quit()
+
+func find_node_by_name(root, name):
+
+	if(root.get_name() == name): return root
+
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+
+		var found = find_node_by_name(child, name)
+
+		if(found): return found
+
+	return null
