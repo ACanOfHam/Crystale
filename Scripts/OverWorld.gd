@@ -6,7 +6,6 @@ var arrow = preload("res://Scenes/Arrow.tscn")
 func _ready():
 	Sounds.playmusic("OverWorld_Music")
 	arrow = arrow.instance()
-	get_tree().current_scene.add_child(arrow)
 #	load_game()
 
 func save_game():
@@ -56,8 +55,7 @@ func load_game():
 		
 		# Firstly, we need to create the object and add it to the tree and set its position.
 		var new_object = load(node_data["filename"]).instance()
-		get_node(node_data["parent"]).add_child(new_object)
-		new_object.name = "Player"
+		get_node(node_data["parent"]).add_child(new_object, true)
 		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
 		
 		# Now we set the remaining variables.

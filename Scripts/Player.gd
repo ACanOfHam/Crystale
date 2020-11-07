@@ -17,6 +17,9 @@ const KNOCKBACK_FRICTION: int = 350
 var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
+#Arrow
+var arrow_speed = 1000
+
 #References
 onready var dash_cool_down = $DashCoolDown
 onready var invisibility_timer = $InvisibilityTimer
@@ -79,31 +82,9 @@ func _ready():
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
-		#State Management
-	if has_died == false:
-		if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
-			state = MOVE
-		else:
-			state = IDLE
-
-		#Toggle Console
-		if Input.is_action_just_pressed("toggle_console"):
-			get_owner().add_child(load("res://Scenes/Console.tscn").instance())
-			get_tree().paused = true
-
-	#Getting Mouse Position and flipping character based on where mouse is
-	if has_died == false:
-		var vert = get_global_mouse_position()
-		var gpos = self.get_global_position()
-		if gpos.x < vert.x:
-			player_sprite.set_flip_h(false)
-			shadow.position.x = -1.118
-			collision_shape.position.x = -1.118
-			vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
-		else:
-			player_sprite.set_flip_h(true)
-			shadow.position.x = -3.5
-			collision_shape.position.x = -3.5
+	input_managment()
+	
+	sprite_flip()
 
 
 #This process is called every physics frame
@@ -145,6 +126,40 @@ func move_state(delta):
 	velocity = Vector2.ZERO
 
 
+func input_managment():
+	
+	if has_died == true: return
+	
+	#State Management
+	if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
+		state = MOVE
+	else:
+		state = IDLE
+
+	#Toggle Console
+	if Input.is_action_just_pressed("toggle_console"):
+		self.add_child(load("res://Scenes/Console.tscn").instance())
+		get_tree().paused = true
+	
+
+
+func sprite_flip():
+	
+	if has_died == true: return
+	
+	var vert = get_global_mouse_position()
+	var gpos = self.get_global_position()
+	if gpos.x < vert.x:
+		player_sprite.set_flip_h(false)
+		shadow.position.x = -1.118
+		collision_shape.position.x = -1.118
+		vert.x = -vert.x  # Our sprite would be facing away from the mouse after flipping
+	else:
+		player_sprite.set_flip_h(true)
+		shadow.position.x = -3.5
+		collision_shape.position.x = -3.5
+
+
 func idle_state():
 	play_animation("Idle")
 
@@ -165,12 +180,9 @@ func dash_state():
 func dead_state():
 	has_died = true
 	SceneChanger.change_scene("DeadScreen")
-	if sword != null:
-		sword.queue_free()
-	if player_sprite != null:
-		player_sprite.queue_free()
-	if shadow != null:
-		shadow.queue_free()
+	for node in self.get_children():
+		if node.has_method("hide"):
+			node.hide()
 
 
 

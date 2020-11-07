@@ -1,7 +1,7 @@
 extends Node
 
 
-onready var player = get_parent().get_parent().get_parent().get_node("Sort").get_node("Player")
+onready var player = get_parent().get_parent().get_parent()
 onready var sort = get_parent().get_owner().get_node("Sort")
 enum {
 	ARG_INT,

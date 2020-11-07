@@ -6,6 +6,7 @@ signal finished_damage_logic
 var old_shape = null
 var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
 #onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
+var player
 onready var alert = $Alert
 onready var invincibility_timer = $InvincibilityTimer
 onready var stats: Node = $Stats
@@ -18,7 +19,6 @@ onready var animationplayer = $AnimationPlayer
 var move: Vector2 = Vector2.ZERO
 var rng =  RandomNumberGenerator.new()
 var knockback: Vector2 = Vector2.ZERO
-onready var player: KinematicBody2D = get_parent().get_node("Player")
 var damage_multiplier
 enum {
 	IDLE,
@@ -48,17 +48,22 @@ func _on_HurtBox_area_entered(area):
 	yield(self, "finished_damage_logic")
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	knockback_velocity = knockback_direction * stats.knockback_multiplier
+	if area.get_parent().name != "Arrow":
+		knockback_velocity = knockback_direction * stats.knockback_multiplier
+	else:
+		knockback_velocity = knockback_direction * stats.knockback_multiplier/2
 
 
 
 func move_state(delta):
+	player = get_parent().get_node("Player")
 	animationplayer.play("Move")
 	move = (player.global_position - global_position).normalized() * stats.speed
 	move = move_and_slide(move) * stats.speed * delta
 
 
 func damage(value: int):
+	player = get_parent().get_node("Player")
 	rng.randomize()
 	damage_multiplier = rng.randf_range(1,1.5)
 	

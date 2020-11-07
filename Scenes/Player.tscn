@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/Sprites/PlayerSpritesheet.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=13]
 [ext_resource path="res://Scripts/HealthBar.gd" type="Script" id=14]
 [ext_resource path="res://Scenes/Flash.tres" type="Material" id=15]
+[ext_resource path="res://Scenes/Bow.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -269,10 +270,8 @@ __meta__ = {
 }
 
 [node name="Sword" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( -2.5903, -16.8369 )
-collision_layer = 0
-
-[node name="HitBox" parent="Sword" index="2"]
 collision_layer = 0
 
 [node name="InvisibilityTimer" type="Timer" parent="."]
@@ -393,6 +392,9 @@ show_behind_parent = true
 position = Vector2( -1.19845, 2.76607 )
 scale = Vector2( 1.16008, 0.590307 )
 texture = ExtResource( 13 )
+
+[node name="Bow" parent="." instance=ExtResource( 16 )]
+position = Vector2( 0, -17 )
 [connection signal="damaged" from="." to="." method="_on_Player_damaged"]
 [connection signal="health_updated" from="." to="HUD/GUI/HealthBar/HealthBar" method="_on_Player_health_updated"]
 [connection signal="mana_updated" from="." to="HUD/GUI/Mana" method="_on_Player_mana_updated"]
