@@ -72,7 +72,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=8]
-radius = 250.0
+radius = 403.043
 
 [node name="Slime" instance=ExtResource( 2 )]
 scale = Vector2( 0.75, 0.75 )
@@ -88,6 +88,7 @@ position = Vector2( 0.296967, -58.2118 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 14
+frame = 10
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2( 1.76577, 11.4413 )
@@ -107,9 +108,6 @@ max_health = 125
 damage = 5
 speed = 210
 knockback_multiplier = 320.0
-
-[node name="DetectionArea" parent="." index="6"]
-visible = false
 
 [node name="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource( 8 )

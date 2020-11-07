@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-signal scene_changed()
+signal scene_changed
 
 onready var animationplayer = $Control/AnimationPlayer
 onready var black = $Control/Black

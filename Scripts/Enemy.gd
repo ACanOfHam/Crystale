@@ -48,10 +48,11 @@ func _on_HurtBox_area_entered(area):
 	yield(self, "finished_damage_logic")
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	if area.get_parent().name != "Arrow":
-		knockback_velocity = knockback_direction * stats.knockback_multiplier
-	else:
+	if area.get_parent().name == "Arrow":
 		knockback_velocity = knockback_direction * stats.knockback_multiplier/2
+		state = CHASE
+	else:
+		knockback_velocity = knockback_direction * stats.knockback_multiplier
 
 
 
@@ -93,7 +94,7 @@ func damage(value: int):
 	add_child(floaty_text)
 	
 	if stats.health <= 0:
-		player.add_mana(40)
+		PlayerManager.set_mana(+40)
 		queue_free()
 	
 	emit_signal("finished_damage_logic")
@@ -104,7 +105,7 @@ func idle_state():
 
 
 func _on_HitBox_area_entered(area):
-	player.damage(stats.damage)
+	PlayerManager.set_health(-stats.damage)
 	state = IDLE
 	rest_timer.start()
 

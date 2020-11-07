@@ -7,7 +7,7 @@
 extents = Vector2( 38.2412, 10.6432 )
 
 [node name="Arrow" type="KinematicBody2D"]
-collision_layer = 2
+collision_layer = 0
 script = ExtResource( 2 )
 speed = 800.0
 
@@ -19,7 +19,7 @@ shape = SubResource( 1 )
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2( -17.5, 0 )
 scale = Vector2( 0.5, 0.5 )
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2147483681
 
 [node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]

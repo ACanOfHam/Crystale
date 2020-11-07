@@ -396,8 +396,6 @@ texture = ExtResource( 13 )
 [node name="Bow" parent="." instance=ExtResource( 16 )]
 position = Vector2( 0, -17 )
 [connection signal="damaged" from="." to="." method="_on_Player_damaged"]
-[connection signal="health_updated" from="." to="HUD/GUI/HealthBar/HealthBar" method="_on_Player_health_updated"]
-[connection signal="mana_updated" from="." to="HUD/GUI/Mana" method="_on_Player_mana_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]

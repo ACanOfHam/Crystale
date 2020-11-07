@@ -5,6 +5,7 @@ onready var update_tween: Tween = $UpdateTween
 
 func _ready():
 	self.value = 100
+	PlayerManager.connect("mana_updated", self, "_on_Player_mana_updated")
 
 func _on_Player_mana_updated(mana):
 	update_tween.interpolate_property(

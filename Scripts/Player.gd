@@ -69,7 +69,7 @@ signal damaged
 
 #Health Variables
 export (int) var max_health = 100
-onready var health: int = max_health setget set_health
+onready var health: int = max_health
 
 #Animation Variables
 var stretch_finished = true
@@ -166,8 +166,8 @@ func idle_state():
 
 #Function used for dashing
 func dash_state():
-	if can_dash == true:
-		if remove_mana(20) == true:
+	if can_dash == true and mana > 20:
+			PlayerManager.set_mana(-20)
 			self.set_collision_mask_bit(2, false)
 			Sounds.playsfx("Dash")
 			can_dash = false
@@ -196,39 +196,10 @@ func create_ghost():
 	get_tree().get_root().add_child(ghost)
 
 
-func damage(amount):
-	if dash_timer.is_stopped():
-		Sounds.playsfx("Hurt")
-		set_health(health - amount)
-		emit_signal("damaged")
-
-
-func set_health(Value: int):
-	health = clamp(Value, 0, max_health)
-	emit_signal("health_updated", health)
-	if health == 0:
-		dead_state()
-		emit_signal("killed")
-
-func add_mana(value: int):
-	mana += value
-	emit_signal("mana_updated", mana)
-	if mana > 100:
-		mana = 100
-
-func remove_mana(value: int):
-	if value > mana:
-		return false
-	else:
-		mana -= value
-		emit_signal("mana_updated", mana)
-		return true
-
 func _on_Player_damaged():
 #	PlayerSprite.visible = not PlayerSprite.visible
-	if has_died == false:
-		player_sprite.get_material().set_shader_param("whitening", 1)
-		invisibility_timer.start()
+	player_sprite.get_material().set_shader_param("whitening", 1)
+	invisibility_timer.start()
 
 
 func _on_TimeTillNextGhost_timeout():
@@ -255,7 +226,7 @@ func _on_DashCoolDown_timeout():
 
 
 func _on_HurtBox_area_entered(area):
-	add_mana(5)
+	PlayerManager.set_mana(+5)
 	knockback_direction = hurtbox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	knockback_velocity = knockback_direction * KNOCKBACK_SPEED

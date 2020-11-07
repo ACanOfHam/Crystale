@@ -5,19 +5,21 @@ onready var HealthBarTween = get_parent().get_node("UpdateTween")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	PlayerManager.connect("health_updated", self, "_on_Player_health_updated")
 	self.value = 100
 	HealthBarUnder.value = 100
 
 
-func _on_Player_health_updated(health):
+func _on_Player_health_updated(healthvalue):
+	print(healthvalue)
 	HealthBarTween.interpolate_property(
 		HealthBarUnder,
 		"value",
 		HealthBarUnder.value,
-		health,
+		healthvalue,
 		0.4,
 		Tween.TRANS_SINE,
 		Tween.EASE_OUT
 		)
-	self.value = health
+	self.value = healthvalue
 	HealthBarTween.start()
