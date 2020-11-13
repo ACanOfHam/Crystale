@@ -1,7 +1,5 @@
 extends Node
 
-
-onready var player = get_parent().get_parent().get_parent()
 onready var sort = get_parent().get_owner().get_node("Sort")
 enum {
 	ARG_INT,
@@ -11,8 +9,8 @@ enum {
 }
 
 const valid_commands = [
-	["set_speed",
-		[ARG_INT] ],
+#	["set_speed",
+#		[ARG_INT] ],
 	["quit", 
 		[ARG_STRING] ], 
 	["set_health",
@@ -26,16 +24,16 @@ func _ready():
 
 func set_health(health):
 	health = int(health)
-	if health > player.max_health:
-		return str("Health must be less then ", player.max_health)
+	if health > 100:
+		return str("Health must be less then ", PlayerManager.max_health)
 	
-	player.set_health(health)
+	PlayerManager._set_health(health)
 	return str("Successfully set health to ", health)
 
-func set_speed(speed):
-	speed = int(speed)
-	player.SpeedMultiplier = speed
-	return str("Successfully set speed to ", speed)
+#func set_speed(speed):
+#	speed = int(speed)
+#	player.SpeedMultiplier = speed
+#	return str("Successfully set speed to ", speed)
 
 func quit(useless):
 	get_parent().queue_free()
@@ -46,6 +44,5 @@ func set_mana(mana):
 	if mana > 100:
 		return str("Mana must be less then 100")
 	
-	player.mana = mana
-	player.emit_signal("mana_updated", mana)
+	PlayerManager.set_mana(mana)
 	return str("Successfully set mana to ", mana)

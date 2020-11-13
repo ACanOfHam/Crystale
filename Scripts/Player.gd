@@ -61,12 +61,6 @@ IDLE
 }
 var has_died: bool = false
 
-#Signals
-signal mana_updated(mana)
-signal health_updated(health)
-signal killed
-signal damaged
-
 #Health Variables
 export (int) var max_health = 100
 onready var health: int = max_health
@@ -83,7 +77,7 @@ func _ready():
 #This process is called every frame and should not be used for physics
 func _process(delta):
 	input_managment()
-	
+
 	sprite_flip()
 
 
@@ -127,9 +121,9 @@ func move_state(delta):
 
 
 func input_managment():
-	
+
 	if has_died == true: return
-	
+
 	#State Management
 	if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
 		state = MOVE
@@ -140,13 +134,13 @@ func input_managment():
 	if Input.is_action_just_pressed("toggle_console"):
 		self.add_child(load("res://Scenes/Console.tscn").instance())
 		get_tree().paused = true
-	
+
 
 
 func sprite_flip():
-	
+
 	if has_died == true: return
-	
+
 	var vert = get_global_mouse_position()
 	var gpos = self.get_global_position()
 	if gpos.x < vert.x:
