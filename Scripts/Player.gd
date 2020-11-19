@@ -142,7 +142,7 @@ func input_managment():
 	if Input.is_action_just_pressed("Spawn Crystal(Temp)"):
 		var teleporation_crystal_instance = teleportation_crystal.instance()
 		teleporation_crystal_instance.transform = transform
-		teleporation_crystal_instance.position = Vector2(global_position)
+		teleporation_crystal_instance.position = Vector2(global_position.x + 5, global_position.y + -20)
 		get_parent().get_parent().get_parent().add_child(teleporation_crystal_instance, true)
 
 func sprite_flip():
