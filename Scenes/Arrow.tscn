@@ -12,13 +12,14 @@ script = ExtResource( 2 )
 speed = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -16.4405, 0 )
+position = Vector2( -16.5462, -0.0926855 )
 scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2( -17.5, 0 )
 scale = Vector2( 0.5, 0.5 )
+gravity = 0.0
 collision_layer = 0
 collision_mask = 2147483681
 

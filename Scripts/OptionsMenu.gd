@@ -4,7 +4,9 @@ onready var music_slider = $MusicSlider
 onready var back_label = $BackButton/BackButtonLabel
 
 func _ready():
-	Sounds.playmusic("OverWorld_Music")
+#	Sounds.playmusic("OverWorld_Music")
+	pass
+
 
 func _on_MusicSlider_value_changed(value):
 	Sounds.change_music_volume(int(value))

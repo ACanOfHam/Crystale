@@ -30,11 +30,12 @@ boot_splash/bg_color=Color( 0.8, 0.886275, 0.882353, 1 )
 [autoload]
 
 JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
-PlayerInventory="*res://Scripts/PlayerInventory.gd"
 PauseMenu="*res://Scenes/PauseMenu.tscn"
 SceneChanger="*res://Scenes/SceneChanger.tscn"
 Sounds="*res://Scenes/Sounds.tscn"
 PlayerManager="*res://Scenes/PlayerManager.tscn"
+SaveManager="*res://AutoLoad/SaveManager.tscn"
+PlayerInventory="*res://AutoLoad/PlayerInventory.tscn"
 
 [display]
 
@@ -44,6 +45,7 @@ window/vsync/use_vsync=false
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true
 window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
@@ -118,6 +120,11 @@ toggle_console={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"unicode":0,"echo":false,"script":null)
  ]
 }
+"Spawn Crystal(Temp)"={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [input_devices]
 
@@ -148,6 +155,7 @@ quality/2d/use_nvidia_rect_flicker_workaround=true
 quality/intended_usage/framebuffer_allocation=1
 quality/intended_usage/framebuffer_allocation.mobile=1
 quality/2d/use_pixel_snap=true
+threads/thread_model=2
 batching/precision/uv_contract=true
 quality/subsurface_scattering/quality=2
 environment/default_environment="res://default_env.tres"

@@ -2,11 +2,12 @@ extends KinematicBody2D
 class_name Enemy
 
 signal finished_damage_logic
-
+var item_drop_scene = preload("res://Scenes/ItemDrop.tscn")
 var old_shape = null
 var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
 #onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
 var player
+var is_dead = false
 onready var alert = $Alert
 onready var invincibility_timer = $InvincibilityTimer
 onready var stats: Node = $Stats
@@ -31,7 +32,13 @@ const KNOCKBACK_FRICTION: int = 350
 var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
+func _ready():
+	yield(SaveManager,"finished_loading")
+
 func _physics_process(delta):
+	
+	if is_dead:
+		queue_free()
 	
 	match state:
 		IDLE:
@@ -45,15 +52,14 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
-	yield(self, "finished_damage_logic")
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	if area.get_parent().name == "Arrow":
-		knockback_velocity = knockback_direction * stats.knockback_multiplier/2
+	print(area.get_parent().name)
+	if area.get_parent().name == "Arrow" or "Arrow2" or "Arrow3" or "Arrow4":
+		knockback_velocity = knockback_direction * stats.knockback_multiplier/1.5
 		state = CHASE
 	else:
 		knockback_velocity = knockback_direction * stats.knockback_multiplier
-
 
 
 func move_state(delta):
@@ -95,6 +101,8 @@ func damage(value: int):
 	
 	if stats.health <= 0:
 		PlayerManager.set_mana(+40)
+		is_dead = true
+		drop_item("Health Potion")
 		queue_free()
 	
 	emit_signal("finished_damage_logic")
@@ -136,3 +144,23 @@ func disable(area):
 
 func enable(area):
 	area.set_collision_layer_bit(5, true)
+
+func save():
+	var save_dict = {
+	"filename" : get_filename(),
+	"parent" : get_parent().get_path(),
+	"pos_x" : position.x, # Vector2 is not supported by JSON
+	"pos_y" : position.y,
+	"current_health" : stats.health,
+	"max_health" : stats.max_health,
+#	"level" : level,
+	"is_dead" : is_dead,
+	}
+	return save_dict
+
+
+func drop_item(item_name_to_drop: String):
+	var item_drop = item_drop_scene.instance()
+	item_drop.item_name = item_name_to_drop
+	item_drop.global_position = global_position
+	get_parent().add_child(item_drop)

@@ -195,10 +195,11 @@ font_data = ExtResource( 8 )
 radius = 26.5357
 height = 23.8368
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Persist",
+]]
 scale = Vector2( 0.975, 1 )
 collision_layer = 2
-collision_mask = 5
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
@@ -395,7 +396,6 @@ texture = ExtResource( 13 )
 
 [node name="Bow" parent="." instance=ExtResource( 16 )]
 position = Vector2( 0, -17 )
-[connection signal="damaged" from="." to="." method="_on_Player_damaged"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCoolDown" to="." method="_on_DashCoolDown_timeout"]

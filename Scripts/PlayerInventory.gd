@@ -2,6 +2,7 @@ extends Node
 
 const NUM_INVENTORY_SLOTS: int = 15
 
+
 const SlotClass = preload("res://Scripts/Slot.gd")
 const ItemClass = preload("res://Scripts/Item.gd")
 
@@ -10,7 +11,19 @@ var inventory: Dictionary = {
 }
 
 func _ready():
-	add_item("Mana Potion", 24)
+	add_item("Mana Potion", 2)
+
+
+func remove_item_by_name(item_name, item_qt):
+	for item in inventory:
+		if inventory[item][0] == item_name and inventory[item][1] != 0:
+			inventory[item][1] -= item_qt
+			if inventory[item][1] == 0: inventory.erase(inventory[item][1])
+			print(inventory)
+
+
+
+
 
 func add_item(item_name, item_quantity):
 	for item in inventory:
@@ -38,3 +51,15 @@ func add_item_to_empty_slot(item: ItemClass, slot: SlotClass):
 
 func add_item_quantity(slot: SlotClass, quantity_to_add: int):
 	inventory[slot.slot_index][1] += quantity_to_add
+
+func save():
+	var save_dict = {
+	"filename" : get_filename(),
+	"parent" : get_parent().get_path(),
+	"pos_x" : 0, # Vector2 is not supported by JSON
+	"pos_y" : 0,
+	"inventory": inventory
+#	"level" : level,
+#	"is_dead" : has_died,
+	}
+	return save_dict

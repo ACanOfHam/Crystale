@@ -74,7 +74,9 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=8]
 radius = 403.043
 
-[node name="Slime" instance=ExtResource( 2 )]
+[node name="Slime" groups=[
+"Persist",
+] instance=ExtResource( 2 )]
 scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 3 )
 

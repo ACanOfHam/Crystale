@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+#Preloads
+var teleportation_crystal = preload("res://Scenes/Teleportation Crystal.tscn")
+
+
 #Movement variable
 var MAX_SPEED: int = 90000
 var ACCELERATION: int = MAX_SPEED / 4
@@ -17,10 +21,9 @@ const KNOCKBACK_FRICTION: int = 350
 var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
-#Arrow
-var arrow_speed = 1000
 
 #References
+onready var pickup_zone = $PickupZone
 onready var dash_cool_down = $DashCoolDown
 onready var invisibility_timer = $InvisibilityTimer
 onready var time_till_next_ghost = $TimeTillNextGhost
@@ -72,7 +75,8 @@ var new_animation
 
 func _ready():
 #	Get_References()
-	yield(find_node_by_name(get_tree().get_root(), "OverWorld"), "finished_loading")
+	PlayerManager.emit_signal("health_updated", health)
+	PlayerManager.emit_signal("mana_updated", mana)
 
 #This process is called every frame and should not be used for physics
 func _process(delta):
@@ -134,8 +138,12 @@ func input_managment():
 	if Input.is_action_just_pressed("toggle_console"):
 		self.add_child(load("res://Scenes/Console.tscn").instance())
 		get_tree().paused = true
-
-
+	
+	if Input.is_action_just_pressed("Spawn Crystal(Temp)"):
+		var teleporation_crystal_instance = teleportation_crystal.instance()
+		teleporation_crystal_instance.transform = transform
+		teleporation_crystal_instance.position = Vector2(global_position)
+		get_parent().get_parent().get_parent().add_child(teleporation_crystal_instance, true)
 
 func sprite_flip():
 
@@ -228,10 +236,10 @@ func _on_HurtBox_area_entered(area):
 
 func _input(event):
 	if event.is_action_pressed("pickup"):
-		if $PickupZone.items_in_range.size() > 0:
-			var pickup_item = $PickupZone.items_in_range.values()[0]
+		if pickup_zone.items_in_range.size() > 0:
+			var pickup_item = pickup_zone.items_in_range.values()[0]
 			pickup_item.pick_up_item(self)
-			$PickupZone.items_in_range.erase(pickup_item)
+			pickup_zone.items_in_range.erase(pickup_item)
 
 func play_animation(animation_wanted_to_play):
 	new_animation = animation_wanted_to_play
@@ -268,9 +276,8 @@ func save():
 	"current_health" : health,
 	"max_health" : max_health,
 #	"level" : level,
-#	"is_alive" : is_alive,
+#	"is_dead" : has_died,
 	}
-
 	return save_dict
 
 func find_node_by_name(root, name):

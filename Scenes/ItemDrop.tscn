@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ArtWork/Items/Mana Potion.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/ItemDrop.gd" type="Script" id=2]
-[ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 16.5791
@@ -23,7 +22,9 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
 }
 
-[node name="ItemDrop" type="KinematicBody2D"]
+[node name="ItemDrop" type="KinematicBody2D" groups=[
+"Persist",
+]]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource( 2 )
@@ -39,10 +40,3 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Float"
 anims/Float = SubResource( 2 )
-
-[node name="Shadow" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0.490196 )
-show_behind_parent = true
-position = Vector2( -0.25, 3.4657 )
-scale = Vector2( 0.947384, 0.724081 )
-texture = ExtResource( 3 )

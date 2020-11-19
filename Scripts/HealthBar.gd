@@ -6,8 +6,6 @@ onready var HealthBarTween = get_parent().get_node("UpdateTween")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerManager.connect("health_updated", self, "_on_Player_health_updated")
-	self.value = 100
-	HealthBarUnder.value = 100
 
 
 func _on_Player_health_updated(healthvalue):

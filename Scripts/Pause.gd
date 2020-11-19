@@ -34,7 +34,7 @@ func _on_Quit_button_up():
 
 
 func _on_Quit_pressed():
-	find_node_by_name(get_tree().get_root(), "OverWorld").save_game()
+	SaveManager.save_game()
 	get_tree().quit()
 
 func find_node_by_name(root, name):

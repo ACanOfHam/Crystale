@@ -39,7 +39,7 @@ func set_item(nm, qt):
 	texture_rect.texture = load("res://ArtWork/Items/" + item_name + ".png")
 
 	var stack_size = int(JsonItemDb.item_data[item_name]["StackSize"])
-	if stack_size == 1:
+	if stack_size and qt == 1:
 		label.hide()
 	else:
 		label.show()
