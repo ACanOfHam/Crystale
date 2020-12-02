@@ -81,7 +81,6 @@ func _ready():
 #This process is called every frame and should not be used for physics
 func _process(delta):
 	input_managment()
-
 	sprite_flip()
 
 
@@ -104,6 +103,24 @@ func _physics_process(delta):
 			dead_state()
 
 
+func _input(event):
+	if event.is_action_pressed("pickup"):
+		if pickup_zone.items_in_range.size() > 0:
+			var pickup_item = pickup_zone.items_in_range.values()[0]
+			pickup_item.pick_up_item(self)
+			pickup_zone.items_in_range.erase(pickup_item)
+
+
+func _on_HurtBox_area_entered(area):
+	PlayerManager.set_mana(+5)
+	knockback_direction = hurtbox.global_position - area.global_position
+	knockback_direction = knockback_direction.normalized()
+	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
+	player_sprite.get_material().set_shader_param("whitening", 1)
+	yield(get_tree().create_timer(0.035),"timeout")
+	player_sprite.get_material().set_shader_param("whitening", 0)
+
+
 func move_state(delta):
 	play_animation("Run")
 
@@ -124,10 +141,40 @@ func move_state(delta):
 	velocity = Vector2.ZERO
 
 
+func idle_state():
+	play_animation("Idle")
+
+
+#Function used for dashing
+func dash_state():
+	if can_dash == true and mana > 20:
+			PlayerManager.set_mana(-20)
+			self.set_collision_mask_bit(2, false)
+			Sounds.playsfx("Dash")
+			can_dash = false
+			speed_multiplier = speed_multiplier * 4
+			create_ghost()
+			yield(get_tree().create_timer(0.15),"timeout")
+			create_ghost()
+			player_sprite.scale = default_size
+			speed_multiplier = speed_multiplier / 4
+			self.set_collision_mask_bit(2, true)
+			yield(get_tree().create_timer(0.1),"timeout")
+			can_dash = true
+
+
+func dead_state():
+	has_died = true
+	SceneChanger.change_scene("DeadScreen")
+	for node in self.get_children():
+		if node.has_method("hide"):
+			node.hide()
+
+
 func input_managment():
-
+	
 	if has_died == true: return
-
+	
 	#State Management
 	if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
 		state = MOVE
@@ -144,6 +191,7 @@ func input_managment():
 		teleporation_crystal_instance.transform = transform
 		teleporation_crystal_instance.position = Vector2(global_position.x + 5, global_position.y + -20)
 		get_parent().get_parent().get_parent().add_child(teleporation_crystal_instance, true)
+
 
 func sprite_flip():
 
@@ -162,32 +210,6 @@ func sprite_flip():
 		collision_shape.position.x = -3.5
 
 
-func idle_state():
-	play_animation("Idle")
-
-
-#Function used for dashing
-func dash_state():
-	if can_dash == true and mana > 20:
-			PlayerManager.set_mana(-20)
-			self.set_collision_mask_bit(2, false)
-			Sounds.playsfx("Dash")
-			can_dash = false
-			speed_multiplier = speed_multiplier * 4
-			create_ghost()
-			dash_timer.start()
-			time_till_next_ghost.start()
-
-
-func dead_state():
-	has_died = true
-	SceneChanger.change_scene("DeadScreen")
-	for node in self.get_children():
-		if node.has_method("hide"):
-			node.hide()
-
-
-
 func create_ghost():
 	var ghost = preload("res://Scenes/GhostTrail.tscn").instance()
 	ghost.global_position = player_sprite.global_position
@@ -198,56 +220,13 @@ func create_ghost():
 	get_tree().get_root().add_child(ghost)
 
 
-func _on_Player_damaged():
-#	PlayerSprite.visible = not PlayerSprite.visible
-	player_sprite.get_material().set_shader_param("whitening", 1)
-	invisibility_timer.start()
-
-
-func _on_TimeTillNextGhost_timeout():
-	create_ghost()
-
-
-func _on_InvisibilityTimer_timeout():
-	if has_died == false:
-		hurtbox_collision_shape.set_disabled(false)
-		#	PlayerSprite.show()
-		player_sprite.get_material().set_shader_param("whitening", 0)
-
-
-#How long player dashes
-func _on_DashTimer_timeout():
-	player_sprite.scale = default_size
-	dash_cool_down.start()
-	speed_multiplier = speed_multiplier / 4
-	self.set_collision_mask_bit(2, true)
-
-
-func _on_DashCoolDown_timeout():
-	can_dash = true
-
-
-func _on_HurtBox_area_entered(area):
-	PlayerManager.set_mana(+5)
-	knockback_direction = hurtbox.global_position - area.global_position
-	knockback_direction = knockback_direction.normalized()
-	knockback_velocity = knockback_direction * KNOCKBACK_SPEED
-
-
-func _input(event):
-	if event.is_action_pressed("pickup"):
-		if pickup_zone.items_in_range.size() > 0:
-			var pickup_item = pickup_zone.items_in_range.values()[0]
-			pickup_item.pick_up_item(self)
-			pickup_zone.items_in_range.erase(pickup_item)
-
 func play_animation(animation_wanted_to_play):
 	new_animation = animation_wanted_to_play
-
+	
 	if (current_animation == new_animation): return
-
+	
 	animationplayer.play(new_animation)
-
+	
 	current_animation = new_animation
 
 
@@ -279,17 +258,3 @@ func save():
 #	"is_dead" : has_died,
 	}
 	return save_dict
-
-func find_node_by_name(root, name):
-
-	if(root.get_name() == name): return root
-
-	for child in root.get_children():
-		if(child.get_name() == name):
-			return child
-
-		var found = find_node_by_name(child, name)
-
-		if(found): return found
-
-	return null

@@ -24,7 +24,6 @@ func _set_health(value: int):
 
 func set_health(value):
 	if value < 0:
-		if player.dash_timer.is_stopped() == false: return
 		player.health = player.health + value
 		Sounds.playsfx("Hurt")
 		emit_signal("damaged")

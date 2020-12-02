@@ -50,21 +50,21 @@ void fragment() {
 	} else {
 		COLOR = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	}
-	
+
 	for (float dist = 0.0f; dist < MAX_BLADE_LENGTH; ++dist) {
 		// Sample the wind
 		float wind = wind(uv / SCREEN_PIXEL_SIZE, TIME);
-		
+
 		// Get the height of the balde originating at the current pixel
 		// (0 means no blade)
 		float blade_length = sampleBladeLength(uv);
-		
+
 		if (blade_length > 0.0f) {
 			// Blades are pressed down by the wind
 			if (wind > 0.5f) {
 				blade_length -= 1.0f;
 			}
-			
+
 			// Color basec on distance from root
 			if (dist == blade_length) {
 				// Color grass tips
@@ -73,18 +73,18 @@ void fragment() {
 				} else {
 					COLOR = wind_color;
 				}
-				
+
 				// Add the cloud shadow
 				COLOR -= vec4(texture(cloud_tex, uv).rgb, 0.0f);
 			} else if (dist < blade_length) {
 				// Color grass stems
 				COLOR = sampleColor(dist);
-				
+
 				// Add the cloud shadow
 				COLOR -= vec4(texture(cloud_tex, uv).rgb, 0.0f);
 			}
 		}
-		
+
 		// Move on to the next pixel, down the blades
 		uv -= vec2(0.0f, SCREEN_PIXEL_SIZE.y);
 	}

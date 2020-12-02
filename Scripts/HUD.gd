@@ -8,7 +8,9 @@ func _unhandled_input(event):
 		$Inventory.initialize_inventory()
 		$Inventory.visible = !$Inventory.visible
 		if $Inventory.visible == false:
-			get_parent().get_node("Sword").canPlaySFX = true
+			if get_parent().get_node("Sword") != null:
+				get_parent().get_node("Sword").canPlaySFX = true
 		else:
-			get_parent().get_node("Sword").canPlaySFX = false
+			if get_parent().get_node("Sword") != null:
+				get_parent().get_node("Sword").canPlaySFX = false
 
