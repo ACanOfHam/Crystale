@@ -24,9 +24,6 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 
 #References
 onready var pickup_zone = $PickupZone
-onready var dash_cool_down = $DashCoolDown
-onready var invisibility_timer = $InvisibilityTimer
-onready var time_till_next_ghost = $TimeTillNextGhost
 onready var sword: Area2D = $Sword
 #export (NodePath) onready var sword
 onready var player_sprite: Sprite = $Sprite
@@ -147,20 +144,20 @@ func idle_state():
 
 #Function used for dashing
 func dash_state():
-	if can_dash == true and mana > 20:
-			PlayerManager.set_mana(-20)
-			self.set_collision_mask_bit(2, false)
-			Sounds.playsfx("Dash")
-			can_dash = false
-			speed_multiplier = speed_multiplier * 4
-			create_ghost()
-			yield(get_tree().create_timer(0.15),"timeout")
-			create_ghost()
-			player_sprite.scale = default_size
-			speed_multiplier = speed_multiplier / 4
-			self.set_collision_mask_bit(2, true)
-			yield(get_tree().create_timer(0.1),"timeout")
-			can_dash = true
+	if can_dash == true and mana >= 20:
+		PlayerManager.set_mana(-20)
+		self.set_collision_mask_bit(2, false)
+		Sounds.playsfx("Dash")
+		can_dash = false
+		speed_multiplier = speed_multiplier * 4
+		create_ghost()
+		yield(get_tree().create_timer(0.15),"timeout")
+		create_ghost()
+		player_sprite.scale = default_size
+		speed_multiplier = speed_multiplier / 4
+		self.set_collision_mask_bit(2, true)
+		yield(get_tree().create_timer(0.1),"timeout")
+		can_dash = true
 
 
 func dead_state():
@@ -180,12 +177,12 @@ func input_managment():
 		state = MOVE
 	else:
 		state = IDLE
-
+	
 	#Toggle Console
 	if Input.is_action_just_pressed("toggle_console"):
 		self.add_child(load("res://Scenes/Console.tscn").instance())
 		get_tree().paused = true
-	
+
 	if Input.is_action_just_pressed("Spawn Crystal(Temp)"):
 		var teleporation_crystal_instance = teleportation_crystal.instance()
 		teleporation_crystal_instance.transform = transform
@@ -222,11 +219,11 @@ func create_ghost():
 
 func play_animation(animation_wanted_to_play):
 	new_animation = animation_wanted_to_play
-	
+
 	if (current_animation == new_animation): return
-	
+
 	animationplayer.play(new_animation)
-	
+
 	current_animation = new_animation
 
 

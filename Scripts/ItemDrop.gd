@@ -18,11 +18,11 @@ func _ready():
 
 func _physics_process(delta):
 	if is_dead == true: queue_free()
-	
+
 	if being_picked_up == true:
 		var direction = global_position.direction_to(player.global_position)
 		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
-		
+
 		var distance = global_position.distance_to(player.global_position)
 		if distance < 20:
 			Sounds.playsfx("Pickup")
@@ -32,10 +32,10 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity)
 
 
-
 func pick_up_item(body):
 	player = body
 	being_picked_up = true
+
 
 func save():
 	var save_dict = {
