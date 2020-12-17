@@ -75,6 +75,7 @@ func _ready():
 	PlayerManager.emit_signal("health_updated", health)
 	PlayerManager.emit_signal("mana_updated", mana)
 
+
 #This process is called every frame and should not be used for physics
 func _process(delta):
 	input_managment()
@@ -251,7 +252,7 @@ func save():
 	"pos_y" : position.y,
 	"current_health" : health,
 	"max_health" : max_health,
-#	"level" : level,
+	"level" : get_owner().name,
 #	"is_dead" : has_died,
 	}
 	return save_dict

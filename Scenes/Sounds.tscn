@@ -29,7 +29,7 @@ volume_db = -30.0
 
 [node name="Pickup" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 6 )
-volume_db = -20.356
+volume_db = -10.69
 
 [node name="Music" type="Node2D" parent="."]
 script = ExtResource( 8 )

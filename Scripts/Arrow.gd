@@ -15,7 +15,8 @@ func _physics_process(delta):
 #	player = get_node("OverWorld/Sort/Player")
 #	enemy = get_node("OverWorld/Sort/Slime")
 	if move_and_collide(Vector2(0,0)):
-		speed = 0
+		yield(get_tree().create_timer(1), "timeout")
+		queue_free()
 	position += transform.x * speed * delta
 	move_and_collide(Vector2(0,0))
 #	var pos = self.get_position()

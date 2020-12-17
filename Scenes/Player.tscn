@@ -371,7 +371,6 @@ scale = Vector2( 1.16008, 0.590307 )
 texture = ExtResource( 13 )
 
 [node name="Bow" parent="." instance=ExtResource( 4 )]
-position = Vector2( -1.01756, -13.0961 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]

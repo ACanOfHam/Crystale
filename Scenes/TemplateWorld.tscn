@@ -208,7 +208,9 @@ shader = SubResource( 11 )
 shader_param/color = Vector3( 0.35, 0.48, 0.95 )
 shader_param/OCTAVES = 4
 
-[node name="OverWorld" type="Node2D"]
+[node name="OverWorld" type="Node2D" groups=[
+"World",
+]]
 script = ExtResource( 9 )
 
 [node name="Ground" type="TileMap" parent="."]

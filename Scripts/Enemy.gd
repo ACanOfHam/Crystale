@@ -55,18 +55,19 @@ func _on_HurtBox_area_entered(area):
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	print(area.get_parent().name)
-	if area.get_parent().name == "Arrow" or "Arrow2" or "Arrow3" or "Arrow4":
-		knockback_velocity = knockback_direction * stats.knockback_multiplier/1.5
+	if "Arrow" in area.get_parent().name:
+		knockback_velocity = knockback_direction * stats.knockback_multiplier * 0.3
 		state = CHASE
 	else:
 		knockback_velocity = knockback_direction * stats.knockback_multiplier
 
 
 func move_state(delta):
-	player = get_parent().get_node("Player")
-	animationplayer.play("Move")
-	move = (player.global_position - global_position).normalized() * stats.speed
-	move = move_and_slide(move) * stats.speed * delta
+	pass
+#	player = get_parent().get_node("Player")
+#	animationplayer.play("Move")
+#	move = (player.global_position - global_position).normalized() * stats.speed
+#	move = move_and_slide(move) * stats.speed * delta
 
 
 func damage(value: int):
@@ -78,7 +79,6 @@ func damage(value: int):
 	
 	disable(enemy_hurtBox)
 	
-	invincibility_timer.start()
 	
 	var floaty_text = floaty_text_scene.instance()
 	floaty_text.text = null
@@ -87,8 +87,6 @@ func damage(value: int):
 
 #	EnemySprite.hide()
 	enemy_sprite.get_material().set_shader_param("whitening", 1)
-
-	flash_timer.start()
 	floaty_text.position = Vector2(0,0)
 	floaty_text.velocity = Vector2(rand_range(-50, 50), -100)
 	
@@ -106,6 +104,12 @@ func damage(value: int):
 		queue_free()
 	
 	emit_signal("finished_damage_logic")
+	
+	yield(get_tree().create_timer(0.05), "timeout")
+	enemy_sprite.show()
+	enemy_sprite.get_material().set_shader_param("whitening", 0)
+	yield(get_tree().create_timer(0.30), "timeout")
+	enable(enemy_hurtBox)
 
 
 func idle_state():
@@ -114,8 +118,10 @@ func idle_state():
 
 func _on_HitBox_area_entered(area):
 	PlayerManager.set_health(-stats.damage)
+	enemy_sprite.frame = 0
 	state = IDLE
-	rest_timer.start()
+	yield(get_tree().create_timer(0.05), "timeout")
+	state=CHASE
 
 
 func _on_DetectionArea_area_entered(area):
@@ -127,23 +133,13 @@ func _on_DetectionArea_area_exited(area):
 	animationplayer.play("AlertDisappear")
 
 
-func _on_FlashTimer_timeout():
-	enemy_sprite.show()
-	enemy_sprite.get_material().set_shader_param("whitening", 0)
-
-
-func _on_RestTimer_timeout():
-	state = CHASE
-
-
-func _on_InvinsibilityTimer_timeout():
-	enable(enemy_hurtBox)
-
 func disable(area):
 	area.set_collision_layer_bit(5, false)
 
+
 func enable(area):
 	area.set_collision_layer_bit(5, true)
+
 
 func save():
 	var save_dict = {

@@ -11,10 +11,9 @@
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 0.646911
-margin_top = -215.72
-margin_right = 1280.65
-margin_bottom = 504.28
+margin_top = -150.0
+margin_right = 1280.0
+margin_bottom = 570.0
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,9 +36,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -80.0
-margin_top = -30.0
+margin_top = 3.05176e-05
 margin_right = -48.0
-margin_bottom = -15.0
+margin_bottom = 15.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
@@ -56,34 +55,6 @@ margin_bottom = 15.75
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 6 )
 text = "PLAY"
-
-[node name="Volume" type="TextureButton" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -80.0
-margin_top = 110.0
-margin_right = -48.0
-margin_bottom = 125.0
-rect_scale = Vector2( 5, 5 )
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-texture_hover = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VolumeLabel" type="Label" parent="Volume"]
-margin_left = 2.8681
-margin_top = 0.75
-margin_right = 55.8681
-margin_bottom = 15.75
-rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 6 )
-text = "VOLUME"
-align = 1
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -94,9 +65,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -80.0
-margin_top = 265.0
+margin_top = 170.0
 margin_right = -48.0
-margin_bottom = 280.0
+margin_bottom = 185.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
@@ -119,9 +90,6 @@ __meta__ = {
 [connection signal="button_down" from="Play" to="." method="_on_Play_button_down"]
 [connection signal="button_up" from="Play" to="." method="_on_Play_button_up"]
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
-[connection signal="button_down" from="Volume" to="." method="_on_Volume_button_down"]
-[connection signal="button_up" from="Volume" to="." method="_on_Volume_button_up"]
-[connection signal="pressed" from="Volume" to="." method="_on_Volume_pressed"]
 [connection signal="button_down" from="Quit" to="." method="_on_Quit_button_down"]
 [connection signal="button_up" from="Quit" to="." method="_on_Quit_button_up"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

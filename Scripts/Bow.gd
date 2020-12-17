@@ -11,7 +11,7 @@ func _process(delta):
 	look_at(get_global_mouse_position())
 
 func _input(event):
-	if event.is_action_pressed("Attack"):
+	if Input.is_action_pressed("Attack"):
 		shoot()
 
 func shoot():
@@ -19,7 +19,7 @@ func shoot():
 		Sounds.playsfx("Sword_Slash")
 		var arrow_instace = arrow.instance()
 		arrow_instace.transform = transform
-		arrow_instace.position = self.global_position
+		arrow_instace.position = Vector2(global_position.x, global_position.y)
 		get_parent().get_parent().get_parent().add_child(arrow_instace, true)
 		can_shoot = false
 		yield(get_tree().create_timer(0.425), "timeout")

@@ -11,18 +11,19 @@ var inventory: Dictionary = {
 }
 
 func _ready():
+	add_item("Health Potion", 2)
 	add_item("Mana Potion", 2)
+	remove_item_by_name("Mana Potion", 1)
+	yield(get_tree().create_timer(3), "timeout")
+	remove_item_by_name("Mana Potion", 1)
 
 
 func remove_item_by_name(item_name, item_qt):
 	for item in inventory:
 		if inventory[item][0] == item_name and inventory[item][1] != 0:
 			inventory[item][1] -= item_qt
-			if inventory[item][1] == 0: inventory.erase(inventory[item][1])
+			if inventory[item][1] == 0: inventory.erase(inventory[item])
 			print(inventory)
-
-
-
 
 
 func add_item(item_name, item_quantity):
