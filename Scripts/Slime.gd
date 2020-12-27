@@ -33,6 +33,5 @@ func move_state(delta):
 	if player == null: player = get_parent().get_node("Player")
 	animationplayer.play("Move")
 	move = (player.global_position - global_position).normalized() * stats.speed
-	print(old_move)
 	if can_change_direction == false and old_move != Vector2.ZERO: move = old_move.normalized() * stats.speed
 	move = move_and_slide(move) * stats.speed * delta

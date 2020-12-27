@@ -4,8 +4,21 @@ signal finished_loading
 signal finished_clearing
 signal finished_saving
 
+var auto_save_delay := 10
+
+func _ready():
+	auto_save()
+
+func auto_save():
+	yield(get_tree().create_timer(auto_save_delay), "timeout")
+	save_game()
+	auto_save()
+
+
 func save_game():
+	
 	print("Saving")
+	
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
@@ -25,13 +38,19 @@ func save_game():
 
 		# Store the save dictionary as a new line in the save file.
 		save_game.store_line(to_json(node_data))
+	
 	save_game.close()
 	emit_signal("finished_saving")
+	return
 
 
 # Note: This can be called from anywhere inside the tree. This function
 # is path independent.
 func load_game():
+	
+#	var load_thread = Thread.new()
+#	load_thread.start(self, "load_game")
+	
 	print("Loading")
 	var save_game = File.new()
 	if not save_game.file_exists("user://savegame.save"):
@@ -68,3 +87,8 @@ func load_game():
 	
 	save_game.close()
 	emit_signal("finished_loading")
+	return
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		save_game()

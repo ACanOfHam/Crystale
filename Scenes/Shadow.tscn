@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=1]
+
+[node name="Shadow" type="Sprite"]
+modulate = Color( 1, 1, 1, 0.490196 )
+show_behind_parent = true
+position = Vector2( -1.19845, 2.76607 )
+scale = Vector2( 1.16008, 0.590307 )
+texture = ExtResource( 1 )

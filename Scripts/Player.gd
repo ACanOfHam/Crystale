@@ -23,6 +23,7 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 
 
 #References
+onready var camera = $Camera2D
 onready var pickup_zone = $PickupZone
 onready var sword: Area2D = $Sword
 #export (NodePath) onready var sword
@@ -72,6 +73,8 @@ var new_animation
 
 func _ready():
 #	Get_References()
+	yield(get_tree().create_timer(3), "timeout")
+	SaveManager.save_game()
 	PlayerManager.emit_signal("health_updated", health)
 	PlayerManager.emit_signal("mana_updated", mana)
 
@@ -86,7 +89,7 @@ func _process(delta):
 func _physics_process(delta):
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 	knockback_velocity = move_and_slide(knockback_velocity)
-
+	
 	if Input.is_action_just_pressed("dash"):
 		state = DASH
 
@@ -252,7 +255,7 @@ func save():
 	"pos_y" : position.y,
 	"current_health" : health,
 	"max_health" : max_health,
-	"level" : get_owner().name,
+	"level" : get_parent().owner.name
 #	"is_dead" : has_died,
 	}
 	return save_dict

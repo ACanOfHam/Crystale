@@ -60,7 +60,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 466.312
+radius = 333.935
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 4

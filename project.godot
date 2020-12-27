@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Scripts/Enemy.gd"
+}, {
+"base": "Position2D",
+"class": "LightSource",
+"language": "GDScript",
+"path": "res://Scripts/LightSource.gd"
 } ]
 _global_script_class_icons={
-"Enemy": ""
+"Enemy": "",
+"LightSource": ""
 }
 
 [application]
@@ -23,19 +29,21 @@ _global_script_class_icons={
 config/name="RPG"
 run/main_scene="res://Scenes/Menu.tscn"
 config/use_custom_user_dir=true
-boot_splash/image="res://ArtWork/Logo-export.png"
+boot_splash/image="res://ArtWork/Crystale Cover Art.png"
+boot_splash/fullsize=false
 boot_splash/use_filter=false
-boot_splash/bg_color=Color( 0.8, 0.886275, 0.882353, 1 )
+boot_splash/bg_color=Color( 0.823529, 0.854902, 0.886275, 1 )
 
 [autoload]
 
+PlayerManager="*res://Scenes/PlayerManager.tscn"
 JsonItemDb="*res://AutoLoad/JSON_Item_DB.gd"
 PauseMenu="*res://Scenes/PauseMenu.tscn"
 SceneChanger="*res://Scenes/SceneChanger.tscn"
 Sounds="*res://Scenes/Sounds.tscn"
-PlayerManager="*res://Scenes/PlayerManager.tscn"
 SaveManager="*res://AutoLoad/SaveManager.tscn"
 PlayerInventory="*res://AutoLoad/PlayerInventory.tscn"
+Time="*res://Scenes/TimeSystem.tscn"
 
 [display]
 
@@ -151,16 +159,12 @@ limits/message_queue/max_size_kb=2048
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 quality/2d/use_nvidia_rect_flicker_workaround=true
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
-threads/thread_model=2
-quality/filters/use_nearest_mipmap_filter=true
 gles2/compatibility/disable_half_float=true
 batching/precision/uv_contract=true
-quality/filters/msaa=3
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
 

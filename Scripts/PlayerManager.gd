@@ -44,3 +44,8 @@ func set_position(position_to_set: Vector2):
 
 func get_position():
 	return player.global_position
+
+func get_camera():
+	while player == null:
+		if player != null:
+			return player.camera

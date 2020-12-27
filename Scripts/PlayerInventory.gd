@@ -13,9 +13,9 @@ var inventory: Dictionary = {
 func _ready():
 	add_item("Health Potion", 2)
 	add_item("Mana Potion", 2)
-	remove_item_by_name("Mana Potion", 1)
-	yield(get_tree().create_timer(3), "timeout")
-	remove_item_by_name("Mana Potion", 1)
+#	remove_item_by_name("Mana Potion", 1)
+#	yield(get_tree().create_timer(3), "timeout")
+#	remove_item_by_name("Mana Potion", 1)
 
 
 func remove_item_by_name(item_name, item_qt):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/Sprites/PlayerSpritesheet.png" type="Texture" id=2]
@@ -12,9 +12,10 @@
 [ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/HUD.gd" type="Script" id=11]
 [ext_resource path="res://Scripts/PickupZone.gd" type="Script" id=12]
-[ext_resource path="res://ArtWork/Shadow.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/Shadow.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scripts/HealthBar.gd" type="Script" id=14]
 [ext_resource path="res://Scenes/Flash.tres" type="Material" id=15]
+[ext_resource path="res://Scenes/LightSource.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -363,14 +364,12 @@ script = ExtResource( 12 )
 position = Vector2( 2.42018, -5.19131 )
 shape = SubResource( 10 )
 
-[node name="Shadow" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.490196 )
-show_behind_parent = true
-position = Vector2( -1.19845, 2.76607 )
-scale = Vector2( 1.16008, 0.590307 )
-texture = ExtResource( 13 )
+[node name="Shadow" parent="." instance=ExtResource( 13 )]
 
 [node name="Bow" parent="." instance=ExtResource( 4 )]
+
+[node name="LightSource" parent="." instance=ExtResource( 16 )]
+radius = 256
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]

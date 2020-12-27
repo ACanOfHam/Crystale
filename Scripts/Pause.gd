@@ -34,7 +34,6 @@ func _on_Quit_button_up():
 
 
 func _on_Quit_pressed():
-	SaveManager.save_game()
 	get_tree().quit()
 
 func find_node_by_name(root, name):

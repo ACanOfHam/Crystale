@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://ArtWork/Sprites/Slime.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Slime.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Shadow.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 43.1414
@@ -72,7 +73,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=8]
-radius = 403.043
+radius = 462.308
 
 [node name="Slime" groups=[
 "Persist",
@@ -80,40 +81,54 @@ radius = 403.043
 scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="Shadow" parent="." index="0" instance=ExtResource( 4 )]
+position = Vector2( 0, 5.676 )
+scale = Vector2( 3.36378, 1.18 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
 position = Vector2( 0.557816, -21.9755 )
 shape = SubResource( 1 )
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="2"]
 material = SubResource( 3 )
 position = Vector2( 0.296967, -58.2118 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 14
 
+[node name="HitBox" parent="." index="3"]
+visible = false
+
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2( 1.76577, 11.4413 )
 shape = SubResource( 4 )
+
+[node name="HurtBox" parent="." index="4"]
+visible = false
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2( 0.881551, 10.6534 )
 shape = SubResource( 5 )
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" parent="." index="5"]
 playback_speed = 4.5
 anims/Idle = SubResource( 6 )
 anims/Move = SubResource( 7 )
 
-[node name="Stats" parent="." index="5"]
+[node name="Stats" parent="." index="6"]
 max_health = 150
 damage = 10
 speed = 210
 knockback_multiplier = 320.0
 
+[node name="DetectionArea" parent="." index="7"]
+visible = false
+
 [node name="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource( 8 )
 
-[node name="Alert" parent="." index="7"]
-position = Vector2( 0, -64.1262 )
+[node name="Alert" parent="." index="8"]
+position = Vector2( 0, -91.813 )
 
 [editable path="HitBox"]

@@ -32,6 +32,7 @@ const KNOCKBACK_FRICTION: int = 350
 var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_velocity: Vector2 = Vector2.ZERO
 
+
 func _ready():
 	yield(SaveManager,"finished_loading")
 
@@ -54,20 +55,12 @@ func _physics_process(delta):
 func _on_HurtBox_area_entered(area):
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
-	print(area.get_parent().name)
 	if "Arrow" in area.get_parent().name:
-		knockback_velocity = knockback_direction * stats.knockback_multiplier * 0.3
+		knockback_velocity = knockback_direction * stats.knockback_multiplier * 0.65
 		state = CHASE
 	else:
 		knockback_velocity = knockback_direction * stats.knockback_multiplier
-
-
-func move_state(delta):
-	pass
-#	player = get_parent().get_node("Player")
-#	animationplayer.play("Move")
-#	move = (player.global_position - global_position).normalized() * stats.speed
-#	move = move_and_slide(move) * stats.speed * delta
+	
 
 
 func damage(value: int):
@@ -114,6 +107,14 @@ func damage(value: int):
 
 func idle_state():
 	enemy_sprite.frame = 0
+
+
+func move_state(delta):
+	pass
+#	player = get_parent().get_node("Player")
+#	animationplayer.play("Move")
+#	move = (player.global_position - global_position).normalized() * stats.speed
+#	move = move_and_slide(move) * stats.speed * delta
 
 
 func _on_HitBox_area_entered(area):

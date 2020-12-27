@@ -9,7 +9,6 @@ func _ready():
 
 
 func _on_Player_health_updated(healthvalue):
-	print(healthvalue)
 	HealthBarTween.interpolate_property(
 		HealthBarUnder,
 		"value",

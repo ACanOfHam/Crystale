@@ -68,4 +68,4 @@ func left_click_not_holding(slot: SlotClass):
 	PlayerInventory.remove_item(slot)
 	holding_item = slot.item
 	slot.PickFromSlot()
-	holding_item.global_position = get_global_mouse_position()
+	holding_item.global_position = get_local_mouse_position()

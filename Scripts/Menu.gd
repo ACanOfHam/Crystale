@@ -6,7 +6,7 @@ onready var volume_label = $Volume/VolumeLabel
 
 func _on_Play_pressed():
 	self.layer = 0
-	SceneChanger.change_scene("TemplateWorld")
+	SceneChanger.change_scene("OverWorld")
 
 
 func _on_Play_button_down():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/Button_Hover.png" type="Texture" id=1]
-[ext_resource path="res://ArtWork/Logo-export.png" type="Texture" id=2]
+[ext_resource path="res://ArtWork/Crystale Cover Art.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=3]
 [ext_resource path="res://UI/Button_Normal.png" type="Texture" id=4]
 [ext_resource path="res://UI/Button_Pressed.png" type="Texture" id=5]
@@ -10,22 +10,35 @@
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_top = -150.0
-margin_right = 1280.0
-margin_bottom = 570.0
+[node name="TextureRect2" type="TextureRect" parent="."]
+margin_left = -256.0
+margin_top = -766.0
+margin_right = 1431.0
+margin_bottom = 364.0
 texture = ExtResource( 2 )
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-margin_left = -212.0
-margin_top = 504.0
-margin_right = 1475.0
-margin_bottom = 1634.0
+[node name="TextureRect3" type="TextureRect" parent="."]
+margin_left = -248.0
+margin_top = 364.0
+margin_right = 1439.0
+margin_bottom = 1494.0
 texture = ExtResource( 2 )
 stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 108.67
+margin_top = -38.8811
+margin_right = 1692.67
+margin_bottom = 729.119
+rect_scale = Vector2( 0.65, 0.65 )
+texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

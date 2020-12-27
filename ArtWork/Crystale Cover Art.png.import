@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Logo-export.png-db8da8fd35d733569c8dbef20cc9ab68.stex"
+path="res://.import/Crystale Cover Art.png-d9283f2994aa108c81fb56c8a28b612d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Logo-export.png"
-dest_files=[ "res://.import/Logo-export.png-db8da8fd35d733569c8dbef20cc9ab68.stex" ]
+source_file="res://ArtWork/Crystale Cover Art.png"
+dest_files=[ "res://.import/Crystale Cover Art.png-d9283f2994aa108c81fb56c8a28b612d.stex" ]
 
 [params]
 
