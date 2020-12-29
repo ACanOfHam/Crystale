@@ -128,8 +128,8 @@ func move_state(delta):
 
 	#Movement
 	input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	input_vector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	input_vector = input_vector.normalized()
 
 	if input_vector != Vector2.ZERO:
@@ -179,7 +179,7 @@ func input_managment():
 	if has_died == true: return
 	
 	#State Management
-	if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
+	if (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down")):
 		state = MOVE
 	else:
 		state = IDLE

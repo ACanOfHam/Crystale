@@ -33,12 +33,15 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 108.67
-margin_top = -38.8811
-margin_right = 1692.67
-margin_bottom = 729.119
-rect_scale = Vector2( 0.65, 0.65 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -593.531
+margin_top = -100.0
+margin_right = 990.469
+margin_bottom = 668.0
+rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
