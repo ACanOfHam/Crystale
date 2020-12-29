@@ -182,7 +182,7 @@ position = Vector2( -328, -72 )
 
 [node name="Player" parent="Sort" instance=ExtResource( 5 )]
 
-[node name="LightSource" parent="Sort/Player" index="10"]
+[node name="LightSource" parent="Sort/Player" index="9"]
 radius = 224
 strength = 0.45
 

@@ -29,6 +29,9 @@ func _process(delta):
 		flip_pos = -flip_pos
 
 func move_state(delta):
+	if animationplayer.current_animation == "Hit": 
+		enemy_sprite.frame = 0
+		return
 	var old_move = move
 	if player == null: player = get_parent().get_node("Player")
 	animationplayer.play("Move")

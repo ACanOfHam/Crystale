@@ -50,9 +50,9 @@ func _update_texture():
 func _time_passed(date_time):
 	#Color(0, 0, 0, 0), Color(0, 0, 0, 0.862745)
 	for dt in date_time:
-		if dt.equals_hour(5):
+		if dt.equals_hour(5) and material.get_shader_param("light_level") == 0:
 			animation_player.play("SunRise")
 		
-		if dt.equals_hour(19):
+		if dt.equals_hour(19) and material.get_shader_param("light_level") == 1:
 			animation_player.play_backwards("SunRise")
 			# ADD DAY AND NIGHT CYCLE NOW NERD

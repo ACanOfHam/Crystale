@@ -1,9 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://ArtWork/Sprites/PlayerSpritesheet.png" type="Texture" id=2]
 [ext_resource path="res://UI/Health_Under.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Bow.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Sword.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Health_Over.png" type="Texture" id=5]
 [ext_resource path="res://Font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://UI/Health_Progress.png" type="Texture" id=7]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Scripts/HealthBar.gd" type="Script" id=14]
 [ext_resource path="res://Scenes/Flash.tres" type="Material" id=15]
 [ext_resource path="res://Scenes/LightSource.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scripts/Camera2D.gd" type="Script" id=17]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -227,6 +228,7 @@ anims/Stretch = SubResource( 6 )
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( -2.5903, -16.8369 )
 current = true
+process_mode = 0
 limit_left = -1000000
 limit_top = -1000000
 limit_right = 1000000
@@ -237,6 +239,7 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
+script = ExtResource( 17 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1.25, 2.5 )
@@ -366,10 +369,10 @@ shape = SubResource( 10 )
 
 [node name="Shadow" parent="." instance=ExtResource( 13 )]
 
-[node name="Bow" parent="." instance=ExtResource( 4 )]
-
 [node name="LightSource" parent="." instance=ExtResource( 16 )]
 radius = 256
+
+[node name="Sword" parent="." instance=ExtResource( 4 )]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="body_entered" from="PickupZone" to="PickupZone" method="_on_PickupZone_body_entered"]

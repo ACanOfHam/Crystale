@@ -12,7 +12,10 @@ func _ready():
 func _process(_delta):
 	look_at(get_global_mouse_position())
 	
-	
+	if get_parent().player_sprite.is_flipped_h() == true:
+		self.position.x = -3
+	else:
+		self.position.x = 3
 	
 	if Input.is_action_just_pressed("Attack") and canPlaySFX == true:
 		AttackTimer.start()
@@ -28,5 +31,6 @@ func _on_AnimationPlayer_animation_finished(Attack):
 func _on_HitBox_area_entered(area):
 	if area.has_method("damage"):
 		area.damage(25)
+		get_parent().camera.shake(0.2, 25 , 8)
 	else:
 		print(str(area.get_name() + " does not have damage function"))

@@ -113,6 +113,7 @@ func _input(event):
 
 
 func _on_HurtBox_area_entered(area):
+	camera.shake(0.3, 30 , 12)
 	PlayerManager.set_mana(+5)
 	knockback_direction = hurtbox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
@@ -155,6 +156,7 @@ func dash_state():
 		can_dash = false
 		speed_multiplier = speed_multiplier * 4
 		create_ghost()
+		camera.shake(0.2, 30 , 8)
 		yield(get_tree().create_timer(0.15),"timeout")
 		create_ghost()
 		player_sprite.scale = default_size

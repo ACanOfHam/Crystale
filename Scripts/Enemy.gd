@@ -2,9 +2,9 @@ extends KinematicBody2D
 class_name Enemy
 
 signal finished_damage_logic
-var item_drop_scene = preload("res://Scenes/ItemDrop.tscn")
+const item_drop_scene = preload("res://Scenes/ItemDrop.tscn")
 var old_shape = null
-var floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
+const floaty_text_scene = preload("res://Scenes/FloatingText.tscn")
 #onready var SwordFrame: Sprite = get_node("/root/World/Player/Sword/Sprite")
 var player
 var is_dead = false
@@ -34,7 +34,7 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 
 
 func _ready():
-	yield(SaveManager,"finished_loading")
+	pass
 
 func _physics_process(delta):
 	
@@ -53,6 +53,10 @@ func _physics_process(delta):
 
 
 func _on_HurtBox_area_entered(area):
+	apply_knockback(area)
+
+
+func apply_knockback(area):
 	knockback_direction = enemy_hurtBox.global_position - area.global_position
 	knockback_direction = knockback_direction.normalized()
 	if "Arrow" in area.get_parent().name:
@@ -60,7 +64,6 @@ func _on_HurtBox_area_entered(area):
 		state = CHASE
 	else:
 		knockback_velocity = knockback_direction * stats.knockback_multiplier
-	
 
 
 func damage(value: int):
@@ -80,7 +83,7 @@ func damage(value: int):
 
 #	EnemySprite.hide()
 	enemy_sprite.get_material().set_shader_param("whitening", 1)
-	floaty_text.position = Vector2(0,0)
+	floaty_text.position = Vector2(0, -20)
 	floaty_text.velocity = Vector2(rand_range(-50, 50), -100)
 	
 	if damage_multiplier >= 1.4:
@@ -97,7 +100,7 @@ func damage(value: int):
 		queue_free()
 	
 	emit_signal("finished_damage_logic")
-	
+	animationplayer.play("Hit")
 	yield(get_tree().create_timer(0.05), "timeout")
 	enemy_sprite.show()
 	enemy_sprite.get_material().set_shader_param("whitening", 0)
