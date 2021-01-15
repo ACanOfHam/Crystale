@@ -10,5 +10,92 @@
 [node name="Slime" parent="Sort" instance=ExtResource( 1 )]
 position = Vector2( 794.788, 111.723 )
 
+[node name="Slime2" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 273.377, 126.706 )
+
+[node name="Slime3" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 734.856, 468.32 )
+
+[node name="Slime4" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 184.977, 325.981 )
+
+[node name="Slime5" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 712.381, 330.476 )
+
+[node name="Slime6" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 499.621, 63.7771 )
+
+[node name="Slime7" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 439.689, 604.666 )
+
+[node name="Slime8" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 457.669, 269.045 )
+
+[node name="Slime9" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 989.568, 290.021 )
+
+[node name="Slime10" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 1124.42, 105.73 )
+
+[node name="Slime11" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 1190.34, 339.466 )
+
+[node name="Slime12" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 1052.5, 655.609 )
+
+[node name="Slime13" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 619.486, 594.178 )
+
+[node name="Slime14" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 462.164, 421.873 )
+
+[node name="Slime15" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 222.435, 528.252 )
+
+[node name="Slime16" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 120.55, 164.164 )
+
+[node name="Slime17" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 342.299, 237.581 )
+
+[node name="Slime18" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 671.927, 188.137 )
+
+[node name="Slime19" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 982.077, 173.154 )
+
+[node name="Slime20" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 439.689, 134.198 )
+
+[node name="Slime21" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 114.557, 53.2891 )
+
+[node name="Slime22" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 53.1259, 272.042 )
+
+[node name="Slime23" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 222.435, 228.591 )
+
+[node name="Slime24" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 325.818, 406.89 )
+
+[node name="Slime25" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 330.313, 305.005 )
+
+[node name="Slime26" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 161.004, 438.354 )
+
+[node name="Slime27" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 53.1259, 348.456 )
+
+[node name="Slime28" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 492.13, 499.785 )
+
+[node name="Slime29" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 597.012, 363.439 )
+
+[node name="Slime30" parent="Sort" instance=ExtResource( 1 )]
+position = Vector2( 913.154, 444.347 )
+
 [node name="Player" parent="Sort" instance=ExtResource( 2 )]
-position = Vector2( 604.617, 421.468 )
+position = Vector2( 593.338, 714.501 )

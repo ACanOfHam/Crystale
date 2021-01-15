@@ -1,5 +1,7 @@
 extends Node2D
 
+var PIRATED = false
+
 var player
 
 onready var health : int = 100
@@ -16,7 +18,11 @@ func _physics_process(delta):
 	if player == null: player = get_tree().get_root().find_node("Player", true, false)
 
 func scene_changed():
-	player = get_tree().get_root().find_node("Player", true, false)
+	if PIRATED == true:
+		if get_tree().has_group("World"):
+			for enemy in get_tree().get_nodes_in_group("Enemy"):
+				enemy.stats.damage = enemy.stats.damage * 2
+				enemy.stats.health = enemy.stats.health * 3
 
 func _set_health(value: int):
 	player.health = value
@@ -35,7 +41,10 @@ func set_health(value):
 
 
 func set_mana(value: int):
-	player.mana = player.mana + value
+	if player.mana + value > 100: 
+		player.mana = 100 
+	else:
+		player.mana = player.mana + value
 	
 	emit_signal("mana_updated", player.mana)
 
@@ -49,3 +58,4 @@ func get_camera():
 	while player == null:
 		if player != null:
 			return player.camera
+

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Menu-Background.jpg-8f25997cb10a9eb3d8f528e4ac35123b.stex"
+path="res://.import/Crystale Cover Art.png-b88a41c63723b2a708976e4bcd4830b7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Menu-Background.jpg"
-dest_files=[ "res://.import/Menu-Background.jpg-8f25997cb10a9eb3d8f528e4ac35123b.stex" ]
+source_file="res://ArtWork/Images/Crystale Cover Art.png"
+dest_files=[ "res://.import/Crystale Cover Art.png-b88a41c63723b2a708976e4bcd4830b7.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

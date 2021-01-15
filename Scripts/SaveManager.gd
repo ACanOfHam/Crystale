@@ -10,9 +10,10 @@ func _ready():
 	auto_save()
 
 func auto_save():
-	yield(get_tree().create_timer(auto_save_delay), "timeout")
-	save_game()
-	auto_save()
+	pass
+#	yield(get_tree().create_timer(auto_save_delay), "timeout")
+#	save_game()
+#	auto_save()
 
 
 func save_game():

@@ -75,9 +75,7 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=8]
 radius = 462.308
 
-[node name="Slime" groups=[
-"Persist",
-] instance=ExtResource( 2 )]
+[node name="Slime" instance=ExtResource( 2 )]
 scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 3 )
 
@@ -104,6 +102,7 @@ position = Vector2( 0.881551, 10.6534 )
 shape = SubResource( 5 )
 
 [node name="AnimationPlayer" parent="." index="5"]
+playback_speed = 4.5
 anims/Idle = SubResource( 6 )
 anims/Move = SubResource( 7 )
 
@@ -118,5 +117,9 @@ shape = SubResource( 8 )
 
 [node name="Alert" parent="." index="8"]
 position = Vector2( 0, -91.813 )
+
+[node name="VisibilityEnabler" parent="." index="9"]
+position = Vector2( 1.44996, -29.5533 )
+scale = Vector2( 4.10733, 3.45507 )
 
 [editable path="HitBox"]

@@ -17,7 +17,7 @@ script = ExtResource( 7 )
 
 [node name="Hurt" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 3 )
-volume_db = -10.69
+volume_db = -22.5
 
 [node name="Dash" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 2 )

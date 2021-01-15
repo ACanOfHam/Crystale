@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shadow.png-a76817469044d26b932f9a821553d158.stex"
+path="res://.import/Exclamation_Mark.png-697c69726dc430ad2bd7d737403e7612.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArtWork/Shadow.png"
-dest_files=[ "res://.import/Shadow.png-a76817469044d26b932f9a821553d158.stex" ]
+source_file="res://ArtWork/Sprites/Exclamation_Mark.png"
+dest_files=[ "res://.import/Exclamation_Mark.png-697c69726dc430ad2bd7d737403e7612.stex" ]
 
 [params]
 

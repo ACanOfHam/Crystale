@@ -6,7 +6,7 @@
 [ext_resource path="res://Scripts/Stats.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/HitBox.gd" type="Script" id=6]
-[ext_resource path="res://ArtWork/Exclamation_Mark.png" type="Texture" id=7]
+[ext_resource path="res://ArtWork/Sprites/Exclamation_Mark.png" type="Texture" id=7]
 [ext_resource path="res://Animations/Anim_Hit.tres" type="Animation" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -60,10 +60,13 @@ tracks/1/keys = {
 "values": [ 0.75 ]
 }
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=7]
 radius = 333.935
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Enemy" type="KinematicBody2D" groups=[
+"Enemy",
+"Persist",
+]]
 collision_layer = 4
 script = ExtResource( 5 )
 
@@ -114,12 +117,18 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource( 8 )
+shape = SubResource( 7 )
 
 [node name="Alert" type="Sprite" parent="."]
 visible = false
 position = Vector2( 0, -50 )
 texture = ExtResource( 7 )
+
+[node name="VisibilityEnabler" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -2.43475, -33.7119 )
+scale = Vector2( 3.15382, 3.17255 )
+process_parent = true
+physics_process_parent = true
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_DetectionArea_area_entered"]
